@@ -12,7 +12,9 @@
         "program_terminated": "程式已被使用者終止",
         "error_occurred": "發生錯誤：{error}，請重試",
         "press_enter": "按返回鍵退出",
-        "disable_auto_update": "停用 Cursor 自動更新"
+        "disable_auto_update": "停用 Cursor 自動更新",
+        "batch_register": "批量註冊3個帳號",
+        "quick_select": "快速選擇帳號"
     },
     "languages": {
         "en": "English",

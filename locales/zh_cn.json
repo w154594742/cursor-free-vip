@@ -12,7 +12,9 @@
         "program_terminated": "程序已被用户终止",
         "error_occurred": "发生错误：{error}，请重试",
         "press_enter": "按回车键退出",
-        "disable_auto_update": "禁用 Cursor 自动更新"
+        "disable_auto_update": "禁用 Cursor 自动更新",
+        "batch_register": "批量注册3个账号",
+        "quick_select": "快速选择账号"
     },
     "languages": {
         "en": "English",
@@ -230,5 +232,49 @@
         "directory_removed": "目录已删除",
         "creating_block_file": "创建阻止文件",
         "block_file_created": "阻止文件已创建"
+    },
+    "batch": {
+        "start": "开始批量注册 {count} 个账号",
+        "progress": "正在注册第 {current}/{total} 个账号",
+        "account_registered": "账号 {email} 注册成功",
+        "wait_next": "{seconds}秒后开始注册下一个账号",
+        "register_failed": "注册账号失败: {error}",
+        "accounts_saved": "成功保存 {count} 个账号到 {file}",
+        "save_failed": "保存账号信息失败: {error}",
+        "completed": "批量注册完成，成功 {success}/{total} 个账号",
+        "file_read_error": "读取现有账号文件失败: {error}",
+        "account_stats": "账号统计: 共{total}个账号，已使用{used}个，未使用{unused}个"
+    },
+    "quick_select": {
+        "title": "快速选择账号",
+        "no_accounts_file": "未找到账号文件，请先注册账号",
+        "using_first_account": "使用第一个账号: {email}",
+        "current_account": "当前使用的账号: {email}",
+        "next_account": "下一个账号: {email}",
+        "no_more_accounts": "没有更多可用账号，请先批量注册新账号",
+        "account_not_found": "当前使用的账号在账号列表中未找到",
+        "auth_update_success": "认证信息更新成功",
+        "auth_update_failed": "认证信息更新失败",
+        "reset_success": "机器ID重置成功",
+        "reset_failed": "机器ID重置失败",
+        "save_success": "账号使用记录保存成功",
+        "save_failed": "账号使用记录保存失败: {error}",
+        "completed": "快速选择账号完成",
+        "account_stats": "账号统计: 共{total}个账号，已使用{used}个，未使用{unused}个",
+        "using_unused_account": "使用未使用过的账号: {email}",
+        "no_used_accounts": "未找到已使用过的账号",
+        "no_accounts": "未找到任何账号，请先注册账号",
+        "account_marked_used": "账号 {email} 已标记为已使用",
+        "mark_used_failed": "标记账号 {email} 为已使用失败"
+    },
+    "account_manager": {
+        "file_created": "账号文件已创建",
+        "file_create_error": "创建账号文件失败: {error}",
+        "read_error": "读取账号文件失败: {error}",
+        "save_error": "保存账号文件失败: {error}",
+        "account_exists": "账号 {email} 已存在",
+        "account_added": "账号 {email} 已添加",
+        "add_error": "添加账号失败: {error}",
+        "mark_used_error": "标记账号已使用失败: {error}"
     }
 } 

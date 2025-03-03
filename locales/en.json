@@ -12,7 +12,9 @@
         "program_terminated": "Program was terminated by user",
         "error_occurred": "An error occurred: {error}. Please try again",
         "press_enter": "Press Enter to Exit",
-        "disable_auto_update": "Disable Cursor Auto-Update"
+        "disable_auto_update": "Disable Cursor Auto-Update",
+        "batch_register": "Batch Register 3 Accounts",
+        "quick_select": "Quick Select Account"
     },
     "languages": {
         "en": "English",

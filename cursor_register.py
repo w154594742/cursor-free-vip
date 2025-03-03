@@ -6,6 +6,7 @@ from browser import BrowserManager
 from control import BrowserControl
 from cursor_auth import CursorAuth
 from reset_machine_manual import MachineIDResetter
+from account_manager import AccountManager
 
 os.environ["PYTHONVERBOSE"] = "0"
 os.environ["PYINSTALLER_VERBOSE"] = "0"
@@ -205,17 +206,19 @@ class CursorRegistration:
             if not resetter.reset_machine_ids():  # 直接调用reset_machine_ids方法
                 raise Exception("Failed to reset machine ID")
             
-            # 保存账户信息到文件
-            with open('cursor_accounts.txt', 'a', encoding='utf-8') as f:
-                f.write(f"\n{'='*50}\n")
-                f.write(f"Email: {self.email_address}\n")
-                f.write(f"Password: {self.password}\n")
-                f.write(f"Token: {token}\n")
-                f.write(f"Usage Limit: {total_usage}\n")
-                f.write(f"{'='*50}\n")
-                
-            print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('register.account_info_saved')}...{Style.RESET_ALL}")
-            return True
+            # 使用账号管理器保存账号信息
+            account_manager = AccountManager(self.translator)
+            if account_manager.add_account(
+                email=self.email_address,
+                password=self.password,
+                token=token,
+                usage_limit=total_usage
+            ):
+                print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('register.account_info_saved')}...{Style.RESET_ALL}")
+                return True
+            else:
+                print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.save_account_info_failed')}...{Style.RESET_ALL}")
+                return False
             
         except Exception as e:
             print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.save_account_info_failed', error=str(e))}{Style.RESET_ALL}")
