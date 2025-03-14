@@ -4,6 +4,7 @@ import platform
 import shutil
 from colorama import Fore, Style, init
 import subprocess
+from config import get_config
 
 # Initialize colorama
 init()
@@ -24,11 +25,24 @@ class AutoUpdateDisabler:
     def __init__(self, translator=None):
         self.translator = translator
         self.system = platform.system()
-        self.updater_paths = {
-            "Windows": os.path.join(os.getenv("LOCALAPPDATA", ""), "cursor-updater"),
-            "Darwin": os.path.expanduser("~/Library/Application Support/cursor-updater"),
-            "Linux": os.path.expanduser("~/.config/cursor-updater")
-        }
+        
+        # Get path from configuration file
+        config = get_config(translator)
+        if config:
+            if self.system == "Windows":
+                self.updater_path = config.get('WindowsPaths', 'updater_path', fallback=os.path.join(os.getenv("LOCALAPPDATA", ""), "cursor-updater"))
+            elif self.system == "Darwin":
+                self.updater_path = config.get('MacPaths', 'updater_path', fallback=os.path.expanduser("~/Library/Application Support/cursor-updater"))
+            elif self.system == "Linux":
+                self.updater_path = config.get('LinuxPaths', 'updater_path', fallback=os.path.expanduser("~/.config/cursor-updater"))
+        else:
+            # If configuration loading fails, use default paths
+            self.updater_paths = {
+                "Windows": os.path.join(os.getenv("LOCALAPPDATA", ""), "cursor-updater"),
+                "Darwin": os.path.expanduser("~/Library/Application Support/cursor-updater"),
+                "Linux": os.path.expanduser("~/.config/cursor-updater")
+            }
+            self.updater_path = self.updater_paths.get(self.system)
 
     def _kill_cursor_processes(self):
         """End all Cursor processes"""
@@ -50,7 +64,7 @@ class AutoUpdateDisabler:
     def _remove_updater_directory(self):
         """Delete updater directory"""
         try:
-            updater_path = self.updater_paths.get(self.system)
+            updater_path = self.updater_path
             if not updater_path:
                 raise OSError(self.translator.get('update.unsupported_os', system=self.system) if self.translator else f"不支持的操作系统: {self.system}")
 
@@ -72,7 +86,7 @@ class AutoUpdateDisabler:
     def _create_blocking_file(self):
         """Create blocking file"""
         try:
-            updater_path = self.updater_paths.get(self.system)
+            updater_path = self.updater_path
             if not updater_path:
                 raise OSError(self.translator.get('update.unsupported_os', system=self.system) if self.translator else f"不支持的操作系统: {self.system}")
 

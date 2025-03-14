@@ -1,5 +1,74 @@
 # Change Log
 
+## v1.7.06
+1. Add: Update Confirm | 增加更新確認
+2. Add: Update Skipped | 增加更新跳過
+3. Add: Invalid Choice | 增加無效選擇
+4. Fix: Cursor Path | 修復Cursor路徑
+5. Fix: Path Encoding | 修復路徑編碼
+6. Fix: Getting Verification Code | 修復獲取驗證碼
+7. Fix: Setting Password | 修復設置密碼
+8. Fix: Disable Auto Update | 修復禁用自動更新
+9. Add Config.py | 增加Config.py
+10. Add utils.py | 增加utils.py
+11. Rebuild some logic | 重新構建一些邏輯
+
+
+## v1.7.05
+1. Fix: Cursor Version Check | 修復Cursor版本檢查
+2. Fix: Small Problem | 修復一些小問題
+
+
+## v1.7.04
+1. Hotfix: Small Problem | 修復一些小問題
+
+## v1.7.03
+1. Hotfix: Small Problem | 修復一些小問題
+
+## v1.7.02
+1. Fix: Cursor Path | 修復Cursor路徑
+2. Add: Config File | 增加配置文件
+3. Remove: Workbench Cursor Path | 移除Workbench Cursor路徑
+4. Remove: Cursor Main JS | 移除Cursor main.js
+
+## v1.7.01
+- Refactoring: Extract configuration-related code from the `setup_driver` function to an independent `setup_config` function
+- Optimization: Improve code maintainability and make configuration management and browser settings more clear
+- Improvement: The creation and update logic of the configuration file is clearer and more independent
+
+## v1.6.03
+1. Hotfix: Small Problem | 修復一些問題
+
+## v1.6.02
+1. Hotfix: Small Problem | 修復一些問題
+2. Add: Test some Bypass Code | 測試一些繞過代碼
+
+## v1.6.01
+1. Fix: Cursor Auth | 修復Cursor Auth
+2. Add: Create Account Maximum Retry | 增加創建賬號最大重試次數
+3. Fix: Cursor Auth Error | 修復Cursor Auth錯誤
+4. Fix: Update Curl Faild | 修復更新Curl失敗
+
+## v1.5.03
+1. HOTFIX: Stuck on starting browser | 修復啟動瀏覽器卡住問題
+2. Small Fix: Error Handling | 小修錯誤處理
+3. Small Fix: Translation | 小修翻譯
+4. Small Fix: Performance | 小修性能
+
+## v1.5.02
+1. Add: Generate Random Name Alias | 增加生成隨機真實姓名
+2. Add: Realistic Name Input | 增加真實姓名輸入
+3. Optimize: Error Handling | 優化錯誤處理
+4. Optimize: Translation | 優化翻譯
+5. Optimize: Performance | 優化性能
+
+## v1.5.01
+1. Add: Check Latest Version | 增加檢查最新版本
+2. Add: Update Command | 增加更新命令
+
+## v1.4.08
+1. Add: Print Some Account Info | 增加打印一些賬號信息
+
 ## v1.4.07
 1. Add Removed break statements after each operation | 修改結束event後的break暫停應用
 2. Added print_menu() calls to show the menu again | 添加print_menu（）調用以再次顯示菜單

@@ -29,15 +29,19 @@ a = Analysis(
         ('cursor_auth.py', '.'),
         ('reset_machine_manual.py', '.'),
         ('cursor_register.py', '.'),
-        ('browser.py', '.'),
-        ('control.py', '.'),
+        ('new_signup.py', '.'),
+        ('new_tempemail.py', '.'),
+        ('quit_cursor.py', '.'),
+        ('cursor_register_manual.py', '.'),
         ('.env', '.')
     ],
     hiddenimports=[
         'cursor_auth',
         'reset_machine_manual',
-        'browser',
-        'control'
+        'new_signup',
+        'new_tempemail',
+        'quit_cursor',
+        'cursor_register_manual'
     ],
     hookspath=[],
     hooksconfig={},

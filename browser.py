@@ -13,13 +13,13 @@ class BrowserManager:
     def init_browser(self):
         """初始化浏览器"""
         co = self._get_browser_options()
-        
+
         # 如果设置了 noheader，添加相应的参数
         if self.noheader:
             co.set_argument('--headless=new')
-            
+
         self.browser = ChromiumPage(co)
-        
+
         return self.browser
 
     def _get_browser_options(self):

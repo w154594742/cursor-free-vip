@@ -70,7 +70,24 @@
         "version_less_than_0_45": "Cursor Version < 0.45.0, Skip Patching getMachineId",
         "detecting_version": "Detecting Cursor Version",
         "patching_getmachineid": "Patching getMachineId",
-        "version_greater_than_0_45": "Cursor Version >= 0.45.0, Patching getMachineId"
+        "version_greater_than_0_45": "Cursor Version >= 0.45.0, Patching getMachineId",
+        "permission_denied": "Permission Denied: {error}",
+        "backup_created": "Backup Created",
+        "update_success": "Update Success",
+        "update_failed": "Update Failed: {error}",
+        "windows_machine_guid_updated": "Windows Machine GUID Updated Successfully",
+        "reading_package_json": "Reading package.json {path}",
+        "invalid_json_object": "Invalid JSON Object",
+        "no_version_field": "No Version Field Found in package.json",
+        "version_field_empty": "Version Field is Empty",
+        "invalid_version_format": "Invalid Version Format: {version}",
+        "found_version": "Found Version: {version}",
+        "version_parse_error": "Version Parse Error: {error}",
+        "package_not_found": "Package.json Not Found: {path}",
+        "check_version_failed": "Check Version Failed: {error}",
+        "stack_trace": "Stack Trace",
+        "version_too_low": "Cursor Version Too Low: {version} < 0.45.0"
+        
     },
     "register": {
         "title": "Cursor Registration Tool",
@@ -133,7 +150,21 @@
         "register_process_error": "Register Process Error: {error}",
         "setting_password": "Setting Password",
         "manual_code_input": "Manual Code Input",
-        "manual_email_input": "Manual Email Input"
+        "manual_email_input": "Manual Email Input",
+        "password": "Password",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "exit_signal": "Exit Signal",
+        "email_address": "Email Address",
+        "config_created": "Config Created",
+        "verification_failed": "Verification Failed",
+        "verification_error": "Verification Error: {error}",
+        "config_option_added": "Config Option Added: {option}",
+        "config_updated": "Config Updated",
+        "password_submitted": "Password Submitted",
+        "total_usage": "Total Usage: {usage}",
+        "setting_on_password": "Setting Password",
+        "getting_code": "Getting Verification Code, Will Try in 60s"
     },
     "auth": {
         "title": "Cursor Auth Manager",
@@ -221,7 +252,8 @@
         "blocked_domains_loaded_timeout": "Blocked Domains Loaded Timeout: {timeout}s",
         "blocked_domains_loaded_timeout_error": "Blocked Domains Loaded Timeout Error: {error}",
         "available_domains_loaded": "Available Domains Loaded: {count}",
-        "domains_filtered": "Domains Filtered: {count}"
+        "domains_filtered": "Domains Filtered: {count}",
+        "trying_to_create_email": "Trying to create email: {email}"
     },
     "update": {
         "title": "Disable Cursor Auto Update",
@@ -235,5 +267,16 @@
         "directory_removed": "Directory Removed",
         "creating_block_file": "Creating Block File",
         "block_file_created": "Block File Created"
+    },
+    "updater": {
+        "checking": "Checking for updates...",
+        "new_version_available": "New version available! (Current: {current}, Latest: {latest})",
+        "updating": "Updating to the latest version. The program will restart automatically.",
+        "up_to_date": "You are using the latest version.",
+        "check_failed": "Failed to check for updates: {error}",
+        "continue_anyway": "Continuing with current version...",
+        "update_confirm": "Do you want to update to the latest version? (Y/n)",
+        "update_skipped": "Skipping update.",
+        "invalid_choice": "Invalid choice. Please enter 'Y' or 'n'."
     }
 }

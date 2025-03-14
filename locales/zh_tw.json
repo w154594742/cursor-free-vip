@@ -70,8 +70,25 @@
         "version_less_than_0_45": "Cursor版本 < 0.45.0，跳过getMachineId修补",
         "detecting_version": "檢測Cursor版本",
         "patching_getmachineid": "修補getMachineId",
-        "version_greater_than_0_45": "Cursor版本 >= 0.45.0，修補getMachineId"
+        "version_greater_than_0_45": "Cursor版本 >= 0.45.0，修補getMachineId",
+        "permission_denied": "權限拒絕: {error}",
+        "backup_created": "備份已創建",
+        "update_success": "更新成功",
+        "update_failed": "更新失敗: {error}",
+        "windows_machine_guid_updated": "Windows機器GUID更新成功",
+        "reading_package_json": "讀取package.json {path}",
+        "invalid_json_object": "JSON對象無效",
+        "no_version_field": "package.json中沒有版本字段",
+        "version_field_empty": "版本字段為空",
+        "invalid_version_format": "版本格式無效: {version}",
+        "found_version": "找到版本: {version}",
+        "version_parse_error": "版本解析錯誤: {error}",
+        "package_not_found": "package.json未找到: {path}",
+        "check_version_failed": "檢查版本失敗: {error}",
+        "stack_trace": "堆疊跟踪",
+        "version_too_low": "Cursor版本太低: {version} < 0.45.0"
     },
+
     "register": {
         "title": "Cursor 註冊工具",
         "start": "正在啟動註冊流程...",
@@ -114,7 +131,21 @@
         "update_cursor_auth_info": "更新Cursor認證信息",
         "setting_password": "設置密碼",
         "manual_code_input": "手動輸入驗證碼",
-        "manual_email_input": "手動輸入郵箱地址"
+        "manual_email_input": "手動輸入郵箱地址",
+        "password": "密碼",
+        "first_name": "名字",
+        "last_name": "姓氏",
+        "exit_signal": "退出信號",
+        "email_address": "郵箱地址",
+        "config_created": "配置已創建",
+        "verification_failed": "驗證失敗",
+        "verification_error": "驗證錯誤: {error}",
+        "config_option_added": "配置項已添加: {option}",
+        "config_updated": "配置已更新",
+        "password_submitted": "密碼已提交",
+        "total_usage": "總使用量: {usage}",
+        "setting_on_password": "設置密碼",
+        "getting_code": "正在獲取驗證碼，將在60秒內嘗試..."
     },
     "auth": {
         "title": "Cursor 認證管理器",
@@ -199,7 +230,8 @@
         "blocked_domains_loaded_timeout": "加載被屏蔽的域名超時: {timeout}秒",
         "blocked_domains_loaded_timeout_error": "加載被屏蔽的域名超時錯誤: {error}",
         "available_domains_loaded": "獲取到 {count} 個可用域名",
-        "domains_filtered": "過濾後剩餘 {count} 個可用域名"
+        "domains_filtered": "過濾後剩餘 {count} 個可用域名",
+        "trying_to_create_email": "嘗試創建郵箱: {email}"
     },
     "update": {
         "title": "禁用 Cursor 自动更新",
@@ -213,5 +245,16 @@
         "directory_removed": "目錄已刪除",
         "creating_block_file": "創建阻止文件",
         "block_file_created": "阻止文件已創建"
+    },
+    "updater": {
+        "checking": "檢查更新...",
+        "new_version_available": "有新版本可用! (當前版本: {current}, 最新版本: {latest})",
+        "updating": "正在更新到最新版本。程序將自動重啟。",
+        "up_to_date": "您使用的是最新版本。",
+        "check_failed": "檢查更新失敗: {error}",
+        "continue_anyway": "繼續使用當前版本...",
+        "update_confirm": "是否要更新到最新版本? (Y/n)",
+        "update_skipped": "跳過更新。",
+        "invalid_choice": "選擇無效。請輸入 'Y' 或 'n'."
     }
 } 

@@ -2,8 +2,6 @@ import os
 from colorama import Fore, Style, init
 import time
 import random
-from browser import BrowserManager
-from control import BrowserControl
 from cursor_auth import CursorAuth
 from reset_machine_manual import MachineIDResetter
 from account_manager import AccountManager
@@ -36,7 +34,6 @@ class CursorRegistration:
         self.translator = translator
         # Set to display mode
         os.environ['BROWSER_HEADLESS'] = 'False'
-        self.browser_manager = BrowserManager()
         self.browser = None
         self.controller = None
         self.sign_up_url = "https://authenticator.cursor.sh/sign-up"
@@ -45,24 +42,32 @@ class CursorRegistration:
         self.signup_tab = None
         self.email_tab = None
         
-        # Account information
+        # Generate account information
         self.password = self._generate_password()
-        self.first_name = self._generate_name()
-        self.last_name = self._generate_name()
-        print(f"Password: {self.password}\n")
-        print(f"First Name: {self.first_name}\n")
-        print(f"Last Name: {self.last_name}\n")
+        # Generate first name and last name separately
+        first_name = random.choice([
+            "James", "John", "Robert", "Michael", "William", "David", "Joseph", "Thomas",
+            "Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia",
+            "Liam", "Noah", "Oliver", "Elijah", "Lucas", "Mason", "Logan", "Alexander"
+        ])
+        self.last_name = random.choice([
+            "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis",
+            "Anderson", "Wilson", "Taylor", "Thomas", "Moore", "Martin", "Jackson", "Lee",
+            "Thompson", "White", "Harris", "Clark", "Lewis", "Walker", "Hall", "Young"
+        ])
+        
+        # Modify first letter of first name
+        new_first_letter = random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        self.first_name = new_first_letter + first_name[1:]
+        
+        print(f"\n{Fore.CYAN}{EMOJI['PASSWORD']} {self.translator.get('register.password')}: {self.password} {Style.RESET_ALL}")
+        print(f"{Fore.CYAN}{EMOJI['FORM']} {self.translator.get('register.first_name')}: {self.first_name} {Style.RESET_ALL}")
+        print(f"{Fore.CYAN}{EMOJI['FORM']} {self.translator.get('register.last_name')}: {self.last_name} {Style.RESET_ALL}")
 
     def _generate_password(self, length=12):
         """Generate Random Password"""
         chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
         return ''.join(random.choices(chars, k=length))
-
-    def _generate_name(self, length=6):
-        """Generate Random Name"""
-        first_letter = random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-        rest_letters = ''.join(random.choices("abcdefghijklmnopqrstuvwxyz", k=length-1))
-        return first_letter + rest_letters
 
     def setup_email(self):
         """Setup Email"""
@@ -74,7 +79,7 @@ class CursorRegistration:
                 print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.invalid_email') if self.translator else '无效的邮箱地址'}{Style.RESET_ALL}")
                 return False
                 
-            print(f"Email Address: {self.email_address}\n")
+            print(f"{Fore.CYAN}{EMOJI['MAIL']} {self.translator.get('register.email_address')}: {self.email_address}\n{Style.RESET_ALL}")
             return True
             
         except Exception as e:

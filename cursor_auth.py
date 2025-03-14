@@ -2,11 +2,12 @@ import sqlite3
 import os
 import sys
 from colorama import Fore, Style, init
+from config import get_config
 
-# 初始化colorama
+# Initialize colorama
 init()
 
-# 定义emoji和颜色常量
+# Define emoji and color constants
 EMOJI = {
     'DB': '🗄️',
     'UPDATE': '🔄',
@@ -21,26 +22,48 @@ EMOJI = {
 class CursorAuth:
     def __init__(self, translator=None):
         self.translator = translator
-        # 判断操作系统
-        if os.name == "nt":  # Windows
-            self.db_path = os.path.join(
-                os.getenv("APPDATA"), "Cursor", "User", "globalStorage", "state.vscdb"
-            )
-        elif os.name =='posix':
-            self.db_path = os.path.expanduser(
-                            "~/.config/Cursor/User/globalStorage/state.vscdb"
-                        )
-        else:  # macOS
-            self.db_path = os.path.expanduser(
-                "~/Library/Application Support/Cursor/User/globalStorage/state.vscdb"
-            )
+        
+        # Get configuration
+        config = get_config(translator)
+        if not config:
+            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.config_error') if self.translator else 'Failed to load configuration'}{Style.RESET_ALL}")
+            sys.exit(1)
+            
+        # Get path based on operating system
+        try:
+            if sys.platform == "win32":  # Windows
+                if not config.has_section('WindowsPaths'):
+                    raise ValueError("Windows paths not configured")
+                self.db_path = config.get('WindowsPaths', 'sqlite_path')
+                
+            elif sys.platform == 'linux':  # Linux
+                if not config.has_section('LinuxPaths'):
+                    raise ValueError("Linux paths not configured")
+                self.db_path = config.get('LinuxPaths', 'sqlite_path')
+                
+            elif sys.platform == 'darwin':  # macOS
+                if not config.has_section('MacPaths'):
+                    raise ValueError("macOS paths not configured")
+                self.db_path = config.get('MacPaths', 'sqlite_path')
+                
+            else:
+                print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.unsupported_platform') if self.translator else 'Unsupported platform'}{Style.RESET_ALL}")
+                sys.exit(1)
+                
+            # Verify if the path exists
+            if not os.path.exists(os.path.dirname(self.db_path)):
+                raise FileNotFoundError(f"Database directory not found: {os.path.dirname(self.db_path)}")
+                
+        except Exception as e:
+            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.path_error', error=str(e)) if self.translator else f'Error getting database path: {str(e)}'}{Style.RESET_ALL}")
+            sys.exit(1)
 
-        # 检查数据库文件是否存在
+        # Check if the database file exists
         if not os.path.exists(self.db_path):
             print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.db_not_found', path=self.db_path)}{Style.RESET_ALL}")
             return
 
-        # 检查文件权限
+        # Check file permissions
         if not os.access(self.db_path, os.R_OK | os.W_OK):
             print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.db_permission_error')}{Style.RESET_ALL}")
             return
@@ -55,12 +78,12 @@ class CursorAuth:
     def update_auth(self, email=None, access_token=None, refresh_token=None):
         conn = None
         try:
-            # 确保目录存在并设置正确权限
+            # Ensure the directory exists and set the correct permissions
             db_dir = os.path.dirname(self.db_path)
             if not os.path.exists(db_dir):
                 os.makedirs(db_dir, mode=0o755, exist_ok=True)
             
-            # 如果数据库文件不存在，创建一个新的
+            # If the database file does not exist, create a new one
             if not os.path.exists(self.db_path):
                 conn = sqlite3.connect(self.db_path)
                 cursor = conn.cursor()
@@ -75,31 +98,34 @@ class CursorAuth:
                     os.chmod(self.db_path, 0o644)
                 conn.close()
 
-            # 重新连接数据库
+            # Reconnect to the database
             conn = sqlite3.connect(self.db_path)
             print(f"{EMOJI['INFO']} {Fore.GREEN} {self.translator.get('auth.connected_to_database')}{Style.RESET_ALL}")
             cursor = conn.cursor()
             
-            # 增加超时和其他优化设置
+            # Add timeout and other optimization settings
             conn.execute("PRAGMA busy_timeout = 5000")
             conn.execute("PRAGMA journal_mode = WAL")
             conn.execute("PRAGMA synchronous = NORMAL")
             
-            # 设置要更新的键值对
+            # Set the key-value pairs to update
             updates = []
+
+            updates.append(("cursorAuth/cachedSignUpType", "Auth_0"))
+
             if email is not None:
                 updates.append(("cursorAuth/cachedEmail", email))
             if access_token is not None:
                 updates.append(("cursorAuth/accessToken", access_token))
             if refresh_token is not None:
                 updates.append(("cursorAuth/refreshToken", refresh_token))
-                updates.append(("cursorAuth/cachedSignUpType", "Auth_0"))
+                
 
-            # 使用事务来确保数据完整性
+            # Use transactions to ensure data integrity
             cursor.execute("BEGIN TRANSACTION")
             try:
                 for key, value in updates:
-                    # 检查键是否存在
+                    # Check if the key exists
                     cursor.execute("SELECT COUNT(*) FROM ItemTable WHERE key = ?", (key,))
                     if cursor.fetchone()[0] == 0:
                         cursor.execute("""
@@ -131,5 +157,3 @@ class CursorAuth:
             if conn:
                 conn.close()
                 print(f"{EMOJI['DB']} {Fore.CYAN} {self.translator.get('auth.database_connection_closed')}{Style.RESET_ALL}")
-
-
