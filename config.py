@@ -16,9 +16,7 @@ def setup_config(translator=None):
         # Default configuration
         default_config = {
             'Chrome': {
-                'chromepath': get_default_chrome_path(),
-                'use_random_ua': 'true',
-                'custom_ua': ''
+                'chromepath': get_default_chrome_path()
             },
             'Turnstile': {
                 'handle_turnstile_time': '2',

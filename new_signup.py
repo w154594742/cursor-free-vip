@@ -4,10 +4,10 @@ import os
 import signal
 import random
 from colorama import Fore, Style
+import configparser
 from pathlib import Path
 import sys
 from config import get_config 
-from user_agents import get_random_user_agent
 
 # Add global variable at the beginning of the file
 _translator = None
@@ -182,14 +182,16 @@ def setup_driver(translator=None):
         # Set Chrome path
         co.set_browser_path(chrome_path)
         
-        # 添加随机 UA
-        random_ua = get_random_user_agent()
-        co.set_argument(f'--user-agent={random_ua}')
-        
         # Use incognito mode
         co.set_argument("--incognito")
+
+        # Set random port
         co.set_argument("--no-sandbox")
+        
+        # Set random port
         co.auto_port()
+        
+        # Use headless mode (must be set to False, simulate human operation)
         co.headless(False)
         
         try:
