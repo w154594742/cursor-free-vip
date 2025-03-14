@@ -1,11 +1,9 @@
 from DrissionPage import ChromiumPage, ChromiumOptions
-import time
-import os
-import sys
 from colorama import Fore, Style, init
 import requests
 import random
 import string
+from user_agents import get_random_user_agent
 
 # Initialize colorama
 init()
@@ -25,10 +23,33 @@ class NewTempEmail:
         self.password = None
         self.blocked_domains = self.get_blocked_domains()
         
+        try:
+            # 创建浏览器选项
+            co = ChromiumOptions()
+            
+            # 添加随机 UA
+            random_ua = get_random_user_agent()
+            co.set_argument(f'--user-agent={random_ua}')
+            
+            # 其他浏览器选项
+            co.set_argument("--incognito")
+            co.set_argument("--no-sandbox")
+            co.auto_port()
+            co.headless(False)
+            
+            self.page = ChromiumPage(co)
+            
+        except Exception as e:
+            if self.translator:
+                print(f"{Fore.RED}❌ {self.translator.get('email.browser_init_error', error=str(e))}{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}❌ 初始化浏览器失败: {str(e)}{Style.RESET_ALL}")
+        
     def get_blocked_domains(self):
         """Get blocked domains list"""
         try:
-            block_url = "https://raw.githubusercontent.com/yeongpin/cursor-free-vip/main/block_domain.txt"
+            # block_url = "https://raw.githubusercontent.com/yeongpin/cursor-free-vip/main/block_domain.txt"
+            block_url = "https://ghproxy.net/https://raw.githubusercontent.com/w154594742/cursor-free-vip/dev/block_domain.txt"
             response = requests.get(block_url, timeout=5)
             if response.status_code == 200:
                 # Split text and remove empty lines

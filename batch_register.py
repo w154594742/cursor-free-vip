@@ -1,7 +1,4 @@
-import os
 import time
-import json
-import random
 from datetime import datetime
 from colorama import Fore, Style, init
 from cursor_register import CursorRegistration
