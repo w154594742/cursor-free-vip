@@ -243,6 +243,10 @@ def select_language():
         return False
 
 def check_latest_version():
+
+    # 本地使用，不检测版本
+    return
+
     """Check if current version matches the latest release version"""
     try:
         print(f"\n{Fore.CYAN}{EMOJI['UPDATE']} {translator.get('updater.checking')}{Style.RESET_ALL}")
