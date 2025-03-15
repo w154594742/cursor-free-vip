@@ -364,6 +364,8 @@ def main():
                 print(f"{Fore.CYAN}{'═' * 50}{Style.RESET_ALL}")
                 return
             elif choice == "1":
+                import quit_cursor
+                quit_cursor.quit_cursor(translator)
                 import reset_machine_manual
                 reset_machine_manual.run(translator)
                 print_menu()
