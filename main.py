@@ -396,7 +396,9 @@ def main():
                 quick_select_account.run(translator)
                 print_menu()
             else:
-                print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
+                # print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
+                import quick_select_account
+                quick_select_account.run(translator)
                 print_menu()
 
         except KeyboardInterrupt:
