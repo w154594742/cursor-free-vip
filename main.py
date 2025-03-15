@@ -405,14 +405,15 @@ def main():
                 quit_cursor.quit_cursor(translator)
                 import quick_select_account
                 quick_select_account.run(translator)
-                print_menu()
+                input(f"press any key to exit...")
+                return
             else:
-                # print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
                 import quit_cursor
                 quit_cursor.quit_cursor(translator)
                 import quick_select_account
                 quick_select_account.run(translator)
-                print_menu()
+                input(f"press any key to exit...")
+                return
 
         except KeyboardInterrupt:
             print(f"\n{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.program_terminated')}{Style.RESET_ALL}")
