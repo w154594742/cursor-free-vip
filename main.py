@@ -107,6 +107,7 @@ class Translator:
                 0x0409: 'en',      # English
                 0x0404: 'zh_tw',   # Traditional Chinese
                 0x0804: 'zh_cn',   # Simplified Chinese
+                0x0422: 'vi',      # Vietnamese
             }
             
             return language_map.get(layout_id, 'en')
@@ -130,14 +131,20 @@ class Translator:
                 return 'zh_cn'
             elif system_locale.startswith('en'):
                 return 'en'
+            elif system_locale.startswith('vi'):
+                return 'vi'
             
+
             # Try to get language from LANG environment variable as fallback
             env_lang = os.getenv('LANG', '').lower()
             if 'tw' in env_lang or 'hk' in env_lang:
                 return 'zh_tw'
             elif 'cn' in env_lang:
                 return 'zh_cn'
+            elif 'vi' in env_lang:
+                return 'vi'
             
+
             return 'en'
         except:
             return 'en'
@@ -206,7 +213,7 @@ class Translator:
 translator = Translator()
 
 def print_menu():
-    """打印菜单选项"""
+    """Print menu options"""
     print(f"\n{Fore.CYAN}{EMOJI['MENU']} {translator.get('menu.title')}:{Style.RESET_ALL}")
     print(f"{Fore.YELLOW}{'─' * 40}{Style.RESET_ALL}")
     print(f"{Fore.GREEN}0{Style.RESET_ALL}. {EMOJI['ERROR']} {translator.get('menu.exit')}")
