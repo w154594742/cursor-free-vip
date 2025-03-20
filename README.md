@@ -21,7 +21,7 @@ Cursor's configuration.
 這是一個自動化工具，自動註冊，支持 Windows 和 macOS 系統，完成 Auth 驗證，重置 Cursor 的配置。
 
 <p align="center">
-  <img src="./images/new_2025-02-27_10-42-44.png" alt="new" width="400" style="border-radius: 6px;"/><br>
+  <img src="./images/new_2025-03-19_00-19-09.png" alt="new" width="400" style="border-radius: 6px;"/><br>
 </p>
 
 ##### If you don't have Google Chrome, you can download it from [here](https://www.google.com/intl/en_pk/chrome/)
@@ -36,6 +36,10 @@ Cursor's configuration.
 
 ## ✨ Features | 功能特點
 
+* 🌟 Google OAuth Authentication with Lifetime Access<br>使用 Google OAuth 認證（終身訪問）<br>
+
+* ⭐ GitHub OAuth Authentication with Lifetime Access<br>使用 GitHub OAuth 認證（終身訪問）<br>
+
 * Automatically register Cursor membership<br>自動註冊 Cursor 會員<br>
 
 * Support Windows and macOS systems<br>支持 Windows 和 macOS 系統<br>
@@ -43,6 +47,8 @@ Cursor's configuration.
 * Complete Auth verification<br>完成 Auth 驗證<br>
 
 * Reset Cursor's configuration<br>重置 Cursor 的配置<br>
+
+* Multi-language support (English, 简体中文, 繁體中文, Vietnamese)<br>多語言支持（英文、简体中文、繁體中文、越南語）<br>
 
 ## 💻 System Support | 系統支持
 
@@ -162,7 +168,7 @@ max_timeout = 160
 |                   如果遇到權限問題，請確保：                    |                   此腳本以管理員身份運行                    |
 |:--------------------------------------------------:|:------------------------------------------------:|
 | If you encounter permission issues, please ensure: | This script is run with administrator privileges |
-
+| Error 'User is no authorized' | This means your account was banned for using temporary (disposal) mail. Ensure using a non-temporary mail service |
 ## 🤩 Contribution | 貢獻
 
 歡迎提交 Issue 和 Pull Request！

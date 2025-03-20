@@ -30,7 +30,7 @@ CURSOR_LOGO = f"""
 
       Github: https://github.com/yeongpin/cursor-free-vip
 {Fore.RED}
-        Press 5 to change language | 按下 5 键切换语言
+        Press 7 to change language | 按下 7 键切换语言 | Pressione 7 para alterar o idioma
 {Style.RESET_ALL}
     """
 

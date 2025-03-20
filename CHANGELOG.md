@@ -1,5 +1,61 @@
 # Change Log
 
+## v1.7.13
+1. Added _delete_current_account method to handle account deletion via API ｜ 新增 _delete_current_account 方法，透過 API 處理帳號刪除  
+
+2. Updated account reset logic to use the appropriate auth method based on auth_type ｜ 更新帳號重置邏輯，根據 auth_type 選擇適當的驗證方式  
+
+3. Maintained existing Google OAuth reset functionality ｜ 維持現有的 Google OAuth 重置功能  
+
+4. Added proper error handling for account deletion failures ｜ 新增帳號刪除失敗時的錯誤處理  
+
+5. Ensures GitHub authentication maintains its flow when resetting accounts ｜ 確保 GitHub 認證在帳號重置時保持正常流程    
+
+6. The _delete_current_account method makes a POST request to https://www.cursor.com/api/dashboard/delete-account ｜  
+   _delete_current_account 方法會發送 POST 請求至 https://www.cursor.com/api/dashboard/delete-account  
+
+7. After successful deletion, redirects back to the authentication page ｜ 刪除成功後，會導回驗證頁面  
+
+8. Uses Promise-based JavaScript for reliable API communication ｜ 使用 Promise-based JavaScript，確保 API 通訊穩定  
+
+9. Includes proper error handling and logging ｜ 包含適當的錯誤處理與日誌記錄
+
+10. Add Brazilian Portuguese language ｜ 新增巴西葡萄牙語
+
+
+## v1.7.12
+1. Add: Changelog Show in Menu | 增加更新日志在菜單中
+2. Remake Create Mail Logic | 重做創建郵箱邏輯
+3. Fix: Some Issues | 修復一些問題
+
+## v1.7.11 ( Skip & Merge to v1.7.12 )
+1. Add: Multi-language Support | 增加多語言支持
+2. Add: German Language | 增加德語
+3. Add: Dutch Language | 增加荷蘭語
+4. Add: French Language | 增加法語
+5. Add: Auto Detect Max Use Count | 增加自動檢測最大使用次數
+6. Add: Detect & Auto Delete Account | 增加檢測 & 自動刪除賬號
+7. Add: Optimize Some Logic | 優化一些邏輯
+8. Add: Local Blocked Domains | 增加本地被屏蔽域名
+9. Fix : Get Verification Code for None | 修復獲取驗證碼為 None
+
+## v1.7.10
+1. Add: Totally Reset Cursor | 增加完全重置 Cursor
+2. Add: Multi-language Support for Totally Reset | 增加完全重置多語言支持
+
+## v1.7.09
+1. Add: Development Version Check | 增加開發版本檢查
+2. Remove: Github Trial Reset | 移除 Github 試用重置
+3. Fixed: Some Issues | 修復一些問題
+
+## v1.7.08
+1. Add: Google OAuth Authentication | 增加 Google OAuth 認證
+2. Add: GitHub OAuth Authentication | 增加 GitHub OAuth 認證
+3. Add: Lifetime Access for OAuth Users | 增加 OAuth 用戶終身訪問權限
+4. Add: OAuth Authentication Integration | 增加 OAuth 認證集成
+5. Update: Menu System with OAuth Options | 更新菜單系統，添加 OAuth 選項
+6. Add: Multi-language Support for OAuth | 增加 OAuth 多語言支持
+
 ## v1.7.07
 1. Add: Vietnamese Language | 增加越南語言
 2. Add: Admin Privilege Management for Windows Executable | 增加 Windows 可執行文件管理員權限
