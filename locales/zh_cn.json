@@ -327,7 +327,7 @@
         "account_exists": "账号 {email} 已存在",
         "account_added": "账号 {email} 已添加",
         "add_error": "添加账号失败: {error}",
-        "mark_used_error": "标记账号已使用失败: {error}"
+        "mark_used_error": "标记账号已使用失败: {error}",
         "invalid_choice": "选择无效。请输入 'Y' 或 'n'.",
         "development_version": "开发版本 {current} > {latest}",
         "changelog_title": "更新日志"

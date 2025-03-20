@@ -15,6 +15,8 @@
         "error_occurred": "Ein Fehler ist aufgetreten: {error}. Bitte erneut versuchen",
         "press_enter": "Drücken Sie Enter zum Beenden",
         "disable_auto_update": "Cursor Auto-Update Deaktivieren",
+        "batch_register": "3 Konten Stapelweise Registrieren",
+        "quick_select": "Schnellauswahl Konto",
         "lifetime_access_enabled": "LEBENSLANGER ZUGRIFF AKTIVIERT",
         "totally_reset": "Cursor Vollständig Zurücksetzen"
     },

@@ -4,6 +4,8 @@
         "exit": "退出程式",
         "reset": "重置機器識別碼",
         "register": "註冊新 Cursor 帳號",
+        "register_google": "使用 Google 帳號註冊",
+        "register_github": "使用 GitHub 帳號註冊",
         "register_manual": "使用自訂郵箱註冊",
         "quit": "關閉 Cursor 應用程式",
         "select_language": "變更語言",

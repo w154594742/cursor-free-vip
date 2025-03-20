@@ -27,7 +27,8 @@
         "vi": "Vietnamese",
         "nl": "Dutch",
         "de": "German",
-        "fr": "French"
+        "fr": "French",
+        "pt": "Brazilian Portuguese"
     },
     "quit_cursor": {
         "start": "Start Quitting Cursor",
@@ -279,15 +280,15 @@
     },
     "updater": {
         "checking": "Checking for updates...",
-        "new_version_available": "New version available! (Current: {current}, Latest: {latest})",
-        "updating": "Updating to the latest version. The program will restart automatically.",
+        "new_version_available": "New version available! (Current version: {current}, Latest version: {latest})",
+        "updating": "Updating to the latest version. Program will restart automatically.",
         "up_to_date": "You are using the latest version.",
-        "check_failed": "Failed to check for updates: {error}",
+        "check_failed": "Update check failed: {error}",
         "continue_anyway": "Continuing with current version...",
         "update_confirm": "Do you want to update to the latest version? (Y/n)",
-        "update_skipped": "Skipping update.",
+        "update_skipped": "Update skipped.",
         "invalid_choice": "Invalid choice. Please enter 'Y' or 'n'.",
-        "development_version": "Development Version {current} > {latest}",
+        "development_version": "Development version {current} > {latest}",
         "changelog_title": "Changelog"
     },
     "totally_reset": {

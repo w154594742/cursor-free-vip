@@ -29,6 +29,7 @@ dist/
 
 credentials.txt
 cursor_accounts.txt
+cursor_accounts.json
 recaptcha.py
 install_requirements.bat
 
