@@ -375,6 +375,10 @@ def handle_verification_code(browser_tab, email_tab, controller, config, transla
         if translator:
             print(f"\n{Fore.CYAN}🔄 {translator.get('register.waiting_for_verification_code')}{Style.RESET_ALL}")
             
+        # 检查controller是否为None
+        if controller is None and email_tab is not None:
+            controller = email_tab
+            
         # Check if using manual input verification code
         if hasattr(controller, 'get_verification_code') and email_tab is None:  # Manual mode
             verification_code = controller.get_verification_code()
@@ -460,7 +464,7 @@ def handle_verification_code(browser_tab, email_tab, controller, config, transla
                         print(f"{Fore.RED}❌ {translator.get('register.verification_timeout')}{Style.RESET_ALL}")
                     break
                     
-                verification_code = controller.get_verification_code()
+                verification_code = email_tab.get_verification_code()  # Use email_tab instead of controller
                 if verification_code:
                     if translator:
                         print(f"{Fore.GREEN}✅ {translator.get('register.verification_success')}{Style.RESET_ALL}")

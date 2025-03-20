@@ -85,9 +85,10 @@ class CursorRegistration:
                 print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.email_create_failed')}{Style.RESET_ALL}")
                 return False
             
-            # 保存邮箱地址
+            # 保存邮箱地址和controller
             self.email_address = email_address
             self.email_tab = self.temp_email  # Pass NewTempEmail instance
+            self.controller = self.temp_email  # Set controller to temp_email instance
             
             return True
             
