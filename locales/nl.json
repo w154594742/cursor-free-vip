@@ -32,7 +32,8 @@
         "de": "Duits",
         "fr": "Frans",
         "pt": "Portugees",
-        "ru": "Russisch"
+        "ru": "Russisch",
+        "es": "Spaans"
     },
     "quit_cursor": {
         "start": "Start met afsluiten van Cursor",

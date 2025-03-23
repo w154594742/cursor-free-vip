@@ -38,7 +38,8 @@
         "pt": "Portuguese",
         "ru": "Russian",
         "tr": "Turkish",
-        "bg": "Bulgarian"
+        "bg": "Bulgarian",
+        "es": "Spanish"
     },
     "quit_cursor": {
         "start": "Start Quitting Cursor",

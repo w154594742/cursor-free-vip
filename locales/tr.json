@@ -31,7 +31,8 @@
         "fr": "French",
         "pt": "Portuguese",
         "ru": "Russian",
-        "tr": "Turkish"
+        "tr": "Turkish",
+        "es": "Spanish"
     },
     "quit_cursor": {
         "start": "Cursor'dan Çıkış Başlatılıyor",

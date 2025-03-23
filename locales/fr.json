@@ -30,7 +30,8 @@
         "de": "Allemand",
         "fr": "Français",
         "pt": "Portugais",
-        "ru": "Russe"
+        "ru": "Russe",
+        "es": "Espagnol"
     },
     "quit_cursor": {
         "start": "Début de la Fermeture de Cursor",

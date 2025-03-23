@@ -9,6 +9,7 @@
         "register_manual": "Регистрирай се със свой имейл по избор",
         "quit": "Затвори приложението Курсор",
         "select_language": "Избери език",
+        "es": "Spanish",
         "input_choice": "Моля, въведете своя избор ({choices})",
         "invalid_choice": "Невалиден избор. Моля, въведете избор от {choices}.",
         "program_terminated": "Програмата беше затворена от вас",
@@ -32,7 +33,8 @@
         "pt": "Portuguese",
         "ru": "Russian",
         "tr": "Turkish",
-        "bg": "Bulgarian"
+        "bg": "Bulgarian",
+        "es": "Spanish"
     },
     "quit_cursor": {
         "start": "Започни излизането от Курсор",

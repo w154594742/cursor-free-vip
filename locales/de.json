@@ -34,7 +34,8 @@
         "de": "Deutsch",
         "fr": "Französisch",
         "pt": "Portugiesisch",
-        "ru": "Russisch"
+        "ru": "Russisch",
+        "es": "Spanisch"
     },
     "quit_cursor": {
         "start": "Beginne Cursor zu Beenden",
