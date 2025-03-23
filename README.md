@@ -10,7 +10,7 @@
 [![Release](https://img.shields.io/github/v/release/yeongpin/cursor-free-vip?style=flat-square&logo=github&color=blue)](https://github.com/yeongpin/cursor-free-vip/releases/latest)
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 [![Stars](https://img.shields.io/github/stars/yeongpin/cursor-free-vip?style=flat-square&logo=github)](https://github.com/yeongpin/cursor-free-vip/stargazers)
-[![Download](https://img.shields.io/github/downloads/yeongpin/cursor-free-vip/total?style=flat-square&logo=github&color=52c41a)](https://github.com/yeongpin/cursor-free-vip/releases/latest)
+[![Download](https://img.shields.io/github/downloads/yeongpin/cursor-free-vip/total?style=flat-square&logo=github&color=52c41a1)](https://github.com/yeongpin/cursor-free-vip/releases/latest)
 
 </p>
 <h4>Support Latest 0.47.x Version | 支持最新 0.47.x 版本</h4>
@@ -21,7 +21,7 @@ Cursor's configuration.
 這是一個自動化工具，自動註冊，支持 Windows 和 macOS 系統，完成 Auth 驗證，重置 Cursor 的配置。
 
 <p align="center">
-  <img src="./images/new_2025-03-19_00-19-09.png" alt="new" width="400" style="border-radius: 6px;"/><br>
+  <img src="./images/new_2025-03-22_19-53-10.png" alt="new" width="400" style="border-radius: 6px;"/><br>
 </p>
 
 ##### If you don't have Google Chrome, you can download it from [here](https://www.google.com/intl/en_pk/chrome/)
@@ -121,6 +121,7 @@ storage_path = /Users/username/Library/Application Support/Cursor/User/globalSto
 sqlite_path = /Users/username/Library/Application Support/Cursor/User/globalStorage/state.vscdb
 # Machine ID Path | 機器ID路徑
 machine_id_path = /Users/username/Library/Application Support/Cursor/machineId
+# For Linux users: ~/.config/cursor/machineid
 
 [Timing]
 # Min Random Time | 最小隨機時間
@@ -168,14 +169,14 @@ max_timeout = 160
 |                   如果遇到權限問題，請確保：                    |                   此腳本以管理員身份運行                    |
 |:--------------------------------------------------:|:------------------------------------------------:|
 | If you encounter permission issues, please ensure: | This script is run with administrator privileges |
-| Error 'User is no authorized' | This means your account was banned for using temporary (disposal) mail. Ensure using a non-temporary mail service |
+| Error 'User is not authorized' | This means your account was banned for using temporary (disposal) mail. Ensure using a non-temporary mail service |
 ## 🤩 Contribution | 貢獻
 
 歡迎提交 Issue 和 Pull Request！
 
 
 <a href="https://github.com/yeongpin/cursor-free-vip/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=yeongpin/cursor-free-vip" />
+  <img src="https://contrib.rocks/image?repo=yeongpin/cursor-free-vip&preview=true&max=&columns=" />
 </a>
 <br /><br />
 

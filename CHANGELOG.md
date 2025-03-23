@@ -1,5 +1,75 @@
 # Change Log
 
+## v1.7.17
+1. Fix: Remove 10 options Totally Reset Cursor | 修復完全重置 Cursor 選項
+
+## v1.7.16
+1. Add bulgarian language | 增加保加利亚语
+2. Fix: Some Issues | 修復一些問題
+3. Add: Contributors | 增加貢獻者
+4. Fix: Total Reset Cursor | 修復完全重置 Cursor
+5. Add: Display Features and Warnings | 增加顯示功能與警告
+6. Fix: Totally Reset Cursor | 修復完全重置 Cursor
+7. Remake: Logo.py Center | 重做 Logo.py 居中
+
+## v1.7.15
+1. Fix: Cant Verify the User is Human | 修復無法驗證用戶是否為人類
+2. Added temporary email & GitHub + Cursor AI registration automation | 增加临时邮箱 & GitHub + Cursor AI 注册自动化
+3. Added Turkish language support | 增加土耳其语支持
+4. Removed outdated temporary option in Option 2 | 移除选项2中的过期临时添加项
+5. Enhanced machine ID reset (Linux, Windows, macOS), bypasses Cursor free trial detection | 机器 ID 重置支持 Linux/Windows/macOS，绕过 Cursor 免费试用检测
+6. Expanded Cursor AI file detection, deep removal of leftover trial files | 扩展 Cursor AI 文件检测，深度清理残留试用文件
+7. Optimized logging, replaced print with logging module, added verification steps | 日志优化，统一采用 logging 模块，增加验证步骤提示
+8. Added retry mechanism for email verification | 增加邮箱验证重试机制
+9. Automated GitHub OAuth login for Cursor AI | 自动 GitHub OAuth 登录 Cursor AI
+10. Saved registered GitHub accounts and timestamps | 保存 GitHub 账户和注册时间戳
+11. Added user confirmation before execution | 添加用户确认步骤，防止误操作
+12. Displayed feature list & warnings before actions | 显示功能与风险警告
+13. Improved Selenium flow and error handling | 增强 Selenium 流程与错误处理
+14. Added Chrome process tracking and cleanup | 增加 Chrome 进程跟踪和清理
+
+## v1.7.14
+1. Added a Russian locale to program, fixed a typo in readme.md. Also translated other files ｜  
+   為程式新增了俄語語系，修正了 readme.md 的拼寫錯誤，並翻譯了其他文件。  
+
+2. Changing the directory from ~/.config/Cursor to ~/.config/cursor ｜  
+   將目錄從 `~/.config/Cursor` 更改為 `~/.config/cursor`。  
+
+3. Changing the filename from machineId to machineid ｜  
+   將檔案名稱從 `machineId` 更改為 `machineid`。  
+
+4. Updated all related paths in: ｜  
+   更新了以下檔案中的相關路徑：  
+   - `reset_machine_manual.py`  
+   - `config.py`  
+
+5. Added Linux path note in README.md ｜  
+   在 `README.md` 中新增了 Linux 路徑的說明。  
+
+6. These changes align with Linux filesystem conventions and fix issues with Chrome/Chromium integration ｜  
+   這些變更符合 Linux 文件系統的規範，並修復了與 Chrome/Chromium 整合的問題。  
+
+7. This PR adds retry logic to handle the 'Can't verify the user is human' error during registration ｜  
+   此 PR 新增了重試機制，以處理註冊時的「無法驗證用戶是否為人類」錯誤。  
+
+8. Added max 5 retries for form submission when human verification fails ｜  
+   當人類驗證失敗時，最多允許 5 次表單提交重試。  
+
+9. Added random delays between retries (2-4 seconds) ｜  
+   在重試之間隨機延遲 2-4 秒。  
+
+10. Enhanced browser fingerprint randomization to better bypass detection ｜  
+    增強了瀏覽器指紋的隨機性，以更好地繞過檢測。  
+
+11. Added new translation strings for retry status messages ｜  
+    新增了重試狀態訊息的翻譯字串。  
+
+12. Improved error handling and user feedback ｜  
+    改進了錯誤處理和用戶回饋機制。  
+
+13. The changes ensure a more robust registration process by automatically retrying when human verification fails, while maintaining human-like behavior through randomized delays and improved browser fingerprinting ｜  
+    這些變更確保了更穩定的註冊流程，透過自動重試機制處理人類驗證失敗的情況，同時透過隨機延遲與增強的瀏覽器指紋技術，維持類似人類的行為模式。
+
 ## v1.7.13
 1. Added _delete_current_account method to handle account deletion via API ｜ 新增 _delete_current_account 方法，透過 API 處理帳號刪除  
 

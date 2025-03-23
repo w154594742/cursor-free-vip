@@ -131,45 +131,45 @@ class NewTempEmail:
             return False
             
     def create_email(self):
-        """创建临时邮箱"""
+        """create temporary email"""
         try:
             if self.translator:
                 print(f"{Fore.CYAN}ℹ️ {self.translator.get('email.visiting_site')}{Style.RESET_ALL}")
             else:
                 print(f"{Fore.CYAN}ℹ️ 正在访问 smailpro.com...{Style.RESET_ALL}")
             
-            # 加载被屏蔽域名列表
+            # load blocked domains list
             self.blocked_domains = self.get_blocked_domains()
             
-            # 访问网站
+            # visit website
             self.page.get("https://smailpro.com/")
             time.sleep(2)
             
-            # 点击创建邮箱按钮
+            # click create email button
             create_button = self.page.ele('xpath://button[@title="Create temporary email"]')
             if create_button:
                 create_button.click()
                 time.sleep(1)
                 
-                # 点击弹窗中的 Create 按钮
+                # click Create button in popup
                 modal_create_button = self.page.ele('xpath://button[contains(text(), "Create")]')
                 if modal_create_button:
                     modal_create_button.click()
                     time.sleep(2)
                     
-                    # 获取邮箱地址 - 修改选择器
+                    # get email address - modify selector
                     email_div = self.page.ele('xpath://div[@class="text-base sm:text-lg md:text-xl text-gray-700"]')
                     if email_div:
                         email = email_div.text.strip()
-                        if '@' in email:  # 验证是否是有效的邮箱地址
-                            # 检查域名是否被屏蔽
+                        if '@' in email:  # check if it's a valid email address
+                            # check if domain is blocked
                             domain = email.split('@')[1]
                             if self.blocked_domains and domain in self.blocked_domains:
                                 if self.translator:
                                     print(f"{Fore.YELLOW}⚠️ {self.translator.get('email.domain_blocked')}: {domain}{Style.RESET_ALL}")
                                 else:
                                     print(f"{Fore.YELLOW}⚠️ 域名已被屏蔽: {domain}，尝试重新创建邮箱{Style.RESET_ALL}")
-                                # 重新创建邮箱
+                                # create email again
                                 return self.create_email()
                             
                             if self.translator:
@@ -191,23 +191,23 @@ class NewTempEmail:
             return None
             
     def close(self):
-        """关闭浏览器"""
+        """close browser"""
         if self.page:
             self.page.quit()
 
     def refresh_inbox(self):
-        """刷新邮箱"""
+        """refresh inbox"""
         try:
             if self.translator:
                 print(f"{Fore.CYAN}🔄 {self.translator.get('email.refreshing')}{Style.RESET_ALL}")
             else:
                 print(f"{Fore.CYAN}🔄 正在刷新邮箱...{Style.RESET_ALL}")
             
-            # 点击刷新按钮
+            # click refresh button
             refresh_button = self.page.ele('xpath://button[@id="refresh"]')
             if refresh_button:
                 refresh_button.click()
-                time.sleep(2)  # 等待刷新完成
+                time.sleep(2)  # wait for refresh to complete
                 if self.translator:
                     print(f"{Fore.GREEN}✅ {self.translator.get('email.refresh_success')}{Style.RESET_ALL}")
                 else:
@@ -230,16 +230,16 @@ class NewTempEmail:
     def check_for_cursor_email(self):
         """检查是否有 Cursor 的验证邮件"""
         try:
-            # 查找验证邮件 - 使用更精确的选择器
+            # find verification email - use more accurate selector
             email_div = self.page.ele('xpath://div[contains(@class, "p-2") and contains(@class, "cursor-pointer") and contains(@class, "bg-white") and contains(@class, "shadow") and .//b[text()="no-reply@cursor.sh"] and .//span[text()="Verify your email address"]]')
             if email_div:
                 if self.translator:
                     print(f"{Fore.GREEN}✅ {self.translator.get('email.verification_found')}{Style.RESET_ALL}")
                 else:
                     print(f"{Fore.GREEN}✅ 找到验证邮件{Style.RESET_ALL}")
-                # 使用 JavaScript 点击元素
+                # use JavaScript to click element
                 self.page.run_js('arguments[0].click()', email_div)
-                time.sleep(2)  # 等待邮件内容加载
+                time.sleep(2)  # wait for email content to load
                 return True
             if self.translator:
                 print(f"{Fore.YELLOW}⚠️ {self.translator.get('email.verification_not_found')}{Style.RESET_ALL}")
@@ -257,7 +257,7 @@ class NewTempEmail:
     def get_verification_code(self):
         """获取验证码"""
         try:
-            # 查找验证码元素
+            # find verification code element
             code_element = self.page.ele('xpath://td//div[contains(@style, "font-size:28px") and contains(@style, "letter-spacing:2px")]')
             if code_element:
                 code = code_element.text.strip()
@@ -291,7 +291,7 @@ def main(translator=None):
             else:
                 print(f"\n{Fore.CYAN}📧 临时邮箱地址: {email}{Style.RESET_ALL}")
             
-            # 测试刷新功能
+            # test refresh function
             while True:
                 if translator:
                     choice = input(f"\n{translator.get('email.refresh_prompt')}: ").lower()

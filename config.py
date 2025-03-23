@@ -64,9 +64,9 @@ def setup_config(translator=None):
             actual_home = f"/home/{sudo_user}" if sudo_user else os.path.expanduser("~")
             
             default_config['LinuxPaths'] = {
-                'storage_path': os.path.abspath(os.path.join(actual_home, ".config/Cursor/User/globalStorage/storage.json")),
-                'sqlite_path': os.path.abspath(os.path.join(actual_home, ".config/Cursor/User/globalStorage/state.vscdb")),
-                'machine_id_path': os.path.expanduser("~/.config/Cursor/machineId"),
+                'storage_path': os.path.abspath(os.path.join(actual_home, ".config/cursor/User/globalStorage/storage.json")),
+                'sqlite_path': os.path.abspath(os.path.join(actual_home, ".config/cursor/User/globalStorage/state.vscdb")),
+                'machine_id_path': os.path.expanduser("~/.config/cursor/machineid"),
                 'cursor_path': get_linux_cursor_path(),
                 'updater_path': os.path.expanduser("~/.config/cursor-updater")
             }

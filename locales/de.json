@@ -18,17 +18,23 @@
         "batch_register": "3 Konten Stapelweise Registrieren",
         "quick_select": "Schnellauswahl Konto",
         "lifetime_access_enabled": "LEBENSLANGER ZUGRIFF AKTIVIERT",
-        "totally_reset": "Cursor Vollständig Zurücksetzen"
+        "totally_reset": "Cursor Vollständig Zurücksetzen",
+        "outdate": "Veraltet",
+        "temp_github_register": "Temporäre GitHub-Registrierung",
+        "admin_required": "Ausführen als ausführbare Datei, Administratorrechte erforderlich.",
+        "admin_required_continue": "Mit der aktuellen Version fortfahren...",
+        "coming_soon": "Bald verfügbar"
     },
     "languages": {
-        "en": "English",
-        "zh_cn": "简体中文",
-        "zh_tw": "繁體中文",
-        "vi": "Tiếng Việt",
-        "nl": "Nederlands",
+        "en": "Englisch",
+        "zh_cn": "Vereinfachtes Chinesisch",
+        "zh_tw": "Traditionelles Chinesisch",
+        "vi": "Vietnamesisch",
+        "nl": "Niederländisch",
         "de": "Deutsch",
-        "fr": "Français",
-        "pt": "Brazilian Portuguese"
+        "fr": "Französisch",
+        "pt": "Portugiesisch",
+        "ru": "Russisch"
     },
     "quit_cursor": {
         "start": "Beginne Cursor zu Beenden",

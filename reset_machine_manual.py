@@ -96,7 +96,7 @@ def get_cursor_machine_id_path(translator=None) -> str:
         if not config.has_section('LinuxPaths'):
             config.add_section('LinuxPaths')
             config.set('LinuxPaths', 'machine_id_path',
-                os.path.expanduser("~/.config/Cursor/machineId"))
+                os.path.expanduser("~/.config/cursor/machineid"))
         return config.get('LinuxPaths', 'machine_id_path')
         
     elif sys.platform == "darwin":  # macOS
@@ -451,11 +451,11 @@ class MachineIDResetter:
                 
                 config.set('LinuxPaths', 'storage_path', os.path.abspath(os.path.join(
                     actual_home,
-                    ".config/Cursor/User/globalStorage/storage.json"
+                    ".config/cursor/User/globalStorage/storage.json"
                 )))
                 config.set('LinuxPaths', 'sqlite_path', os.path.abspath(os.path.join(
                     actual_home,
-                    ".config/Cursor/User/globalStorage/state.vscdb"
+                    ".config/cursor/User/globalStorage/state.vscdb"
                 )))
                 
             self.db_path = config.get('LinuxPaths', 'storage_path')

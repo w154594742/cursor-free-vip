@@ -17,17 +17,21 @@
         "press_enter": "Nhấn Enter để Thoát",
         "disable_auto_update": "Tắt tự động cập nhật Cursor",
         "lifetime_access_enabled": "ĐÃ BẬT TRUY CẬP TRỌN ĐỜI",
-        "totally_reset": "Đặt lại hoàn toàn Cursor"
+        "totally_reset": "Đặt lại hoàn toàn Cursor",
+        "outdate": "Quá cũ",
+        "temp_github_register": "Đăng ký GitHub tạm thời",
+        "coming_soon": "Sắp ra mắt"
     },
     "languages": {
-        "en": "English",
-        "zh_cn": "简体中文",
-        "zh_tw": "繁體中文",
+        "en": "Tiếng Anh",
+        "zh_cn": "Tiếng Trung Giản Thể",
+        "zh_tw": "Tiếng Trung Phồn Thể",
         "vi": "Tiếng Việt",
-        "nl": "Dutch",
-        "de": "Germa",
-        "fr": "French",
-        "pt": "Brazilian Portuguese"
+        "nl": "Tiếng Hà Lan",
+        "de": "Tiếng Đức",
+        "fr": "Tiếng Pháp",
+        "pt": "Tiếng Bồ Đào Nha",
+        "ru": "Tiếng Nga"
     },
     "quit_cursor": {
         "start": "Bắt Đầu Thoát Cursor",
@@ -95,7 +99,6 @@
         "check_version_failed": "Kiểm Tra Phiên Bản Thất Bại: {error}",
         "stack_trace": "Dấu Vết Ngăn Xếp",
         "version_too_low": "Phiên Bản Cursor Quá Thấp: {version} < 0.45.0"
-        
     },
     "register": {
         "title": "Công Cụ Đăng Ký Cursor",
@@ -288,7 +291,7 @@
         "update_skipped": "Bỏ Qua Cập Nhật.",
         "invalid_choice": "Lựa Chọn Không Hợp Lệ. Vui Lòng Nhập 'Y' Hoặc 'n'.",
         "development_version": "Phiên Bản Phát Triển {current} > {latest}",
-        "changelog_title": "Changelog"
+        "changelog_title": "Nhật ký thay đổi"
     },
     "totally_reset": {
         "title": "Đặt lại hoàn toàn Cursor",

@@ -18,7 +18,13 @@
         "batch_register": "Batch Register 3 Accounts",
         "quick_select": "Quick Select Account",
         "lifetime_access_enabled": "LIFETIME ACCESS ENABLED",
-        "totally_reset": "Totally Reset Cursor"
+        "totally_reset": "Totally Reset Cursor",
+        "outdate": "Outdated",
+        "temp_github_register": "Temporary GitHub Register",
+        "admin_required": "Running as executable, administrator privileges required.",
+        "admin_required_continue": "Continuing without administrator privileges.",
+        "coming_soon": "Coming Soon",
+        "fixed_soon": "Fixed Soon"
     },
     "languages": {
         "en": "English",
@@ -28,7 +34,11 @@
         "nl": "Dutch",
         "de": "German",
         "fr": "French",
-        "pt": "Brazilian Portuguese"
+        "pt": "Brazilian Portuguese",
+        "pt": "Portuguese",
+        "ru": "Russian",
+        "tr": "Turkish",
+        "bg": "Bulgarian"
     },
     "quit_cursor": {
         "start": "Start Quitting Cursor",
@@ -173,7 +183,9 @@
         "password_submitted": "Password Submitted",
         "total_usage": "Total Usage: {usage}",
         "setting_on_password": "Setting Password",
-        "getting_code": "Getting Verification Code, Will Try in 60s"
+        "getting_code": "Getting Verification Code, Will Try in 60s",
+        "human_verify_error": "Can't verify the user is human. Retrying...",
+        "max_retries_reached": "Maximum retry attempts reached. Registration failed."
     },
     "auth": {
         "title": "Cursor Auth Manager",
@@ -280,15 +292,15 @@
     },
     "updater": {
         "checking": "Checking for updates...",
-        "new_version_available": "New version available! (Current version: {current}, Latest version: {latest})",
-        "updating": "Updating to the latest version. Program will restart automatically.",
+        "new_version_available": "New version available! (Current: {current}, Latest: {latest})",
+        "updating": "Updating to the latest version. The program will restart automatically.",
         "up_to_date": "You are using the latest version.",
-        "check_failed": "Update check failed: {error}",
+        "check_failed": "Failed to check for updates: {error}",
         "continue_anyway": "Continuing with current version...",
         "update_confirm": "Do you want to update to the latest version? (Y/n)",
-        "update_skipped": "Update skipped.",
+        "update_skipped": "Skipping update.",
         "invalid_choice": "Invalid choice. Please enter 'Y' or 'n'.",
-        "development_version": "Development version {current} > {latest}",
+        "development_version": "Development Version {current} > {latest}",
         "changelog_title": "Changelog"
     },
     "totally_reset": {
@@ -380,6 +392,54 @@
         "removing_electron_localstorage_files": "Removing Electron localStorage files",
         "electron_localstorage_files_removed": "Electron localStorage files removed",
         "electron_localstorage_files_removal_error": "Error removing Electron localStorage files: {error}",
-        "removing_electron_localstorage_files_completed": "Electron localStorage files removal completed"
+        "removing_electron_localstorage_files_completed": "Electron localStorage files removal completed",
+        "warning_title": "WARNING",
+        "warning_1": "This action will delete all Cursor AI settings,",
+        "warning_2": "configurations, and cached data. This action cannot be undone.",
+        "warning_3": "Your code files will NOT be affected, and the tool is designed",
+        "warning_4": "to only target Cursor AI editor files and trial detection mechanisms.",
+        "warning_5": "Other applications on your system will not be affected.",
+        "warning_6": "You will need to set up Cursor AI again after running this tool.",
+        "warning_7": "Use at your own risk",
+        "removed": "Removed: {path}",
+        "failed_to_reset_machine_guid": "Failed to reset machine GUID",
+        "failed_to_remove": "Failed to remove: {path}",
+        "failed_to_delete_file": "Failed to delete file: {path}",
+        "failed_to_delete_directory": "Failed to delete directory: {path}",
+        "failed_to_delete_file_or_directory": "Failed to delete file or directory: {path}",
+        "deep_scanning": "Performing deep scan for additional trial/license files",
+        "resetting_cursor": "Resetting Cursor AI Editor... Please wait.",
+        "completed_in": "Completed in {time} seconds",
+        "cursor_reset_completed": "Cursor AI Editor has been fully reset and trial detection bypassed!",
+        "cursor_reset_failed": "Cursor AI Editor reset failed: {error}",
+        "cursor_reset_cancelled": "Cursor AI Editor reset cancelled. Exiting without making any changes.",
+        "operation_cancelled": "Operation cancelled. Exiting without making any changes."
+    },
+    "github_register": {
+        "title": "GitHub + Cursor AI Registration Automation",
+        "features_header": "Features",
+        "feature1": "Generates a temporary email using 1secmail.",
+        "feature2": "Registers a new GitHub account with random credentials.",
+        "feature3": "Verifies the GitHub email automatically.",
+        "feature4": "Logs into Cursor AI using GitHub authentication.",
+        "feature5": "Resets the machine ID to bypass trial detection.",
+        "feature6": "Saves all credentials to a file.",
+        "warnings_header": "Warnings",
+        "warning1": "This script automates account creation, which may violate GitHub/Cursor terms of service.",
+        "warning2": "Requires internet access and administrative privileges.",
+        "warning3": "CAPTCHA or additional verification may interrupt automation.",
+        "warning4": "Use responsibly and at your own risk.",
+        "confirm": "Are you sure you want to proceed?",
+        "invalid_choice": "Invalid choice. Please enter 'yes' or 'no'",
+        "cancelled": "Operation cancelled",
+        "program_terminated": "Program terminated by user",
+        "starting_automation": "Starting automation...",
+        "github_username": "GitHub Username",
+        "github_password": "GitHub Password",
+        "email_address": "Email Address",
+        "credentials_saved": "These credentials have been saved to github_cursor_accounts.txt",
+        "completed_successfully": "GitHub + Cursor registration completed successfully!",
+        "registration_encountered_issues": "GitHub + Cursor registration encountered issues.",
+        "check_browser_windows_for_manual_intervention_or_try_again_later": "Check browser windows for manual intervention or try again later."
     }
 }
