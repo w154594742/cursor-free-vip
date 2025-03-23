@@ -15,7 +15,7 @@
         "error_occurred": "发生错误：{error}，请重试",
         "press_enter": "按回车键退出",
         "disable_auto_update": "禁用 Cursor 自动更新",
-        "batch_register": "批量注册3个账号",
+        "batch_register": "批量注册账号",
         "quick_select": "快速选择账号",
         "lifetime_access_enabled": "永久订阅",
         "totally_reset": "完全重置 Cursor",
@@ -304,7 +304,10 @@
         "save_failed": "保存账号信息失败: {error}",
         "completed": "批量注册完成，成功 {success}/{total} 个账号",
         "file_read_error": "读取现有账号文件失败: {error}",
-        "account_stats": "账号统计: 共{total}个账号，已使用{used}个，未使用{unused}个"
+        "account_stats": "账号统计: 共{total}个账号，已使用{used}个，未使用{unused}个",
+        "input_count": "请输入要注册的账号数量",
+        "invalid_count": "无效的数量，请输入大于0的数字",
+        "error": "发生错误"
     },
     "quick_select": {
         "title": "快速选择账号",

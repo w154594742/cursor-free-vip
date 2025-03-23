@@ -165,8 +165,21 @@ class ModifiedCursorRegistration(CursorRegistration):
 
 def run(translator):
     """运行批量注册功能"""
-    batch = BatchRegistration(translator)
-    return batch.start()
+    try:
+        print(f"\n{Fore.CYAN}{EMOJI['BATCH']} {translator.get('batch.input_count', default='请输入要注册的账号数量')}: {Style.RESET_ALL}")
+        count = input().strip()
+        
+        # 验证输入是否为有效数字
+        if not count.isdigit() or int(count) <= 0:
+            print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('batch.invalid_count', default='无效的数量，请输入大于0的数字')}{Style.RESET_ALL}")
+            return False
+            
+        count = int(count)
+        batch = BatchRegistration(translator, count)
+        return batch.start()
+    except Exception as e:
+        print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('batch.error', default='发生错误')}: {str(e)}{Style.RESET_ALL}")
+        return False
 
 
 if __name__ == "__main__":
