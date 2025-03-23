@@ -71,13 +71,9 @@ def run_as_admin():
 class Translator:
     def __init__(self):
         self.translations = {}
-        self.current_language = 'zh_cn'  # 默认设置为中文
-        self.fallback_language = 'en'  # 如果中文翻译缺失则使用英文
+        self.current_language = self.detect_system_language()  # Use correct method name
+        self.fallback_language = 'en'  # Fallback language if translation is missing
         self.load_translations()
-
-        # 加载完翻译后检查是否支持中文，如果不支持则使用系统语言
-        if 'zh_cn' not in self.translations:
-            self.current_language = self.detect_system_language()
 
     def detect_system_language(self):
         """Detect system language and return corresponding language code"""
@@ -261,12 +257,8 @@ def print_menu():
     print(f"{Fore.GREEN}8{Style.RESET_ALL}. {EMOJI['LANG']} {translator.get('menu.select_language')}")
     print(f"{Fore.GREEN}9{Style.RESET_ALL}. {EMOJI['UPDATE']} {translator.get('menu.disable_auto_update')}")
     print(f"{Fore.GREEN}10{Style.RESET_ALL}. {EMOJI['RESET']} {translator.get('menu.totally_reset')}")
-    print(f"{Fore.GREEN}6{Style.RESET_ALL}. {EMOJI['ERROR']} {translator.get('menu.quit')}")
-    print(f"{Fore.GREEN}7{Style.RESET_ALL}. {EMOJI['LANG']} {translator.get('menu.select_language')}")
-    print(f"{Fore.GREEN}8{Style.RESET_ALL}. {EMOJI['UPDATE']} {translator.get('menu.disable_auto_update')}")
-    print(f"{Fore.GREEN}9{Style.RESET_ALL}. {EMOJI['RESET']} {translator.get('menu.totally_reset')}")
-    print(f"{Fore.GREEN}10{Style.RESET_ALL}. {EMOJI['BACKUP']} {translator.get('menu.batch_register', default='批量注册账号')}")
-    print(f"{Fore.GREEN}11{Style.RESET_ALL}. {EMOJI['ARROW']} {translator.get('menu.quick_select', default='快速选择账号')}")
+    print(f"{Fore.GREEN}88{Style.RESET_ALL}. {EMOJI['BACKUP']} {translator.get('menu.batch_register', default='批量注册账号')}")
+    print(f"{Fore.GREEN}99{Style.RESET_ALL}. {EMOJI['ARROW']} {translator.get('menu.quick_select', default='快速选择账号')}")
     print(f"{Fore.YELLOW}{'─' * 40}{Style.RESET_ALL}")
 
 def select_language():
@@ -467,7 +459,7 @@ def main():
     
     while True:
         try:
-            choice = input(f"\n{EMOJI['ARROW']} {Fore.CYAN}{translator.get('menu.input_choice', choices='0-11')}: {Style.RESET_ALL}")
+            choice = input(f"\n{EMOJI['ARROW']} {Fore.CYAN}{translator.get('menu.input_choice', choices='0-10, 88, 99')}: {Style.RESET_ALL}")
 
             if choice == "0":
                 print(f"\n{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.exit')}...{Style.RESET_ALL}")
@@ -514,26 +506,25 @@ def main():
                 print_menu()
             elif choice == "10":
                 import totally_reset_cursor
-                # totally_reset_cursor.main(translator)
                 print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.fixed_soon')}{Style.RESET_ALL}")
                 print_menu()
-            elif choice == "10":
+            elif choice == "88":
                 import batch_register
                 batch_register.run(translator)
                 print_menu()
-            elif choice == "11":
+            elif choice == "99":
                 import quit_cursor
                 quit_cursor.quit_cursor(translator)
                 import quick_select_account
                 quick_select_account.run(translator)
-                input(f"press any key to exit...")
+                input(f"{translator.get('menu.press_any_key')}")
                 return
             else:
                 import quit_cursor
                 quit_cursor.quit_cursor(translator)
                 import quick_select_account
                 quick_select_account.run(translator)
-                input(f"press any key to exit...")
+                input(f"{translator.get('menu.press_any_key')}")
                 return
 
         except KeyboardInterrupt:
