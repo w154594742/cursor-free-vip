@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.8.08
+1. Add: Force Update Config | 添加強制更新配置
+2. Add: Multilanguage support for force update | 添加強制更新功能的多語言支持
+3. Fix: Google Auth & Github Auth JWT Problem | 修復 Google Auth & Github Auth JWT 問題
+4. Fix: Totally reset import & import * raw options problem | 修復 totally reset import & import * raw 選項問題
+5. Fix: reset.file_not_found problem | 修復 reset.file_not_found 問題
+6. Outdated: Bypass Cursor Version Check | 過期：繞過 Cursor 版本檢查
+7. Document: i.header.set("x-cursor-config-version", "UUID4-xxxxxx-xxxxxx-xxxxxx-xxxxxx"); | 文檔：i.header.set("x-cursor-config-version", "UUID4-xxxxxx-xxxxxx-xxxxxx-xxxxxx");
+8. Fix: Some Issues | 修復一些問題
+
 ## v1.8.07
 1. Add: Bypass Cursor Version Check | 添加繞過 Cursor 版本檢查
 2. Add: Multilanguage support for bypass | 添加繞過的多語言支持

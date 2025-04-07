@@ -117,7 +117,8 @@
         "modify_file_failed": "修改文件失敗: {error}",
         "windows_machine_id_updated": "Windows機器ID更新成功",
         "update_windows_machine_id_failed": "更新Windows機器ID失敗: {error}",
-        "update_windows_machine_guid_failed": "更新Windows機器GUID失敗: {error}"
+        "update_windows_machine_guid_failed": "更新Windows機器GUID失敗: {error}",
+        "file_not_found": "文件未找到: {path}"
     },
 
     "register": {
@@ -515,7 +516,11 @@
         "config_setup_error": "配置設置錯誤",
         "storage_file_is_valid_and_contains_data": "儲存文件有效且包含數據",
         "error_reading_storage_file": "讀取儲存文件時出錯",
-        "also_checked": "也檢查了 {path}"
+        "also_checked": "也檢查了 {path}",
+        "backup_created": "備份已創建: {path}",
+        "config_removed": "配置文件已刪除用於強制更新",
+        "backup_failed": "備份失敗: {error}",
+        "force_update_failed": "強制更新配置失敗: {error}"
     },
     "oauth": {
         "authentication_button_not_found": "未找到認證按鈕",

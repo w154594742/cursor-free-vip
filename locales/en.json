@@ -117,7 +117,8 @@
         "modify_file_failed": "Modify File Failed: {error}",
         "windows_machine_id_updated": "Windows Machine ID Updated Successfully",
         "update_windows_machine_id_failed": "Update Windows Machine ID Failed: {error}",
-        "update_windows_machine_guid_failed": "Update Windows Machine GUID Failed: {error}"
+        "update_windows_machine_guid_failed": "Update Windows Machine GUID Failed: {error}",
+        "file_not_found": "File Not Found: {path}"
     },
     "register": {
         "title": "Cursor Registration Tool",
@@ -555,7 +556,11 @@
         "config_setup_error": "Error setting up config: {error}",
         "storage_file_is_valid_and_contains_data": "Storage file is valid and contains data",
         "error_reading_storage_file": "Error reading storage file: {error}",
-        "also_checked": "Also checked {path}"
+        "also_checked": "Also checked {path}",
+        "backup_created": "Backup created: {path}",
+        "config_removed": "Config file removed for forced update",
+        "backup_failed": "Failed to backup config: {error}",
+        "force_update_failed": "Force update config failed: {error}"
     },
     "oauth": {
         "authentication_button_not_found": "Authentication button not found",

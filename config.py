@@ -3,6 +3,8 @@ import sys
 import configparser
 from colorama import Fore, Style
 from utils import get_user_documents_path, get_default_chrome_path, get_linux_cursor_path
+import shutil
+import datetime
 
 EMOJI = {
     "INFO": "ℹ️",
@@ -256,6 +258,43 @@ def print_config(config, translator=None):
     print(f"{Fore.CYAN}{EMOJI['INFO']} {translator.get('config.config_directory') if translator else 'Config Directory'}: {config_dir}{Style.RESET_ALL}")
 
     print()  
+
+def force_update_config(translator=None):
+    """
+    Force update configuration file with latest defaults
+    Args:
+        translator: Translator instance
+    Returns:
+        ConfigParser instance or None if failed
+    """
+    try:
+        config_dir = os.path.join(get_user_documents_path(), ".cursor-free-vip")
+        config_file = os.path.join(config_dir, "config.ini")
+        current_time = datetime.datetime.now()
+        
+        if os.path.exists(config_file):
+            try:
+                # create backup
+                backup_file = f"{config_file}.bak.{current_time.strftime('%Y%m%d_%H%M%S')}"
+                shutil.copy2(config_file, backup_file)
+                if translator:
+                    print(f"{Fore.CYAN}{EMOJI['INFO']} {translator.get('config.backup_created', path=backup_file) if translator else f'Backup created: {backup_file}'}{Style.RESET_ALL}")
+                
+                # delete original file
+                os.remove(config_file)
+                if translator:
+                    print(f"{Fore.CYAN}{EMOJI['INFO']} {translator.get('config.config_removed') if translator else 'Config file removed for forced update'}{Style.RESET_ALL}")
+            except Exception as e:
+                if translator:
+                    print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('config.backup_failed', error=str(e)) if translator else f'Failed to backup config: {str(e)}'}{Style.RESET_ALL}")
+        
+        # use existing setup_config function to create new config
+        return setup_config(translator)
+    
+    except Exception as e:
+        if translator:
+            print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('config.force_update_failed', error=str(e)) if translator else f'Force update config failed: {str(e)}'}{Style.RESET_ALL}")
+        return None
 
 def get_config(translator=None):
     """Get existing config or create new one"""

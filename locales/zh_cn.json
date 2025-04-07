@@ -117,7 +117,8 @@
         "modify_file_failed": "修改文件失败: {error}",
         "windows_machine_id_updated": "Windows机器ID更新成功",
         "update_windows_machine_id_failed": "更新Windows机器ID失败: {error}",
-        "update_windows_machine_guid_failed": "更新Windows机器GUID失败: {error}"
+        "update_windows_machine_guid_failed": "更新Windows机器GUID失败: {error}",
+        "file_not_found": "文件未找到: {path}"
     },
     "register": {
         "title": "Cursor 注册工具",
@@ -533,7 +534,11 @@
         "config_setup_error": "配置设置错误",
         "storage_file_is_valid_and_contains_data": "存储文件有效且包含数据",
         "error_reading_storage_file": "读取存储文件时出错",
-        "also_checked": "也检查了 {path}"
+        "also_checked": "也检查了 {path}",
+        "backup_created": "备份创建: {path}",
+        "config_removed": "配置文件已删除用于强制更新",
+        "backup_failed": "备份失败: {error}",
+        "force_update_failed": "强制更新配置失败: {error}"
     },
     "oauth": {
         "authentication_button_not_found": "未找到认证按钮",
