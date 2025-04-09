@@ -560,7 +560,9 @@
         "backup_created": "Backup created: {path}",
         "config_removed": "Config file removed for forced update",
         "backup_failed": "Failed to backup config: {error}",
-        "force_update_failed": "Force update config failed: {error}"
+        "force_update_failed": "Force update config failed: {error}",
+        "config_force_update_disabled": "Config file force update disabled , skipping forced update",
+        "config_force_update_enabled": "Config file force update enabled , performing forced update"
     },
     "oauth": {
         "authentication_button_not_found": "Authentication button not found",

@@ -520,7 +520,9 @@
         "backup_created": "備份已創建: {path}",
         "config_removed": "配置文件已刪除用於強制更新",
         "backup_failed": "備份失敗: {error}",
-        "force_update_failed": "強制更新配置失敗: {error}"
+        "force_update_failed": "強制更新配置失敗: {error}",
+        "config_force_update_disabled": "配置文件強制更新已禁用，跳過強制更新",
+        "config_force_update_enabled": "配置文件強制更新已啟用，正在執行強制更新"
     },
     "oauth": {
         "authentication_button_not_found": "未找到認證按鈕",

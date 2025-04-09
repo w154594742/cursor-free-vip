@@ -1,5 +1,13 @@
 # Change Log
 
+## v1.8.09
+1. Add: Bypass Token Limit Check | 繞過 Token 使用限制檢查
+2. Add：Bypass Claude Limit 30000 set to 900000(9e5) | 繞過 Claude 使用限制 30000 設置為 900000(9e5)
+3. Add: Force Update Config | 添加強制更新配置
+4. Add: Multilanguage support for force update | 添加強制更新功能的多語言支持
+5. Fix: Reset break | 修復重置中斷
+4. Fix: Some Issues | 修復一些問題
+
 ## v1.8.08
 1. Add: Force Update Config | 添加強制更新配置
 2. Add: Multilanguage support for force update | 添加強制更新功能的多語言支持
