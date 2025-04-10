@@ -30,7 +30,8 @@
         "continue_prompt": "Continue? (y/N): ",
         "operation_cancelled_by_user": "Operation cancelled by user",
         "exiting": "Exiting ……",
-        "bypass_version_check": "Bypass Cursor Version Check"
+        "bypass_version_check": "Bypass Cursor Version Check",
+        "check_user_authorized": "Check User Authorized"
     },
     "languages": {
         "en": "English",
@@ -698,5 +699,33 @@
         "title": "Cursor Version Bypass Tool",
         "description": "This tool modifies Cursor's product.json to bypass version restrictions",
         "menu_option": "Bypass Cursor Version Check"
+    },
+    "auth_check": {
+        "checking_authorization": "Checking authorization...",
+        "token_source": "Get token from database or input manually? (d/m, default: d)",
+        "getting_token_from_db": "Getting token from database...",
+        "token_found_in_db": "Token found in database",
+        "token_not_found_in_db": "Token not found in database",
+        "cursor_acc_info_not_found": "cursor_acc_info.py not found",
+        "error_getting_token_from_db": "Error getting token from database: {error}",
+        "enter_token": "Enter your Cursor token: ",
+        "token_length": "Token length: {length} characters",
+        "usage_response_status": "Usage response status: {response}",
+        "unexpected_status_code": "Unexpected status code: {code}",
+        "jwt_token_warning": "Token appears to be in JWT format, but API check returned an unexpected status code. The token might be valid but API access is restricted.",
+        "invalid_token": "Invalid token",
+        "user_authorized": "User is authorized",
+        "user_unauthorized": "User is unauthorized",
+        "request_timeout": "Request timed out",
+        "connection_error": "Connection error",
+        "check_error": "Error checking authorization: {error}",
+        "authorization_successful": "Authorization successful!",
+        "authorization_failed": "Authorization failed!",
+        "operation_cancelled": "Operation cancelled by user",
+        "unexpected_error": "Unexpected error: {error}",
+        "error_generating_checksum": "Error generating checksum: {error}",
+        "checking_usage_information": "Checking usage information...",
+        "check_usage_response": "Check usage response: {response}",
+        "usage_response": "Usage response: {response}"
     }
 }   

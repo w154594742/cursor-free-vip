@@ -30,7 +30,8 @@
         "continue_prompt": "繼續？(y/N): ",
         "operation_cancelled_by_user": "操作被使用者取消",
         "exiting": "退出中 ……",
-        "bypass_version_check": "繞過 Cursor 版本檢查"
+        "bypass_version_check": "繞過 Cursor 版本檢查",
+        "check_user_authorized": "檢查用戶授權"
     },
     "languages": {
         "en": "英文",
@@ -658,5 +659,33 @@
         "title": "Cursor 版本繞過工具",
         "description": "此工具修改 Cursor 的 product.json 以繞過版本限制",
         "menu_option": "繞過 Cursor 版本檢查"
+    },
+    "auth_check": {
+        "checking_authorization": "檢查授權...",
+        "token_source": "從資料庫獲取 token 或手動輸入？（d/m, 預設: d）",
+        "getting_token_from_db": "從資料庫獲取 token...",
+        "token_found_in_db": "在資料庫中找到 token",
+        "token_not_found_in_db": "在資料庫中未找到 token",
+        "cursor_acc_info_not_found": "cursor_acc_info.py 未找到",
+        "usage_response_status": "使用情況響應狀態: {response}",
+        "unexpected_status_code": "意外狀態碼: {code}",
+        "jwt_token_warning": "token 似乎是 JWT 格式，但 API 檢查返回意外狀態碼。token 可能有效但 API 訪問受限。",
+        "error_getting_token_from_db": "從資料庫獲取 token 時出錯: {error}",
+        "enter_token": "請輸入您的 Cursor token: ",
+        "token_length": "token 長度: {length}",
+        "invalid_token": "無效的 token",
+        "user_authorized": "用戶已授權",
+        "user_unauthorized": "用戶未授權",
+        "request_timeout": "請求超時",
+        "connection_error": "連接錯誤",
+        "check_error": "檢查授權時出錯: {error}",
+        "authorization_successful": "授權成功",
+        "authorization_failed": "授權失敗",
+        "operation_cancelled": "操作已取消",
+        "unexpected_error": "意外錯誤: {error}",
+        "error_generating_checksum": "生成校驗和時出錯: {error}",
+        "checking_usage_information": "檢查使用情況...",
+        "check_usage_response": "檢查使用情況響應: {response}",
+        "usage_response": "使用情況響應: {response}"
     }
 } 

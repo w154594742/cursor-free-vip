@@ -1,5 +1,13 @@
 # Change Log
 
+## v1.8.10
+1. Add: Check User Authorized | 添加檢查用戶授權
+2. Fix: Linux Reset Process Error: 'base' | 修復 Linux 重置過程錯誤：'base'
+3. Updated the get_workbench_cursor_path function to handle Linux systems more effectively. | 更新 get_workbench_cursor_path 函數以更有效地處理 Linux 系統
+4. Added logic to use the first base path if no valid paths are found in the existing loop. | 添加邏輯以在找不到有效路徑時使用第一個基礎路徑
+5. Improved maintainability and clarity of the code by explicitly handling different operating systems. | 通過明確處理不同的操作系統，顯著提高了代碼的可維護性和清晰性
+6. Fix: Some Issues | 修復一些問題
+
 ## v1.8.09
 1. Add: Bypass Token Limit Check | 繞過 Token 使用限制檢查
 2. Add：Bypass Claude Limit 30000 set to 900000(9e5) | 繞過 Claude 使用限制 30000 設置為 900000(9e5)

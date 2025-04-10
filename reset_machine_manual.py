@@ -221,8 +221,12 @@ def get_workbench_cursor_path(translator=None) -> str:
 
     if system == "Windows":
         base_path = config.get('WindowsPaths', 'cursor_path')
-    else:
+    elif system == "Darwin":
         base_path = paths_map[system]["base"]
+    else:  # Linux
+        # For Linux, we've already checked all bases in the loop above
+        # If we're here, it means none of the bases worked, so we'll use the first one
+        base_path = paths_map[system]["bases"][0]
 
     main_path = os.path.join(base_path, paths_map[system]["main"])
     

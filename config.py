@@ -54,7 +54,7 @@ def setup_config(translator=None):
             },
             'Utils': {
                 'enabled_update_check': 'True',
-                'enabled_force_update': 'True',
+                'enabled_force_update': 'False',
                 'enabled_account_info': 'True'
             }
         }
