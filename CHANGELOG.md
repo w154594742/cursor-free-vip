@@ -1,5 +1,14 @@
 # Change Log
 
+## v1.9.01
+1. Add: Bypass Token Limit | 添加繞過 Token 限制
+2. Add: More Browser Support | 添加更多瀏覽器支持
+3. Support: Add Opera, Brave, Edge, Firefox | 添加支持 Opera, Brave, Edge, Firefox
+4. Add config manual browser path | 添加配置手動選擇遊覽器路徑
+5. Fix: Browser Profile Selection | 修復瀏覽器配置文件選擇
+6. Fix: Some Issues | 修復一些問題
+
+
 ## v1.8.10
 1. Add: Check User Authorized | 添加檢查用戶授權
 2. Fix: Linux Reset Process Error: 'base' | 修復 Linux 重置過程錯誤：'base'
@@ -271,7 +280,7 @@ These changes make the application more user-friendly by only requesting admin p
 1. Fix: Cursor Auth | 修復 Cursor Auth
 2. Add: Create Account Maximum Retry | 增加創建賬號最大重試次數
 3. Fix: Cursor Auth Error | 修復 Cursor Auth 錯誤
-4. Fix: Update Curl Faild | 修復更新 Curl 失敗
+4. Fix: Update Curl Failed | 修復更新 Curl 失敗
 
 ## v1.5.03
 1. HOTFIX: Stuck on starting browser | 修復啟動瀏覽器卡住問題

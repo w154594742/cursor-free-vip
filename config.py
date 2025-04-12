@@ -2,7 +2,7 @@ import os
 import sys
 import configparser
 from colorama import Fore, Style
-from utils import get_user_documents_path, get_default_chrome_path, get_linux_cursor_path
+from utils import get_user_documents_path, get_linux_cursor_path, get_default_driver_path, get_default_browser_path
 import shutil
 import datetime
 
@@ -29,8 +29,21 @@ def setup_config(translator=None):
         
         # Default configuration
         default_config = {
+            'Browser': {
+                'default_browser': 'chrome',
+                'chrome_path': get_default_browser_path('chrome'),
+                'edge_path': get_default_browser_path('edge'),
+                'firefox_path': get_default_browser_path('firefox'),
+                'brave_path': get_default_browser_path('brave'),
+                'chrome_driver_path': get_default_driver_path('chrome'),
+                'edge_driver_path': get_default_driver_path('edge'),
+                'firefox_driver_path': get_default_driver_path('firefox'),
+                'brave_driver_path': get_default_driver_path('brave'),
+                'opera_path': get_default_browser_path('opera'),
+                'opera_driver_path': get_default_driver_path('opera')
+            },
             'Chrome': {
-                'chromepath': get_default_chrome_path()
+                'chromepath': get_default_browser_path('chrome')
             },
             'Turnstile': {
                 'handle_turnstile_time': '2',
@@ -56,6 +69,11 @@ def setup_config(translator=None):
                 'enabled_update_check': 'True',
                 'enabled_force_update': 'False',
                 'enabled_account_info': 'True'
+            },
+            'OAuth': {
+                'show_selection_alert': False,  # 默认不显示选择提示弹窗
+                'timeout': 120,
+                'max_attempts': 3
             }
         }
 

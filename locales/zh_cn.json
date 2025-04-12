@@ -31,7 +31,8 @@
         "operation_cancelled_by_user": "操作被用户取消",
         "exiting": "退出中 ……",
         "bypass_version_check": "绕过 Cursor 版本检查",
-        "check_user_authorized": "检查用户授权"
+        "check_user_authorized": "检查用户授权",
+        "bypass_token_limit": "绕过 Token 限制"
     },
     "languages": {
         "en": "英语",
@@ -196,7 +197,15 @@
         "password_submitted": "密码已提交",
         "total_usage": "总使用量: {usage}",
         "setting_on_password": "设置密码",
-        "getting_code": "获取验证码，将在60秒内尝试..."
+        "getting_code": "获取验证码，将在60秒内尝试...",
+        "browser_path_invalid": "{browser} 路径无效，使用默认路径",
+        "using_browser": "正在使用 {browser} 浏览器: {path}",
+        "using_browser_profile": "使用 {browser} 配置文件: {user_data_dir}",
+        "make_sure_browser_is_properly_installed": "确保 {browser} 已正确安装",
+        "try_install_browser": "尝试使用包管理器安装浏览器",
+        "tracking_processes": "正在跟踪 {count} 个 {browser} 进程",
+        "no_new_processes_detected": "未检测到新的 {browser} 进程",
+        "could_not_track_processes": "无法跟踪 {browser} 进程: {error}"
     },
     "auth": {
         "title": "Cursor 认证管理器",
@@ -600,19 +609,27 @@
         "warning_could_not_kill_existing_browser_processes": "警告: 无法杀死现有浏览器进程: {error}",
         "browser_failed_to_start": "浏览器启动失败: {error}",
         "browser_failed": "浏览器启动失败: {error}",
-        "browser_failed_to_start_fallback": "浏览器启动失败: {error}"
+        "browser_failed_to_start_fallback": "浏览器启动失败: {error}",
+        "user_data_dir_not_found": "{browser} 用户数据目录未找到：{path}，将尝试使用 Chrome",
+        "error_getting_user_data_directory": "获取用户数据目录出错：{error}",
+        "warning_browser_close": "警告：这将关闭所有正在运行的 {browser} 进程",
+        "killing_browser_processes": "正在关闭 {browser} 进程...",
+        "profile_selection_error": "配置文件选择过程中出错: {error}",
+        "using_configured_browser_path": "使用配置的 {browser} 路径: {path}",
+        "browser_not_found_trying_chrome": "未找到 {browser}，尝试使用 Chrome 代替",
+        "found_chrome_at": "找到 Chrome: {path}",
+        "found_browser_user_data_dir": "找到 {browser} 用户数据目录: {path}"
     },
-    "chrome_profile": {
-        "title": "Chrome配置文件选择",
-        "select_profile": "选择要使用的Chrome配置文件：",
-        "profile_list": "可用配置文件：",
+    "browser_profile": {
+        "title": "浏览器配置文件选择",
+        "select_profile": "选择要使用的{browser}配置文件：",
+        "profile_list": "可用{browser}配置文件：",
         "default_profile": "默认配置文件",
         "profile": "配置文件 {number}",
-        "no_profiles": "未找到Chrome配置文件",
-        "error_loading": "加载Chrome配置文件时出错：{error}",
+        "no_profiles": "未找到{browser}配置文件",
+        "error_loading": "加载{browser}配置文件时出错：{error}",
         "profile_selected": "已选择配置文件：{profile}",
-        "invalid_selection": "选择无效。请重试",
-        "warning_chrome_close": "警告：这将关闭所有正在运行的Chrome进程"
+        "invalid_selection": "选择无效。请重试"
     },
     "account_delete": {
         "title": "Cursor Google 账号删除工具",
@@ -677,7 +694,7 @@
         "title": "Cursor 版本绕过工具",
         "description": "此工具修改 Cursor 的 product.json 以绕过版本限制",
         "menu_option": "绕过 Cursor 版本检查"
-        },
+    },
     "auth_check": {
         "checking_authorization": "检查授权...",
         "token_source": "从数据库获取 token 或手动输入？（d/m, 默认: d）",
@@ -705,5 +722,10 @@
         "checking_usage_information": "检查使用情况...",
         "check_usage_response": "检查使用情况响应: {response}",
         "usage_response": "使用情况响应: {response}"
+    },
+    "bypass_token_limit": {
+        "title": "绕过 Token 限制工具",
+        "description": "此工具修改 workbench.desktop.main.js 文件以绕过 token 限制",
+        "press_enter": "按回车键继续..."
     }
 } 
