@@ -18,13 +18,41 @@ EMOJI = {
     "SETTINGS": "⚙️"
 }
 
+# global config cache
+_config_cache = None
+
 def setup_config(translator=None):
     """Setup configuration file and return config object"""
     try:
-        config_dir = os.path.join(get_user_documents_path(), ".cursor-free-vip")
-        config_file = os.path.join(config_dir, "config.ini")
-        os.makedirs(config_dir, exist_ok=True)
+        # get documents path
+        docs_path = get_user_documents_path()
+        if not docs_path or not os.path.exists(docs_path):
+            # if documents path not found, use current directory
+            print(f"{Fore.YELLOW}{EMOJI['WARNING']} {translator.get('config.documents_path_not_found', fallback='Documents path not found, using current directory') if translator else 'Documents path not found, using current directory'}{Style.RESET_ALL}")
+            docs_path = os.path.abspath('.')
         
+        # normalize path
+        config_dir = os.path.normpath(os.path.join(docs_path, ".cursor-free-vip"))
+        config_file = os.path.normpath(os.path.join(config_dir, "config.ini"))
+        
+        # create config directory, only print message when directory not exists
+        dir_exists = os.path.exists(config_dir)
+        try:
+            os.makedirs(config_dir, exist_ok=True)
+            if not dir_exists:  # only print message when directory not exists
+                print(f"{Fore.CYAN}{EMOJI['INFO']} {translator.get('config.config_dir_created', path=config_dir) if translator else f'Config directory created: {config_dir}'}{Style.RESET_ALL}")
+        except Exception as e:
+            # if cannot create directory, use temporary directory
+            import tempfile
+            temp_dir = os.path.normpath(os.path.join(tempfile.gettempdir(), ".cursor-free-vip"))
+            temp_exists = os.path.exists(temp_dir)
+            config_dir = temp_dir
+            config_file = os.path.normpath(os.path.join(config_dir, "config.ini"))
+            os.makedirs(config_dir, exist_ok=True)
+            if not temp_exists:  # only print message when temporary directory not exists
+                print(f"{Fore.YELLOW}{EMOJI['WARNING']} {translator.get('config.using_temp_dir', path=config_dir, error=str(e)) if translator else f'Using temporary directory due to error: {config_dir} (Error: {str(e)})'}{Style.RESET_ALL}")
+        
+        # create config object
         config = configparser.ConfigParser()
         
         # Default configuration
@@ -74,6 +102,10 @@ def setup_config(translator=None):
                 'show_selection_alert': False,  # 默认不显示选择提示弹窗
                 'timeout': 120,
                 'max_attempts': 3
+            },
+            'Token': {
+                'refresh_server': 'https://token.cursorpro.com.cn',
+                'enable_refresh': True
             }
         }
 
@@ -330,4 +362,7 @@ def force_update_config(translator=None):
 
 def get_config(translator=None):
     """Get existing config or create new one"""
-    return setup_config(translator) 
+    global _config_cache
+    if _config_cache is None:
+        _config_cache = setup_config(translator)
+    return _config_cache 

@@ -10,6 +10,7 @@ from cursor_auth import CursorAuth
 from utils import get_random_wait_time, get_default_browser_path
 from config import get_config
 import platform
+from get_user_token import get_token_from_cookie
 
 # Initialize colorama
 init()
@@ -587,13 +588,7 @@ class OAuthHandler:
                     for cookie in cookies:
                         if cookie.get("name") == "WorkosCursorSessionToken":
                             value = cookie.get("value", "")
-                            token = None
-                            
-                            if "::" in value:
-                                token = value.split("::")[-1]
-                            elif "%3A%3A" in value:
-                                token = value.split("%3A%3A")[-1]
-                            
+                            token = get_token_from_cookie(value, self.translator)
                             if token:
                                 # Get email from settings page
                                 print(f"{Fore.CYAN}{EMOJI['INFO']} {self.translator.get('oauth.authentication_successful_getting_account_info') if self.translator else 'Authentication successful, getting account info...'}{Style.RESET_ALL}")
@@ -798,11 +793,7 @@ class OAuthHandler:
                         for cookie in cookies:
                             if cookie.get("name") == "WorkosCursorSessionToken":
                                 value = cookie.get("value", "")
-                                if "::" in value:
-                                    token = value.split("::")[-1]
-                                elif "%3A%3A" in value:
-                                    token = value.split("%3A%3A")[-1]
-                                
+                                token = get_token_from_cookie(value, self.translator)
                                 if token:
                                     print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('oauth.authentication_successful') if self.translator else 'Authentication successful!'}{Style.RESET_ALL}")
                                     # Navigate to settings page
@@ -865,10 +856,7 @@ class OAuthHandler:
                             for cookie in cookies:
                                 if cookie.get("name") == "WorkosCursorSessionToken":
                                     value = cookie.get("value", "")
-                                    if "::" in value:
-                                        token = value.split("::")[-1]
-                                    elif "%3A%3A" in value:
-                                        token = value.split("%3A%3A")[-1]
+                                    token = get_token_from_cookie(value, self.translator)
                                     if token:
                                         # Get email and check usage here too
                                         try:
@@ -965,10 +953,7 @@ class OAuthHandler:
                 if name == "WorkosCursorSessionToken":
                     try:
                         value = cookie.get("value", "")
-                        if "::" in value:
-                            token = value.split("::")[-1]
-                        elif "%3A%3A" in value:
-                            token = value.split("%3A%3A")[-1]
+                        token = get_token_from_cookie(value, self.translator)
                     except Exception as e:
                         print(f"{Fore.YELLOW}{EMOJI['INFO']} {self.translator.get('oauth.token_extraction_error', error=str(e)) if self.translator else f'Token extraction error: {str(e)}'}{Style.RESET_ALL}")
                 elif name == "cursor_email":

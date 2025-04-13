@@ -572,7 +572,10 @@
         "backup_failed": "Failed to backup config: {error}",
         "force_update_failed": "Force update config failed: {error}",
         "config_force_update_disabled": "Config file force update disabled , skipping forced update",
-        "config_force_update_enabled": "Config file force update enabled , performing forced update"
+        "config_force_update_enabled": "Config file force update enabled , performing forced update",
+        "documents_path_not_found": "Documents path not found, using current directory",
+        "config_dir_created": "Config directory created: {path}",
+        "using_temp_dir": "Using temporary directory due to error: {path} (Error: {error})"
     },
     "oauth": {
         "authentication_button_not_found": "Authentication button not found",
@@ -749,5 +752,17 @@
         "title": "Bypass Token Limit Tool",
         "description": "This tool modifies the workbench.desktop.main.js file to bypass the token limit",
         "press_enter": "Press Enter to continue..."
+    },
+    "token": {
+        "refreshing": "Refreshing token...",
+        "refresh_success": "Token refreshed successfully! Valid for {days} days (expires: {expire})",
+        "no_access_token": "No access token in response",
+        "refresh_failed": "Token refresh failed: {error}",
+        "invalid_response": "Invalid JSON response from refresh server",
+        "server_error": "Refresh server error: HTTP {status}",
+        "request_timeout": "Request to refresh server timed out",
+        "connection_error": "Connection error to refresh server",
+        "unexpected_error": "Unexpected error during token refresh: {error}",
+        "extraction_error": "Error extracting token: {error}"
     }
 }   

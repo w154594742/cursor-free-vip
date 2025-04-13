@@ -1,5 +1,23 @@
 # Change Log
 
+## v1.9.03
+1. Hotfix: Some Issues | 修復一些問題
+2. Add: Bypass Cursor JWT EXP Problem | 添加繞過 Cursor JWT EXP 問題
+3. Fix: Cursor editor redirects to logout page and logout automatically | 修復 Cursor 編輯器重定向到登出頁面並自動登出
+4. Fix: Some Issues | 修復一些問題
+
+## v1.9.02
+1. Add: Bypass Token Limit | 添加繞過 Token 限制
+2. Add: More Browser Support | 添加更多瀏覽器支持
+3. Add: Bypass Cursor JWT EXP Problem | 添加繞過 Cursor JWT EXP 問題
+4. Support: Add Opera, Brave, Edge, Firefox | 添加支持 Opera, Brave, Edge, Firefox
+5. Add config manual browser path | 添加配置手動選擇遊覽器路徑
+5. Fix: Browser Profile Selection | 修復瀏覽器配置文件選擇
+6. Fix: Cursor editor redirects to logout page and logout automatically | 修復 Cursor 編輯器重定向到登出頁面並自動登出
+7. Fix: Config File Path | 修復配置文件路徑
+8. Fix: window user permission | 修復 window 用戶權限
+9. Fix: Some Issues | 修復一些問題
+
 ## v1.9.01
 1. Add: Bypass Token Limit | 添加繞過 Token 限制
 2. Add: More Browser Support | 添加更多瀏覽器支持

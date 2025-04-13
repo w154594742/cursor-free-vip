@@ -4,6 +4,7 @@ import time
 import random
 from cursor_auth import CursorAuth
 from reset_machine_manual import MachineIDResetter
+from get_user_token import get_token_from_cookie
 
 os.environ["PYTHONVERBOSE"] = "0"
 os.environ["PYINSTALLER_VERBOSE"] = "0"
@@ -168,7 +169,7 @@ class CursorRegistration:
                     cookies = self.signup_tab.cookies()
                     for cookie in cookies:
                         if cookie.get("name") == "WorkosCursorSessionToken":
-                            token = cookie["value"].split("%3A%3A")[1]
+                            token = get_token_from_cookie(cookie["value"], self.translator)
                             print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('register.token_success')}{Style.RESET_ALL}")
                             self._save_account_info(token, total_usage)
                             return True

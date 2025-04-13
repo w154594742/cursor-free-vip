@@ -550,7 +550,10 @@
         "backup_failed": "备份失败: {error}",
         "force_update_failed": "强制更新配置失败: {error}",
         "config_force_update_disabled": "配置文件强制更新已禁用，跳过强制更新",
-        "config_force_update_enabled": "配置文件强制更新已启用，正在执行强制更新"
+        "config_force_update_enabled": "配置文件强制更新已启用，正在执行强制更新",
+        "documents_path_not_found": "找不到文档路径，使用当前目录",
+        "config_dir_created": "已创建配置目录: {path}",
+        "using_temp_dir": "由于错误使用临时目录: {path} (错误: {error})"
     },
     "oauth": {
         "authentication_button_not_found": "未找到认证按钮",
@@ -727,5 +730,17 @@
         "title": "绕过 Token 限制工具",
         "description": "此工具修改 workbench.desktop.main.js 文件以绕过 token 限制",
         "press_enter": "按回车键继续..."
+    },
+    "token": {
+        "refreshing": "正在刷新令牌...",
+        "refresh_success": "令牌刷新成功！有效期 {days} 天（到期时间: {expire}）",
+        "no_access_token": "响应中没有访问令牌",
+        "refresh_failed": "令牌刷新失败: {error}",
+        "invalid_response": "刷新服务器返回无效的 JSON 响应",
+        "server_error": "刷新服务器错误: HTTP {status}",
+        "request_timeout": "刷新服务器请求超时",
+        "connection_error": "连接刷新服务器错误",
+        "unexpected_error": "令牌刷新过程中出现意外错误: {error}",
+        "extraction_error": "提取令牌时出错: {error}"
     }
 } 
