@@ -22,7 +22,15 @@
         "admin_required": "Ejecutando como ejecutable, se requieren privilegios de administrador.",
         "admin_required_continue": "Continuando sin privilegios de administrador.",
         "coming_soon": "Próximamente",
-        "fixed_soon": "Arreglado Pronto"
+        "fixed_soon": "Arreglado Pronto",
+        "contribute": "Contribuir al Proyecto",
+        "config": "Mostrar Configuración",
+        "delete_google_account": "Eliminar Cuenta Google de Cursor",
+        "continue_prompt": "¿Continuar? (y/N): ",
+        "operation_cancelled_by_user": "Operación cancelada por el usuario",
+        "exiting": "Saliendo ……",
+        "bypass_version_check": "Omitir Verificación de Versión de Cursor",
+        "check_user_authorized": "Verificar Usuario Autorizado"
     },
     "languages": {
         "en": "Inglés",
@@ -103,8 +111,14 @@
         "package_not_found": "Package.json No Encontrado: {path}",
         "check_version_failed": "Falló la Verificación de Versión: {error}",
         "stack_trace": "Traza de la Pila",
-        "version_too_low": "Versión de Cursor Muy Baja: {version} < 0.45.0"
-        
+        "version_too_low": "Versión de Cursor Muy Baja: {version} < 0.45.0",
+        "no_write_permission": "Sin Permiso de Escritura: {path}",
+        "path_not_found": "Ruta No Encontrada: {path}",
+        "modify_file_failed": "Falló la Modificación del Archivo: {error}",
+        "windows_machine_id_updated": "ID de Máquina Windows Actualizado Exitosamente",
+        "update_windows_machine_id_failed": "Falló la Actualización del ID de Máquina Windows: {error}",
+        "update_windows_machine_guid_failed": "Falló la Actualización del GUID de Máquina Windows: {error}",
+        "file_not_found": "Archivo No Encontrado: {path}"
     },
     "register": {
         "title": "Herramienta de Registro de Cursor",
@@ -452,4 +466,4 @@
         "invalid_selection": "Selección inválida. Por favor, intente de nuevo",
         "warning_chrome_close": "Advertencia: Esto cerrará todos los procesos de Chrome en ejecución"
     }
-}   
+}

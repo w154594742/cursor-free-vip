@@ -19,7 +19,17 @@
         "totally_reset": "Полностью сбросить Cursor",
         "outdate": "Устаревший",
         "temp_github_register": "Временная регистрация GitHub",
-        "coming_soon": "Скоро"
+        "coming_soon": "Скоро",
+        "fixed_soon": "Скоро будет исправлено",
+        "contribute": "Внести вклад в проект",
+        "config": "Показать конфигурацию",
+        "delete_google_account": "Удалить Google аккаунт Cursor",
+        "continue_prompt": "Продолжить? (y/N): ",
+        "operation_cancelled_by_user": "Операция отменена пользователем",
+        "exiting": "Выход ......",
+        "bypass_version_check": "Пропустить проверку версии Cursor",
+        "check_user_authorized": "Проверить авторизацию пользователя",
+        "select_chrome_profile": "Выбрать профиль Chrome"
     },
     "languages": {
         "en": "Английский",
@@ -396,4 +406,4 @@
         "invalid_selection": "Неверный выбор. Пожалуйста, попробуйте снова",
         "warning_chrome_close": "Предупреждение: Это закроет все запущенные процессы Chrome"
     }
-} 
+}

@@ -84,14 +84,24 @@ def get_default_browser_path(browser_type='chrome'):
                 r"C:\Program Files\Opera\opera.exe",
                 r"C:\Program Files (x86)\Opera\opera.exe",
                 os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'Opera', 'launcher.exe'),
-                os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'Opera', 'opera.exe'),
-                os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'Opera GX', 'launcher.exe'),
-                os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'Opera GX', 'opera.exe')
+                os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'Opera', 'opera.exe')
             ]
             for path in opera_paths:
                 if os.path.exists(path):
                     return path
             return opera_paths[0]  # 返回第一个路径，即使它不存在
+        elif browser_type == 'operagx':
+            # 尝试多个可能的 Opera GX 路径
+            operagx_paths = [
+                os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'Opera GX', 'launcher.exe'),
+                os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'Opera GX', 'opera.exe'),
+                r"C:\Program Files\Opera GX\opera.exe",
+                r"C:\Program Files (x86)\Opera GX\opera.exe"
+            ]
+            for path in operagx_paths:
+                if os.path.exists(path):
+                    return path
+            return operagx_paths[0]  # 返回第一个路径，即使它不存在
         elif browser_type == 'brave':
             # Brave 浏览器的默认安装路径
             paths = [
@@ -115,6 +125,8 @@ def get_default_browser_path(browser_type='chrome'):
             return "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
         elif browser_type == 'opera':
             return "/Applications/Opera.app/Contents/MacOS/Opera"
+        elif browser_type == 'operagx':
+            return "/Applications/Opera GX.app/Contents/MacOS/Opera"
         
     else:  # Linux
         if browser_type == 'chrome':
@@ -135,6 +147,18 @@ def get_default_browser_path(browser_type='chrome'):
             return "/usr/bin/firefox"
         elif browser_type == 'opera':
             return "/usr/bin/opera"
+        elif browser_type == 'operagx':
+            # 尝试常见的 Opera GX 路径
+            operagx_names = ["opera-gx"]
+            for name in operagx_names:
+                try:
+                    import shutil
+                    path = shutil.which(name)
+                    if path:
+                        return path
+                except:
+                    pass
+            return "/usr/bin/opera-gx"
         elif browser_type == 'brave':
             # 尝试常见的 Brave 路径
             brave_names = ["brave", "brave-browser"]

@@ -247,11 +247,11 @@ class CursorGoogleAccountDeleter(OAuthHandler):
                     except:
                         # Try direct JavaScript input as fallback
                         try:
-                            self.browser.run_js(f"""
+                            self.browser.run_js(r"""
                                 arguments[0].value = "Delete";
-                                const event = new Event('input', {{ bubbles: true }});
+                                const event = new Event('input', { bubbles: true });
                                 arguments[0].dispatchEvent(event);
-                                const changeEvent = new Event('change', {{ bubbles: true }});
+                                const changeEvent = new Event('change', { bubbles: true });
                                 arguments[0].dispatchEvent(changeEvent);
                             """, delete_input)
                             print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('account_delete.typed_delete_js', fallback='Typed \"Delete\" using JavaScript')}{Style.RESET_ALL}")

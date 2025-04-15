@@ -22,7 +22,16 @@
         "temp_github_register": "Temporäre GitHub-Registrierung",
         "admin_required": "Ausführen als ausführbare Datei, Administratorrechte erforderlich.",
         "admin_required_continue": "Mit der aktuellen Version fortfahren...",
-        "coming_soon": "Bald verfügbar"
+        "coming_soon": "Bald verfügbar",
+        "fixed_soon": "Bald Behoben",
+        "contribute": "Zum Projekt Beitragen",
+        "config": "Konfiguration Anzeigen",
+        "delete_google_account": "Cursor Google-Konto Löschen",
+        "continue_prompt": "Fortfahren? (y/N): ",
+        "operation_cancelled_by_user": "Vorgang vom Benutzer abgebrochen",
+        "exiting": "Wird beendet ……",
+        "bypass_version_check": "Cursor Versionsprüfung Überspringen",
+        "check_user_authorized": "Benutzerautorisierung Prüfen"
     },
     "languages": {
         "en": "Englisch",
@@ -34,7 +43,9 @@
         "fr": "Französisch",
         "pt": "Portugiesisch",
         "ru": "Russisch",
-        "es": "Spanisch"
+        "es": "Spanisch",
+        "tr": "Türkisch",
+        "bg": "Bulgarisch"
     },
     "quit_cursor": {
         "start": "Beginne Cursor zu Beenden",
@@ -101,7 +112,14 @@
         "package_not_found": "Package.json Nicht Gefunden: {path}",
         "check_version_failed": "Versionsüberprüfung Fehlgeschlagen: {error}",
         "stack_trace": "Stack Trace",
-        "version_too_low": "Cursor-Version Zu Niedrig: {version} < 0.45.0"
+        "version_too_low": "Cursor-Version Zu Niedrig: {version} < 0.45.0",
+        "no_write_permission": "Keine Schreibberechtigung: {path}",
+        "path_not_found": "Pfad Nicht Gefunden: {path}",
+        "modify_file_failed": "Datei Ändern Fehlgeschlagen: {error}",
+        "windows_machine_id_updated": "Windows Maschinen-ID Erfolgreich Aktualisiert",
+        "update_windows_machine_id_failed": "Windows Maschinen-ID Aktualisierung Fehlgeschlagen: {error}",
+        "update_windows_machine_guid_failed": "Windows Maschinen-GUID Aktualisierung Fehlgeschlagen: {error}",
+        "file_not_found": "Datei Nicht Gefunden: {path}"
     },
     "register": {
         "title": "Cursor Registrierungstool",

@@ -19,7 +19,16 @@
         "totally_reset": "Réinitialisation Complète de Cursor",
         "outdate": "Obsolete",
         "temp_github_register": "Inscription GitHub temporaire",
-        "coming_soon": "Bientôt"
+        "coming_soon": "Bientôt",
+        "fixed_soon": "Bientôt Corrigé",
+        "contribute": "Contribuer au Projet",
+        "config": "Afficher la Configuration",
+        "delete_google_account": "Supprimer le Compte Google Cursor",
+        "continue_prompt": "Continuer ? (y/N) : ",
+        "operation_cancelled_by_user": "Opération annulée par l'utilisateur",
+        "exiting": "Fermeture ……",
+        "bypass_version_check": "Ignorer la Vérification de Version de Cursor",
+        "check_user_authorized": "Vérifier l'Autorisation de l'Utilisateur"
     },
     "languages": {
         "en": "Anglais",
@@ -31,7 +40,9 @@
         "fr": "Français",
         "pt": "Portugais",
         "ru": "Russe",
-        "es": "Espagnol"
+        "es": "Espagnol",
+        "tr": "Turc",
+        "bg": "Bulgare"
     },
     "quit_cursor": {
         "start": "Début de la Fermeture de Cursor",
@@ -98,7 +109,14 @@
         "package_not_found": "Package.json Non Trouvé : {path}",
         "check_version_failed": "Échec de la Vérification de la Version : {error}",
         "stack_trace": "Trace de la Pile",
-        "version_too_low": "Version de Cursor Trop Basse : {version} < 0.45.0"
+        "version_too_low": "Version de Cursor Trop Basse : {version} < 0.45.0",
+        "no_write_permission": "Pas de Permission d'Écriture : {path}",
+        "path_not_found": "Chemin Non Trouvé : {path}",
+        "modify_file_failed": "Échec de la Modification du Fichier : {error}",
+        "windows_machine_id_updated": "ID de la Machine Windows Mis à Jour avec Succès",
+        "update_windows_machine_id_failed": "Échec de la Mise à Jour de l'ID de la Machine Windows : {error}",
+        "update_windows_machine_guid_failed": "Échec de la Mise à Jour du GUID de la Machine Windows : {error}",
+        "file_not_found": "Fichier Non Trouvé : {path}"
     },
     "register": {
         "title": "Outil d'Enregistrement de Cursor",

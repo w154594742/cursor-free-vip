@@ -110,18 +110,24 @@ class Translator:
             threadid = user32.GetWindowThreadProcessId(hwnd, 0)
             layout_id = user32.GetKeyboardLayout(threadid) & 0xFFFF
             
-            # Map language ID to our language codes
-            language_map = {
-                0x0409: 'en',      # English
-                0x0404: 'zh_tw',   # Traditional Chinese
-                0x0804: 'zh_cn',   # Simplified Chinese
-                0x0422: 'vi',      # Vietnamese
-                0x0419: 'ru',      # Russian
-                0x0415: 'tr',      # Turkish
-                0x0402: 'bg',      # Bulgarian
-            }
-            
-            return language_map.get(layout_id, 'en')
+            # Map language ID to our language codes using match-case
+            match layout_id:
+                case 0x0409:
+                    return 'en'      # English
+                case 0x0404:
+                    return 'zh_tw'   # Traditional Chinese
+                case 0x0804:
+                    return 'zh_cn'   # Simplified Chinese
+                case 0x0422:
+                    return 'vi'      # Vietnamese
+                case 0x0419:
+                    return 'ru'      # Russian
+                case 0x0415:
+                    return 'tr'      # Turkish
+                case 0x0402:
+                    return 'bg'      # Bulgarian
+                case _:
+                    return 'en'       # Default to English
         except:
             return self._detect_unix_language()
     
@@ -129,59 +135,63 @@ class Translator:
         """Detect language on Unix-like systems (Linux, macOS)"""
         try:
             # Get the system locale
-            system_locale = locale.getdefaultlocale()[0]
+            locale.setlocale(locale.LC_ALL, '')
+            system_locale = locale.getlocale()[0]
             if not system_locale:
                 return 'en'
             
             system_locale = system_locale.lower()
             
-            # Map locale to our language codes
-            if system_locale.startswith('zh_tw') or system_locale.startswith('zh_hk'):
-                return 'zh_tw'
-            elif system_locale.startswith('zh_cn'):
-                return 'zh_cn'
-            elif system_locale.startswith('en'):
-                return 'en'
-            elif system_locale.startswith('vi'):
-                return 'vi'
-            elif system_locale.startswith('nl'):
-                return 'nl'
-            elif system_locale.startswith('de'):
-                return 'de'
-            elif system_locale.startswith('fr'):
-                return 'fr'
-            elif system_locale.startswith('pt'):
-                return 'pt'
-            elif system_locale.startswith('ru'):
-                return 'ru'
-            elif system_locale.startswith('tr'):
-                return 'tr'
-            elif system_locale.startswith('bg'):
-                return 'bg'
-            # Try to get language from LANG environment variable as fallback
-            env_lang = os.getenv('LANG', '').lower()
-            if 'tw' in env_lang or 'hk' in env_lang:
-                return 'zh_tw'
-            elif 'cn' in env_lang:
-                return 'zh_cn'
-            elif 'vi' in env_lang:
-                return 'vi'
-            elif 'nl' in env_lang:
-                return 'nl'
-            elif 'de' in env_lang:
-                return 'de'
-            elif 'fr' in env_lang:
-                return 'fr'
-            elif 'pt' in env_lang:
-                return 'pt'
-            elif 'ru' in env_lang:
-                return 'ru'
-            elif 'tr' in env_lang:
-                return 'tr'
-            elif 'bg' in env_lang:
-                return 'bg'
-
-            return 'en'
+            # Map locale to our language codes using match-case
+            match system_locale:
+                case s if s.startswith('zh_tw') or s.startswith('zh_hk'):
+                    return 'zh_tw'
+                case s if s.startswith('zh_cn'):
+                    return 'zh_cn'
+                case s if s.startswith('en'):
+                    return 'en'
+                case s if s.startswith('vi'):
+                    return 'vi'
+                case s if s.startswith('nl'):
+                    return 'nl'
+                case s if s.startswith('de'):
+                    return 'de'
+                case s if s.startswith('fr'):
+                    return 'fr'
+                case s if s.startswith('pt'):
+                    return 'pt'
+                case s if s.startswith('ru'):
+                    return 'ru'
+                case s if s.startswith('tr'):
+                    return 'tr'
+                case s if s.startswith('bg'):
+                    return 'bg'
+                case _:
+                    # Try to get language from LANG environment variable as fallback
+                    env_lang = os.getenv('LANG', '').lower()
+                    match env_lang:
+                        case s if 'tw' in s or 'hk' in s:
+                            return 'zh_tw'
+                        case s if 'cn' in s:
+                            return 'zh_cn'
+                        case s if 'vi' in s:
+                            return 'vi'
+                        case s if 'nl' in s:
+                            return 'nl'
+                        case s if 'de' in s:
+                            return 'de'
+                        case s if 'fr' in s:
+                            return 'fr'
+                        case s if 'pt' in s:
+                            return 'pt'
+                        case s if 'ru' in s:
+                            return 'ru'
+                        case s if 'tr' in s:
+                            return 'tr'
+                        case s if 'bg' in s:
+                            return 'bg'
+                        case _:
+                            return 'en'
         except:
             return 'en'
     
@@ -565,87 +575,88 @@ def main():
             choice_num = 17
             choice = input(f"\n{EMOJI['ARROW']} {Fore.CYAN}{translator.get('menu.input_choice', choices=f'0-{choice_num}')}: {Style.RESET_ALL}")
 
-            if choice == "0":
-                print(f"\n{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.exit')}...{Style.RESET_ALL}")
-                print(f"{Fore.CYAN}{'═' * 50}{Style.RESET_ALL}")
-                return
-            elif choice == "1":
-                import reset_machine_manual
-                reset_machine_manual.run(translator)
-                print_menu()
-            elif choice == "2":
-                import cursor_register
-                cursor_register.main(translator)
-                print_menu()
-            elif choice == "3":
-                import cursor_register_google
-                cursor_register_google.main(translator)
-                print_menu()
-            elif choice == "4":
-                import cursor_register_github
-                cursor_register_github.main(translator)
-                print_menu()
-            elif choice == "5":
-                import cursor_register_manual
-                cursor_register_manual.main(translator)
-                print_menu()
-            elif choice == "6":
-                import github_cursor_register
-                print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.coming_soon')}{Style.RESET_ALL}")
-                # github_cursor_register.main(translator)
-                print_menu()
-            elif choice == "7":
-                import quit_cursor
-                quit_cursor.quit_cursor(translator)
-                print_menu()
-            elif choice == "8":
-                if select_language():
+            match choice:
+                case "0":
+                    print(f"\n{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.exit')}...{Style.RESET_ALL}")
+                    print(f"{Fore.CYAN}{'═' * 50}{Style.RESET_ALL}")
+                    return
+                case "1":
+                    import reset_machine_manual
+                    reset_machine_manual.run(translator)
                     print_menu()
-                continue
-            elif choice == "9":
-                import disable_auto_update
-                disable_auto_update.run(translator)
-                print_menu()
-            elif choice == "10":
-                import totally_reset_cursor
-                totally_reset_cursor.run(translator)
-                # print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.fixed_soon')}{Style.RESET_ALL}")
-                print_menu()
-            elif choice == "11":
-                import logo
-                print(logo.CURSOR_CONTRIBUTORS)
-                print_menu()
-            elif choice == "12":
-                from config import print_config
-                print_config(get_config(), translator)
-                print_menu()
-            elif choice == "13":
-                from oauth_auth import OAuthHandler
-                oauth = OAuthHandler(translator)
-                oauth._select_profile()
-                print_menu()
-            elif choice == "14":
-                import delete_cursor_google
-                delete_cursor_google.main(translator)
-                print_menu()
-            elif choice == "15":
-                import bypass_version
-                bypass_version.main(translator)
-                print_menu()
-            elif choice == "16":
-                import check_user_authorized
-                check_user_authorized.main(translator)
-                print_menu()
-            elif choice == "17":
-                import bypass_token_limit
-                bypass_token_limit.run(translator)
-                print_menu()
-            else:
-                print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
-                print_menu()
+                case "2":
+                    import cursor_register
+                    cursor_register.main(translator)
+                    print_menu()
+                case "3":
+                    import cursor_register_google
+                    cursor_register_google.main(translator)
+                    print_menu()
+                case "4":
+                    import cursor_register_github
+                    cursor_register_github.main(translator)
+                    print_menu()
+                case "5":
+                    import cursor_register_manual
+                    cursor_register_manual.main(translator)
+                    print_menu()
+                case "6":
+                    import github_cursor_register
+                    print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.coming_soon')}{Style.RESET_ALL}")
+                    # github_cursor_register.main(translator)
+                    print_menu()
+                case "7":
+                    import quit_cursor
+                    quit_cursor.quit_cursor(translator)
+                    print_menu()
+                case "8":
+                    if select_language():
+                        print_menu()
+                    continue
+                case "9":
+                    import disable_auto_update
+                    disable_auto_update.run(translator)
+                    print_menu()
+                case "10":
+                    import totally_reset_cursor
+                    totally_reset_cursor.run(translator)
+                    # print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.fixed_soon')}{Style.RESET_ALL}")
+                    print_menu()
+                case "11":
+                    import logo
+                    print(logo.CURSOR_CONTRIBUTORS)
+                    print_menu()
+                case "12":
+                    from config import print_config
+                    print_config(get_config(), translator)
+                    print_menu()
+                case "13":
+                    from oauth_auth import OAuthHandler
+                    oauth = OAuthHandler(translator)
+                    oauth._select_profile()
+                    print_menu()
+                case "14":
+                    import delete_cursor_google
+                    delete_cursor_google.main(translator)
+                    print_menu()
+                case "15":
+                    import bypass_version
+                    bypass_version.main(translator)
+                    print_menu()
+                case "16":
+                    import check_user_authorized
+                    check_user_authorized.main(translator)
+                    print_menu()
+                case "17":
+                    import bypass_token_limit
+                    bypass_token_limit.run(translator)
+                    print_menu()
+                case _:
+                    print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
+                    print_menu()
 
         except KeyboardInterrupt:
-            print(f"\n{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.program_terminated')}{Style.RESET_ALL}")
+            print(f"\n{Fore.YELLOW}{EMOJI['INFO']}  {translator.get('menu.program_terminated')}{Style.RESET_ALL}")
             print(f"{Fore.CYAN}{'═' * 50}{Style.RESET_ALL}")
             return
         except Exception as e:

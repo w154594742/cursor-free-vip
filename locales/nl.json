@@ -20,7 +20,16 @@
         "totally_reset": "Cursor volledig resetten",
         "outdate": "Verouderd",
         "temp_github_register": "Tijdelijke GitHub-registratie",
-        "coming_soon": "Binnenkort"
+        "coming_soon": "Binnenkort",
+        "fixed_soon": "Binnenkort Opgelost",
+        "contribute": "Bijdragen aan het Project",
+        "config": "Configuratie Weergeven",
+        "delete_google_account": "Cursor Google Account Verwijderen",
+        "continue_prompt": "Doorgaan? (y/N): ",
+        "operation_cancelled_by_user": "Operatie geannuleerd door gebruiker",
+        "exiting": "Afsluiten ……",
+        "bypass_version_check": "Cursor Versiecontrole Overslaan",
+        "check_user_authorized": "Gebruikersautorisatie Controleren"
     },
     "languages": {
         "en": "Engels",
@@ -99,7 +108,14 @@
         "package_not_found": "Package.json niet gevonden: {path}",
         "check_version_failed": "Versiecontrole mislukt: {error}",
         "stack_trace": "Stack Trace",
-        "version_too_low": "Cursor-versie te laag: {version} < 0.45.0"
+        "version_too_low": "Cursor-versie te laag: {version} < 0.45.0",
+        "no_write_permission": "Geen schrijfrechten: {path}",
+        "path_not_found": "Pad niet gevonden: {path}",
+        "modify_file_failed": "Bestand wijzigen mislukt: {error}",
+        "windows_machine_id_updated": "Windows Machine-ID succesvol bijgewerkt",
+        "update_windows_machine_id_failed": "Windows Machine-ID bijwerken mislukt: {error}",
+        "update_windows_machine_guid_failed": "Windows Machine GUID bijwerken mislukt: {error}",
+        "file_not_found": "Bestand niet gevonden: {path}"
     },
     "register": {
         "title": "Cursor Registratietool",
@@ -388,4 +404,4 @@
         "invalid_selection": "Ongeldige selectie. Probeer het opnieuw",
         "warning_chrome_close": "Waarschuwing: Dit zal alle actieve Chrome processen sluiten"
     }
-} 
+}

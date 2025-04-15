@@ -1,3 +1,4 @@
+# oauth_auth.py
 import os
 from colorama import Fore, Style, init
 import time
@@ -30,7 +31,7 @@ class OAuthHandler:
     def __init__(self, translator=None, auth_type=None):
         self.translator = translator
         self.config = get_config(translator)
-        self.auth_type = auth_type  # make sure the auth_type is not None
+        self.auth_type = auth_type
         os.environ['BROWSER_HEADLESS'] = 'False'
         self.browser = None
         self.selected_profile = None
@@ -176,10 +177,15 @@ class OAuthHandler:
             browser_path = self._get_browser_path()
             
             if not browser_path:
-                raise Exception(f"{self.translator.get('oauth.no_compatible_browser_found') if self.translator else 'No compatible browser found. Please install Google Chrome or Chromium.'}\n{self.translator.get('oauth.supported_browsers', platform=platform_name)}\n" + 
-                              "- Windows: Google Chrome, Chromium\n" +
-                              "- macOS: Google Chrome, Chromium\n" +
-                              "- Linux: Google Chrome, Chromium, chromium-browser")
+                error_msg = (
+                    f"{self.translator.get('oauth.no_compatible_browser_found') if self.translator else 'No compatible browser found. Please install Google Chrome or Chromium.'}" + 
+                    "\n" +
+                    f"{self.translator.get('oauth.supported_browsers', platform=platform_name)}\n" + 
+                    "- Windows: Google Chrome, Chromium\n" +
+                    "- macOS: Google Chrome, Chromium\n" +
+                    "- Linux: Google Chrome, Chromium, google-chrome-stable"
+                )
+                raise Exception(error_msg)
             
             print(f"{Fore.CYAN}{EMOJI['INFO']} {self.translator.get('oauth.found_browser_data_directory', path=user_data_dir) if self.translator else f'Found browser data directory: {user_data_dir}'}{Style.RESET_ALL}")
             
@@ -239,7 +245,7 @@ class OAuthHandler:
             browser_processes = {
                 'chrome': {
                     'win': ['chrome.exe', 'chromium.exe'],
-                    'linux': ['chrome', 'chromium', 'chromium-browser'],
+                    'linux': ['chrome', 'chromium', 'chromium-browser', 'google-chrome-stable'],
                     'mac': ['Chrome', 'Chromium']
                 },
                 'brave': {
@@ -305,7 +311,8 @@ class OAuthHandler:
                     'brave': os.path.join(os.environ.get('LOCALAPPDATA', ''), 'BraveSoftware', 'Brave-Browser', 'User Data'),
                     'edge': os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Microsoft', 'Edge', 'User Data'),
                     'firefox': os.path.join(os.environ.get('APPDATA', ''), 'Mozilla', 'Firefox', 'Profiles'),
-                    'opera': os.path.join(os.environ.get('APPDATA', ''), 'Opera Software', 'Opera Stable')
+                    'opera': os.path.join(os.environ.get('APPDATA', ''), 'Opera Software', 'Opera Stable'),
+                    'operagx': os.path.join(os.environ.get('APPDATA', ''), 'Opera Software', 'Opera GX Stable')
                 }
             elif sys.platform == 'darwin':  # macOS
                 user_data_dirs = {
@@ -313,7 +320,8 @@ class OAuthHandler:
                     'brave': os.path.expanduser('~/Library/Application Support/BraveSoftware/Brave-Browser'),
                     'edge': os.path.expanduser('~/Library/Application Support/Microsoft Edge'),
                     'firefox': os.path.expanduser('~/Library/Application Support/Firefox/Profiles'),
-                    'opera': os.path.expanduser('~/Library/Application Support/com.operasoftware.Opera')
+                    'opera': os.path.expanduser('~/Library/Application Support/com.operasoftware.Opera'),
+                    'operagx': os.path.expanduser('~/Library/Application Support/com.operasoftware.OperaGX')
                 }
             else:  # Linux
                 user_data_dirs = {
@@ -321,7 +329,8 @@ class OAuthHandler:
                     'brave': os.path.expanduser('~/.config/BraveSoftware/Brave-Browser'),
                     'edge': os.path.expanduser('~/.config/microsoft-edge'),
                     'firefox': os.path.expanduser('~/.mozilla/firefox'),
-                    'opera': os.path.expanduser('~/.config/opera')
+                    'opera': os.path.expanduser('~/.config/opera'),
+                    'operagx': os.path.expanduser('~/.config/opera-gx')
                 }
             
             # 获取选定浏览器的用户数据目录，如果找不到则使用 Chrome 的
@@ -420,7 +429,12 @@ class OAuthHandler:
                 elif browser_type == 'firefox':
                     possible_paths = ['/usr/bin/firefox']
                 else:  # 默认为 Chrome
-                    possible_paths = ['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser']
+                    possible_paths = [
+                        '/usr/bin/google-chrome-stable',  # 优先检查 google-chrome-stable
+                        '/usr/bin/google-chrome',
+                        '/usr/bin/chromium',
+                        '/usr/bin/chromium-browser'
+                    ]
                 
             # 检查每个可能的路径
             for path in possible_paths:
@@ -428,7 +442,7 @@ class OAuthHandler:
                     print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('oauth.found_browser_at', path=path) if self.translator else f'Found browser at: {path}'}{Style.RESET_ALL}")
                     return path
             
-            # 如果找不到指定浏览器，则尝试使用Chrome
+            # 如果找不到指定浏览器，则尝试使用 Chrome
             if browser_type != 'chrome':
                 print(f"{Fore.YELLOW}{EMOJI['WARNING']} {self.translator.get('oauth.browser_not_found_trying_chrome', browser=browser_type) if self.translator else f'Could not find {browser_type}, trying Chrome instead'}{Style.RESET_ALL}")
                 return self._get_chrome_path()
@@ -437,29 +451,6 @@ class OAuthHandler:
             
         except Exception as e:
             print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('oauth.error_finding_browser_path', error=str(e)) if self.translator else f'Error finding browser path: {e}'}{Style.RESET_ALL}")
-            return None
-        
-    def _get_chrome_path(self):
-        """Fallback method to get Chrome path"""
-        try:
-            if os.name == 'nt':  # Windows
-                possible_paths = [
-                    os.path.join(os.environ.get('PROGRAMFILES', ''), 'Google', 'Chrome', 'Application', 'chrome.exe'),
-                    os.path.join(os.environ.get('PROGRAMFILES(X86)', ''), 'Google', 'Chrome', 'Application', 'chrome.exe'),
-                    os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Google', 'Chrome', 'Application', 'chrome.exe')
-                ]
-            elif sys.platform == 'darwin':  # macOS
-                possible_paths = ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome']
-            else:  # Linux
-                possible_paths = ['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser']
-            
-            for path in possible_paths:
-                if os.path.exists(path):
-                    print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('oauth.found_chrome_at', path=path) if self.translator else f'Found Chrome at: {path}'}{Style.RESET_ALL}")
-                    return path
-            return None
-        except Exception as e:
-            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('oauth.error_finding_chrome_path', error=str(e)) if self.translator else f'Error finding Chrome path: {e}'}{Style.RESET_ALL}")
             return None
 
     def _configure_browser_options(self, browser_path, user_data_dir, active_profile):
@@ -473,6 +464,7 @@ class OAuthHandler:
             co.set_argument('--no-first-run')
             co.set_argument('--no-default-browser-check')
             co.set_argument('--disable-gpu')
+            co.set_argument('--remote-debugging-port=9222')  # 明确指定调试端口
             
             # Platform-specific options
             if sys.platform.startswith('linux'):
@@ -955,7 +947,8 @@ class OAuthHandler:
                         value = cookie.get("value", "")
                         token = get_token_from_cookie(value, self.translator)
                     except Exception as e:
-                        print(f"{Fore.YELLOW}{EMOJI['INFO']} {self.translator.get('oauth.token_extraction_error', error=str(e)) if self.translator else f'Token extraction error: {str(e)}'}{Style.RESET_ALL}")
+                        error_message = f'Failed to extract auth info: {str(e)}' if not self.translator else self.translator.get('oauth.failed_to_extract_auth_info', error=str(e))
+                        print(f"{Fore.RED}{EMOJI['ERROR']} {error_message}{Style.RESET_ALL}")
                 elif name == "cursor_email":
                     email = cookie.get("value")
                     
@@ -968,11 +961,13 @@ class OAuthHandler:
                     missing.append("email")
                 if not token:
                     missing.append("token")
-                print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('oauth.missing_authentication_data', data=', '.join(missing)) if self.translator else f'Missing authentication data: {", ".join(missing)}'}{Style.RESET_ALL}")
+                error_message = f"Missing authentication data: {', '.join(missing)}" if not self.translator else self.translator.get('oauth.missing_authentication_data', data=', '.join(missing))
+                print(f"{Fore.RED}{EMOJI['ERROR']} {error_message}{Style.RESET_ALL}")
                 return False, None
             
         except Exception as e:
-            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('oauth.failed_to_extract_auth_info', error=str(e)) if self.translator else f'Failed to extract auth info: {str(e)}'}{Style.RESET_ALL}")
+            error_message = f'Failed to extract auth info: {str(e)}' if not self.translator else self.translator.get('oauth.failed_to_extract_auth_info', error=str(e))
+            print(f"{Fore.RED}{EMOJI['ERROR']} {error_message}{Style.RESET_ALL}")
             return False, None
 
     def _delete_current_account(self):
@@ -1014,7 +1009,8 @@ class OAuthHandler:
             return True
             
         except Exception as e:
-            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('oauth.failed_to_delete_account', error=str(e)) if self.translator else f'Failed to delete account: {str(e)}'}{Style.RESET_ALL}")
+            error_message = f'Failed to delete account: {str(e)}' if not self.translator else self.translator.get('oauth.failed_to_delete_account', error=str(e))
+            print(f"{Fore.RED}{EMOJI['ERROR']} {error_message}{Style.RESET_ALL}")
             return False
 
 def main(auth_type, translator=None):

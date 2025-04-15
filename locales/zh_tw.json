@@ -149,6 +149,22 @@
         "no_turnstile": "未檢測到 Turnstile 驗證",
         "turnstile_passed": "驗證通過",
         "verification_start": "開始獲取驗證碼",
+        "verification_timeout": "獲取驗證碼超時",
+        "verification_not_found": "未找到驗證碼",
+        "try_get_code": "第 {attempt} 次嘗試獲取驗證碼 | 剩餘時間: {time}秒",
+        "get_account": "獲取帳戶信息",
+        "get_token": "獲取 Cursor Session Token",
+        "token_success": "Token 獲取成功",
+        "token_attempt": "第 {attempt} 次嘗試未獲取到 Token，{time}秒後重試",
+        "token_max_attempts": "已達到最大嘗試次數({max})，獲取 Token 失敗",
+        "token_failed": "獲取 Token 失敗: {error}",
+        "account_error": "獲取帳戶信息失敗: {error}",
+        "email_error": "獲取郵箱地址失敗",
+        "setup_error": "郵箱設置出錯: {error}",
+        "start_getting_verification_code": "開始獲取驗證碼，將在60秒內嘗試...",
+        "get_verification_code_timeout": "獲取驗證碼超時",
+        "get_verification_code_success": "成功獲取驗證碼",
+        "try_get_verification_code": "第 {attempt} 次嘗試未獲取到驗證碼，剩餘時間: {remaining_time}秒",
         "verification_code_filled": "驗證碼填寫完成",
         "login_success_and_jump_to_settings_page": "成功登錄並跳轉到設置頁面",
         "detect_login_page": "檢測到登錄頁面，開始登錄...",
@@ -694,4 +710,4 @@
         "description": "此工具修改 workbench.desktop.main.js 文件以繞過 token 限制",
         "press_enter": "按回車鍵繼續..."
     }
-} 
+}

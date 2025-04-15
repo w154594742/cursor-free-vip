@@ -60,18 +60,17 @@ def setup_config(translator=None):
             'Browser': {
                 'default_browser': 'chrome',
                 'chrome_path': get_default_browser_path('chrome'),
-                'edge_path': get_default_browser_path('edge'),
-                'firefox_path': get_default_browser_path('firefox'),
-                'brave_path': get_default_browser_path('brave'),
                 'chrome_driver_path': get_default_driver_path('chrome'),
+                'edge_path': get_default_browser_path('edge'),
                 'edge_driver_path': get_default_driver_path('edge'),
+                'firefox_path': get_default_browser_path('firefox'),
                 'firefox_driver_path': get_default_driver_path('firefox'),
+                'brave_path': get_default_browser_path('brave'),
                 'brave_driver_path': get_default_driver_path('brave'),
                 'opera_path': get_default_browser_path('opera'),
-                'opera_driver_path': get_default_driver_path('opera')
-            },
-            'Chrome': {
-                'chromepath': get_default_browser_path('chrome')
+                'opera_driver_path': get_default_driver_path('opera'),
+                'operagx_path': get_default_browser_path('operagx'),
+                'operagx_driver_path': get_default_driver_path('chrome')  # Opera GX 使用 Chrome 驱动
             },
             'Turnstile': {
                 'handle_turnstile_time': '2',

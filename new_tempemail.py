@@ -139,7 +139,7 @@ class NewTempEmail:
 
             if sys.platform == "linux":
                 # Check if DISPLAY is set when not in headless mode
-                if not co.arguments.get("--headless=new") and not os.environ.get('DISPLAY'):
+                if "--headless=new" not in co.arguments and not os.environ.get('DISPLAY'):
                     print(f"{Fore.RED}❌ {self.translator.get('email.no_display_found') if self.translator else 'No display found. Make sure X server is running.'}{Style.RESET_ALL}")
                     print(f"{Fore.YELLOW}ℹ️ {self.translator.get('email.try_export_display') if self.translator else 'Try: export DISPLAY=:0'}{Style.RESET_ALL}")
                     return False

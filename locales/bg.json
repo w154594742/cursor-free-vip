@@ -20,7 +20,17 @@
         "totally_reset": "Нулирайте изцяло Курсор",
         "outdate": "Изтекъл срок",
         "temp_github_register": "Временно регистриране с GitHub",
-        "coming_soon": "Очаквайте скоро"
+        "coming_soon": "Очаквайте скоро",
+        "fixed_soon": "Ще бъде поправено скоро",
+        "contribute": "Принос към проекта",
+        "config": "Покажи конфигурацията",
+        "delete_google_account": "Изтрий Google акаунта на Cursor",
+        "continue_prompt": "Продължи? (y/N): ",
+        "operation_cancelled_by_user": "Операцията е отменена от потребителя",
+        "exiting": "Излизане ......",
+        "bypass_version_check": "Пропусни проверката на версията на Cursor",
+        "check_user_authorized": "Провери оторизацията на потребителя",
+        "select_chrome_profile": "Избери Chrome профил"
     },
     "languages": {
         "en": "English",

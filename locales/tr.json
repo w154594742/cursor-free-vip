@@ -9,6 +9,7 @@
         "register_manual": "Cursor'ı Özel E-posta ile Kaydet",
         "quit": "Cursor Uygulamasını Kapat",
         "select_language": "Dili Değiştir",
+        "select_chrome_profile": "Chrome Profilini Seç",
         "input_choice": "Lütfen seçiminizi girin ({choices})",
         "invalid_choice": "Geçersiz seçim. Lütfen {choices} arasından bir sayı girin",
         "program_terminated": "Program kullanıcı tarafından sonlandırıldı",
@@ -19,7 +20,18 @@
         "totally_reset": "Cursor'ı Tamamen Sıfırla",
         "outdate": "güncel değil",
         "temp_github_register": "Geçici GitHub Kaydı",
-        "coming_soon": "Yakında"
+        "admin_required": "Running as executable, administrator privileges required.",
+        "admin_required_continue": "Continuing without administrator privileges.",
+        "coming_soon": "Yakında",
+        "fixed_soon": "Yakında Düzeltilecek",
+        "contribute": "Projeye Katkıda Bulun",
+        "config": "Yapılandırmayı Göster",
+        "delete_google_account": "Cursor Google Hesabını Sil",
+        "continue_prompt": "Devam et? (y/N): ",
+        "operation_cancelled_by_user": "İşlem kullanıcı tarafından iptal edildi",
+        "exiting": "Çıkılıyor ......",
+        "bypass_version_check": "Cursor Sürüm Kontrolünü Atla",
+        "check_user_authorized": "Kullanıcı Yetkilendirmesini Kontrol Et"
     },
     "languages": {
         "en": "English",

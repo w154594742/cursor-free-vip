@@ -19,7 +19,16 @@
         "totally_reset": "Redefinir Cursor Completamente",
         "outdate": "Obsoleto",
         "temp_github_register": "Registro temporário do GitHub",
-        "coming_soon": "Em breve"
+        "coming_soon": "Em breve",
+        "fixed_soon": "Será corrigido em breve",
+        "contribute": "Contribuir para o Projeto",
+        "config": "Mostrar Configuração",
+        "delete_google_account": "Excluir Conta Google do Cursor",
+        "continue_prompt": "Continuar? (y/N): ",
+        "operation_cancelled_by_user": "Operação cancelada pelo usuário",
+        "exiting": "Saindo ......",
+        "bypass_version_check": "Ignorar Verificação de Versão do Cursor",
+        "check_user_authorized": "Verificar Autorização do Usuário"
     },
     "languages": {
         "en": "Inglês",
