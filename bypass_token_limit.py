@@ -5,7 +5,7 @@ import tempfile
 import glob
 from colorama import Fore, Style, init
 import configparser
-from new_signup import get_user_documents_path
+import sys
 from config import get_config
 from datetime import datetime
 
@@ -22,6 +22,20 @@ EMOJI = {
     "RESET": "🔄",
     "WARNING": "⚠️",
 }
+
+def get_user_documents_path():
+     """Get user Documents folder path"""
+     if sys.platform == "win32":
+         return os.path.join(os.path.expanduser("~"), "Documents")
+     elif sys.platform == "darwin":
+         return os.path.join(os.path.expanduser("~"), "Documents")
+     else:  # Linux
+         # Get actual user's home directory
+         sudo_user = os.environ.get('SUDO_USER')
+         if sudo_user:
+             return os.path.join("/home", sudo_user, "Documents")
+         return os.path.join(os.path.expanduser("~"), "Documents")
+     
 
 def get_workbench_cursor_path(translator=None) -> str:
     """Get Cursor workbench.desktop.main.js path"""
@@ -103,9 +117,11 @@ def modify_workbench_js(file_path: str, translator=None) -> bool:
                 # 通用按钮替换模式
                 r'B(k,D(Ln,{title:"Upgrade to Pro",size:"small",get codicon(){return A.rocket},get onClick(){return t.pay}}),null)': r'B(k,D(Ln,{title:"yeongpin GitHub",size:"small",get codicon(){return A.github},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)',
                 
-                # Windows/Linux/Mac 通用按钮替换模式
-                r'M(x,I(as,{title:"Upgrade to Pro",size:"small",get codicon(){return $.rocket},get onClick(){return t.pay}}),null)': r'M(x,I(as,{title:"yeongpin GitHub",size:"small",get codicon(){return $.rocket},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)',
+                # Windows/Linux
+                r'M(x,I(as,{title:"Upgrade to Pro",size:"small",get codicon(){return $.rocket},get onClick(){return t.pay}}),null)': r'M(x,I(as,{title:"yeongpin GitHub",size:"small",get codicon(){return $.github},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)',
                 
+                # Mac 通用按钮替换模式
+                r'$(k,E(Ks,{title:"Upgrade to Pro",size:"small",get codicon(){return F.rocket},get onClick(){return t.pay}}),null)': r'$(k,E(Ks,{title:"yeongpin GitHub",size:"small",get codicon(){return F.rocket},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)',
                 # Badge 替换
                 r'<div>Pro Trial': r'<div>Pro',
 

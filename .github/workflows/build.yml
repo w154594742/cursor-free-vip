@@ -211,6 +211,9 @@ jobs:
     runs-on: ubuntu-22.04
     
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
       - name: Get version
         shell: bash
         run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
@@ -220,18 +223,66 @@ jobs:
         with:
           path: artifacts
 
-      - name: Prepare release files
+      - name: Calculate SHA256 checksums
         run: |
-          cd artifacts
-          echo "Contents of artifacts directory:"
-          ls -la
-          echo "Contents of subdirectories:"
-          ls -la */
+          mkdir -p checksums
+          for file in artifacts/CursorFreeVIP_${{ env.VERSION }}_windows.exe/CursorFreeVIP_${{ env.VERSION }}_windows.exe \
+                      artifacts/CursorFreeVIP_${{ env.VERSION }}_mac_arm64/CursorFreeVIP_${{ env.VERSION }}_mac_arm64 \
+                      artifacts/CursorFreeVIP_${{ env.VERSION }}_linux_x64/CursorFreeVIP_${{ env.VERSION }}_linux_x64 \
+                      artifacts/CursorFreeVIP_${{ env.VERSION }}_linux_arm64/CursorFreeVIP_${{ env.VERSION }}_linux_arm64 \
+                      artifacts/CursorFreeVIP_${{ env.VERSION }}_mac_intel/CursorFreeVIP_${{ env.VERSION }}_mac_intel
+          do
+            if [ -f "$file" ]; then
+              filename=$(basename $file)
+              sha256sum "$file" | cut -d ' ' -f 1 > checksums/${filename}.sha256
+              echo "${filename}: $(cat checksums/${filename}.sha256)" >> checksums/all_checksums.txt
+            else
+              echo "Warning: File $file not found"
+            fi
+          done
+          cat checksums/all_checksums.txt
+
+      - name: Extract release notes from CHANGELOG
+        run: |
+          version_pattern="## v${{ env.VERSION }}"
+          next_version_pattern="## v"
           
+          # Find the start line number of the current version
+          start_line=$(grep -n "$version_pattern" CHANGELOG.md | head -1 | cut -d: -f1)
+          
+          if [ -z "$start_line" ]; then
+            echo "Error: Version ${{ env.VERSION }} not found in CHANGELOG.md"
+            exit 1
+          fi
+          
+          # Find the line number of the next version
+          next_version_line=$(tail -n +$((start_line + 1)) CHANGELOG.md | grep -n "$next_version_pattern" | head -1 | cut -d: -f1)
+          
+          if [ -z "$next_version_line" ]; then
+            # If there's no next version, get to the end of the file
+            changelog_content=$(tail -n +$start_line CHANGELOG.md)
+          else
+            # Extract content between current version and next version
+            end_line=$((start_line + next_version_line - 1))
+            changelog_content=$(sed -n "${start_line},${end_line}p" CHANGELOG.md)
+          fi
+          
+          # Create release notes file
+          {
+            echo "$changelog_content"
+            echo ""
+            echo "## SHA256 Checksums"
+            cat checksums/all_checksums.txt
+          } > release_notes.md
+          
+          # Display release notes for debugging
+          cat release_notes.md
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.VERSION }}
+          body_path: release_notes.md
           files: |
             artifacts/CursorFreeVIP_${{ env.VERSION }}_windows.exe/CursorFreeVIP_${{ env.VERSION }}_windows.exe
             artifacts/CursorFreeVIP_${{ env.VERSION }}_mac_arm64/CursorFreeVIP_${{ env.VERSION }}_mac_arm64

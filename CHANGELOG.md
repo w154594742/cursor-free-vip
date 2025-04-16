@@ -1,10 +1,37 @@
 # Change Log
 
+## v1.10.02
+1. Remove: Remove All Auto generating fake Google email accounts and OAuth access | 移除所有自動生成假 Google 電子郵件帳戶和 OAuth 訪問
+2. Follow GitHub Terms of Service | 遵守 GitHub Terms of Service
+3. Follow Cursor Terms of Service | 遵守 Cursor Terms of Service
+4. All are for educational purposes, currently the repo does not violate any laws | 全都是教育用途，目前 repo 沒有違反任何法律
+5. This project adopts CC BY-NC-ND 4.0 , do not use for commercial purposes | 本專案採用 CC BY-NC-ND 4.0，拒絕任何商業用途
+6. Use & Cherish | 切用且珍惜
+7. Same as v1.10.01 | 與 v1.10.01 相同 
+8. Fix: reset machine ID no module name 'new_signup' | 修復機器 ID 重置 no module name 'new_signup'
+9. Fix: Some Issues | 修復一些問題
+
+## v1.10.01
+1. Remove: Remove All Auto generating fake Google email accounts and OAuth access | 移除所有自動生成假 Google 電子郵件帳戶和 OAuth 訪問
+2. Follow GitHub Terms of Service | 遵守 GitHub Terms of Service
+3. Follow Cursor Terms of Service | 遵守 Cursor Terms of Service
+4. All are for educational purposes, currently the repo does not violate any laws | 全都是教育用途，目前 repo 沒有違反任何法律
+5. This project adopts CC BY-NC-ND 4.0 , do not use for commercial purposes | 本專案採用 CC BY-NC-ND 4.0，拒絕任何商業用途
+6. Use & Cherish | 切用且珍惜
+7. Fix: Some Issues | 修復一些問題
+
 ## v1.9.05
 1. Refactor: Using match-case to refactor language mapping and menu selection logic, making the code clearer and more maintainable. | 使用 match-case 重构语言映射和菜单选择逻辑，使代码更清晰、可维护性更高。
 2. Ci: Update the Python version in the ARM64 Docker build container to 3.10, making it more compatible and easier to migrate in the future. | 更新 ARM64 Docker 构建容器中的 Python 版本至 3.10，兼容性更强，方便未来迁移。
 3. Fix: f-string backslash expression errors in multiple files | 修復多個文件中的 f-string 反斜杠表達式錯誤
-4. Fix: Some Issues | 修復一些問題
+4. Sync AUR new version 1.9.04 | 同步 AUR 新版本 1.9.04
+5. Fix: missing license install on pkgbuild @michaeldavis246611119 mention here | 修復 pkgbuild 中缺少授權安裝 @michaeldavis246611119 提到這裡
+6. Fix: readme table | 修復 readme 表格
+7. Fix: google-chrome package name problem, add "google-chrome-stable" [Bug]: Chrome error | Arch | gnome | AUR chrome #242 [Discussion]: how to use the new feature, Register with Google Account #249 [Discussion]: Having issues using the script in Ubuntu #487 [Bug]: Can open chromium bin in linux #616 | 修復 google-chrome 包名稱問題，添加 "google-chrome-stable" [Bug]: Chrome error | Arch | gnome | AUR chrome #242 [Discussion]: how to use the new feature, Register with Google Account #249 [Discussion]: Having issues using the script in Ubuntu #487 [Bug]: Can open chromium bin in linux #616
+8. Fix: exception error log | 修復異常錯誤日誌
+9. Fix: github oauth error [Bug]: #564 | 修復 github oauth 錯誤 [Bug]: #564
+10. Fix: ChromiumOptions.arguments type error: list object has no attribute 'get' | 修復 ChromiumOptions.arguments 類型錯誤：list 對象沒有屬性 'get'
+11. Fix: Some Issues | 修復一些問題
 
 ## v1.9.04
 1. Add: Opera GX Support | 添加 Opera GX 支持
