@@ -191,15 +191,22 @@ def get_cursor_machine_id_path(translator=None) -> str:
 def get_workbench_cursor_path(translator=None) -> str:
     """Get Cursor workbench.desktop.main.js path"""
     system = platform.system()
-    
+
+    # Read configuration
+    config_dir = os.path.join(get_user_documents_path(), ".cursor-free-vip")
+    config_file = os.path.join(config_dir, "config.ini")
+    config = configparser.ConfigParser()
+
+    if os.path.exists(config_file):
+        config.read(config_file)
+
     paths_map = {
         "Darwin": {  # macOS
             "base": "/Applications/Cursor.app/Contents/Resources/app",
             "main": "out/vs/workbench/workbench.desktop.main.js"
         },
         "Windows": {
-            "base": os.path.join(os.getenv("LOCALAPPDATA", ""), "Programs", "Cursor", "resources", "app"),
-            "main": "out/vs/workbench/workbench.desktop.main.js"
+            "main": "out\\vs\\workbench\\workbench.desktop.main.js"
         },
         "Linux": {
             "bases": ["/opt/Cursor/resources/app", "/usr/share/cursor/resources/app"],
@@ -223,7 +230,10 @@ def get_workbench_cursor_path(translator=None) -> str:
                 return main_path
         raise OSError(translator.get('reset.linux_path_not_found') if translator else "在 Linux 系统上未找到 Cursor 安装路径")
 
-    base_path = paths_map[system]["base"]
+    if system == "Windows":
+        base_path = config.get('WindowsPaths', 'cursor_path')
+    else:
+        base_path = paths_map[system]["base"]
     main_path = os.path.join(base_path, paths_map[system]["main"])
     
     if not os.path.exists(main_path):
