@@ -43,7 +43,7 @@ body:
     attributes:
       label: 版本
       description: 您正在运行的 Cursor Free Vip 版本是什么？
-      placeholder: 例如 v1.0.0
+      placeholder: 例如 v1.0.0 ( 不是 Cursor AI 版本 )
     validations:
       required: true
 

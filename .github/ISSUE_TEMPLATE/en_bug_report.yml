@@ -43,7 +43,7 @@ body:
     attributes:
       label: Version
       description: What version of Cursor Free Vip are you running?
-      placeholder: For example v1.0.0
+      placeholder: For example v1.0.0 ( Not Cursor AI Version )
     validations:
       required: true
 

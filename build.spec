@@ -26,8 +26,7 @@ a = Analysis(
         ('locales', 'locales'),
         ('quit_cursor.py', '.'),
         ('utils.py', '.'),
-        ('.env', '.'),
-        ('block_domain.txt', '.')
+        ('.env', '.')
     ],
     hiddenimports=[
         'quit_cursor',
