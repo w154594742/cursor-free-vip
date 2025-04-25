@@ -92,23 +92,6 @@ irm https://raw.githubusercontent.com/yeongpin/cursor-free-vip/main/scripts/inst
 
 </details>
 
-<details>
-<summary><b>⭐ Manual Reset Machine | 手動運行重置機器</b></summary>
-
-### **Linux/macOS**
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/yeongpin/cursor-free-vip/main/scripts/reset.sh | sudo bash
-```
-
-### **Windows**
-
-```powershell
-irm https://raw.githubusercontent.com/yeongpin/cursor-free-vip/main/scripts/reset.ps1 | iex
-```
-
-</details>
-
 If you want to stop the script, please press Ctrl+C<br>要停止腳本，請按 Ctrl+C
 
 ## ❗ Note | 注意事項

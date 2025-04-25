@@ -58,14 +58,19 @@ jobs:
         with:
           fetch-depth: 0  # 获取所有标签
           
-      - name: Delete existing tag if exists
+      - name: Check if tag exists
+        id: check_tag
         run: |
           if git ls-remote --tags origin | grep -q "refs/tags/v${{ needs.determine-version.outputs.version }}"; then
-            git push origin --delete "v${{ needs.determine-version.outputs.version }}" || true
-            git tag -d "v${{ needs.determine-version.outputs.version }}" || true
+            echo "Tag v${{ needs.determine-version.outputs.version }} already exists, will use existing tag"
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag v${{ needs.determine-version.outputs.version }} does not exist, will create new tag"
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
           fi
           
-      - name: Create Tag
+      - name: Create Tag if not exists
+        if: steps.check_tag.outputs.tag_exists == 'false'
         run: |
           git tag "v${{ needs.determine-version.outputs.version }}"
           git push origin "v${{ needs.determine-version.outputs.version }}"
@@ -95,40 +100,6 @@ jobs:
     - name: Build EXE
       run: |
         pyinstaller build.spec
-    
-    - name: Add Windows Defender exclusions
-      run: |
-        # 创建一个 .exe.config 文件，有时可以减少误报
-        echo '<?xml version="1.0" encoding="utf-8" ?><configuration><runtime><generatePublisherEvidence enabled="false"/></runtime></configuration>' > "dist/CursorFreeVIP_${{ env.VERSION }}_windows.exe.config"
-        
-        # 添加数字签名信息文件
-        echo "CursorFreeVIP ${{ env.VERSION }}" > "dist/CursorFreeVIP_${{ env.VERSION }}_windows.exe.manifest"
-        echo "Publisher: CursorFreeVIP Project" >> "dist/CursorFreeVIP_${{ env.VERSION }}_windows.exe.manifest"
-        echo "Version: ${{ env.VERSION }}" >> "dist/CursorFreeVIP_${{ env.VERSION }}_windows.exe.manifest"
-        echo "Description: Cursor Free VIP Tool" >> "dist/CursorFreeVIP_${{ env.VERSION }}_windows.exe.manifest"
-    
-    - name: Install Windows SDK
-      run: |
-        # 使用更新的包名
-        choco install windows-sdk-10 -y || echo "Windows SDK installation skipped, continuing build..."
-    
-    - name: Download SignTool (fallback)
-      if: ${{ failure() }}
-      run: |
-        mkdir -p tools
-        Invoke-WebRequest -Uri "https://download.microsoft.com/download/1/5/6/156F6D1A-8A5F-4B9E-839A-BF3C5D8A8861/signtool.exe" -OutFile "tools/signtool.exe" || echo "SignTool download failed, signing will be skipped"
-    
-    - name: Create self-signed certificate
-      if: false  # Disabled until we have a proper certificate
-      run: |
-        $cert = New-SelfSignedCertificate -Subject "CN=CursorFreeVIP" -Type CodeSigning -CertStoreLocation Cert:\CurrentUser\My
-        $pwd = ConvertTo-SecureString -String "password" -Force -AsPlainText
-        Export-PfxCertificate -Cert $cert -FilePath certificate.pfx -Password $pwd
-    
-    - name: Sign executable
-      if: false  # Disabled until we have a proper certificate
-      run: |
-        & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f certificate.pfx /p password /t http://timestamp.digicert.com /d "CursorFreeVIP" /v "dist/CursorFreeVIP_${{ env.VERSION }}_windows.exe"
          
     - name: Upload Windows artifact
       uses: actions/upload-artifact@v4
@@ -162,11 +133,6 @@ jobs:
       run: |
         pyinstaller build.spec
         mv "dist/CursorFreeVIP_${{ env.VERSION }}_mac" "dist/CursorFreeVIP_${{ env.VERSION }}_mac_arm64"
-    
-    - name: Sign macOS executable
-      if: false  # Disabled until we have a proper certificate
-      run: |
-        codesign --force --options runtime --sign "Developer ID Application" "dist/CursorFreeVIP_${{ env.VERSION }}_mac_arm64"
 
     - name: Upload MacOS ARM artifact
       uses: actions/upload-artifact@v4
@@ -175,7 +141,7 @@ jobs:
         path: dist/CursorFreeVIP_${{ env.VERSION }}_mac_arm64
 
   build-linux-x64:
-    needs: create-tag
+    needs: [determine-version, create-tag]
     runs-on: ubuntu-22.04
     
     steps:
@@ -212,7 +178,7 @@ jobs:
         path: dist/CursorFreeVIP_${{ env.VERSION }}_linux_x64
 
   build-linux-arm64:
-    needs: create-tag
+    needs: [determine-version, create-tag]
     runs-on: ubuntu-latest
     
     steps:
@@ -247,7 +213,7 @@ jobs:
         path: dist/CursorFreeVIP_${{ env.VERSION }}_linux_arm64
 
   build-macos-intel:
-    needs: create-tag
+    needs: [determine-version, create-tag]
     runs-on: macos-latest
 
     steps:
@@ -355,7 +321,7 @@ jobs:
           cat release_notes.md
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VERSION }}
           body_path: release_notes.md

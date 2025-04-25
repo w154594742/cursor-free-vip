@@ -2,6 +2,7 @@ import os
 from colorama import Fore, Style, init
 import time
 import random
+from faker import Faker
 from cursor_auth import CursorAuth
 from reset_machine_manual import MachineIDResetter
 from get_user_token import get_token_from_cookie
@@ -42,32 +43,25 @@ class CursorRegistration:
         self.signup_tab = None
         self.email_tab = None
         
-        # Generate account information
-        self.password = self._generate_password()
-        # Generate first name and last name separately
-        first_name = random.choice([
-            "James", "John", "Robert", "Michael", "William", "David", "Joseph", "Thomas",
-            "Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia",
-            "Liam", "Noah", "Oliver", "Elijah", "Lucas", "Mason", "Logan", "Alexander"
-        ])
-        self.last_name = random.choice([
-            "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis",
-            "Anderson", "Wilson", "Taylor", "Thomas", "Moore", "Martin", "Jackson", "Lee",
-            "Thompson", "White", "Harris", "Clark", "Lewis", "Walker", "Hall", "Young"
-        ])
+        # initialize Faker instance
+        self.faker = Faker()
         
-        # Modify first letter of first name
+        # generate account information
+        self.password = self._generate_password()
+        self.first_name = self.faker.first_name()
+        self.last_name = self.faker.last_name()
+        
+        # modify the first letter of the first name(keep the original function)
         new_first_letter = random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-        self.first_name = new_first_letter + first_name[1:]
+        self.first_name = new_first_letter + self.first_name[1:]
         
         print(f"\n{Fore.CYAN}{EMOJI['PASSWORD']} {self.translator.get('register.password')}: {self.password} {Style.RESET_ALL}")
         print(f"{Fore.CYAN}{EMOJI['FORM']} {self.translator.get('register.first_name')}: {self.first_name} {Style.RESET_ALL}")
         print(f"{Fore.CYAN}{EMOJI['FORM']} {self.translator.get('register.last_name')}: {self.last_name} {Style.RESET_ALL}")
 
     def _generate_password(self, length=12):
-        """Generate Random Password"""
-        chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
-        return ''.join(random.choices(chars, k=length))
+        """Generate password"""
+        return self.faker.password(length=length, special_chars=True, digits=True, upper_case=True, lower_case=True)
 
     def setup_email(self):
         """Setup Email"""

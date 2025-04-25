@@ -12,6 +12,15 @@ import subprocess
 from config import get_config, force_update_config
 import shutil
 import re
+from utils import get_user_documents_path  
+
+# Add these imports for Arabic support
+try:
+    import arabic_reshaper
+    from bidi.algorithm import get_display
+except ImportError:
+    arabic_reshaper = None
+    get_display = None
 
 # Only import windll on Windows systems
 if platform.system() == 'Windows':
@@ -79,8 +88,37 @@ def run_as_admin():
 class Translator:
     def __init__(self):
         self.translations = {}
-        self.current_language = self.detect_system_language()  # Use correct method name
-        self.fallback_language = 'en'  # Fallback language if translation is missing
+        self.config = get_config()
+        
+        # Create language cache directory if it doesn't exist
+        if self.config and self.config.has_section('Language'):
+            self.language_cache_dir = self.config.get('Language', 'language_cache_dir')
+            os.makedirs(self.language_cache_dir, exist_ok=True)
+        else:
+            self.language_cache_dir = None
+        
+        # Set fallback language from config if available
+        self.fallback_language = 'en'
+        if self.config and self.config.has_section('Language') and self.config.has_option('Language', 'fallback_language'):
+            self.fallback_language = self.config.get('Language', 'fallback_language')
+        
+        # Load saved language from config if available, otherwise detect system language
+        if self.config and self.config.has_section('Language') and self.config.has_option('Language', 'current_language'):
+            saved_language = self.config.get('Language', 'current_language')
+            if saved_language and saved_language.strip():
+                self.current_language = saved_language
+            else:
+                self.current_language = self.detect_system_language()
+                # Save detected language to config
+                if self.config.has_section('Language'):
+                    self.config.set('Language', 'current_language', self.current_language)
+                    config_dir = os.path.join(get_user_documents_path(), ".cursor-free-vip")
+                    config_file = os.path.join(config_dir, "config.ini")
+                    with open(config_file, 'w', encoding='utf-8') as f:
+                        self.config.write(f)
+        else:
+            self.current_language = self.detect_system_language()
+        
         self.load_translations()
     
     def detect_system_language(self):
@@ -126,6 +164,8 @@ class Translator:
                     return 'tr'      # Turkish
                 case 0x0402:
                     return 'bg'      # Bulgarian
+                case 0x0401:
+                    return 'ar'      # Arabic
                 case _:
                     return 'en'       # Default to English
         except:
@@ -166,6 +206,8 @@ class Translator:
                     return 'tr'
                 case s if s.startswith('bg'):
                     return 'bg'
+                case s if s.startswith('ar'):
+                    return 'ar'
                 case _:
                     # Try to get language from LANG environment variable as fallback
                     env_lang = os.getenv('LANG', '').lower()
@@ -190,34 +232,66 @@ class Translator:
                             return 'tr'
                         case s if 'bg' in s:
                             return 'bg'
+                        case s if 'ar' in s:
+                            return 'ar'
                         case _:
                             return 'en'
         except:
             return 'en'
     
-    def load_translations(self):
-        """Load all available translations"""
-        try:
-            locales_dir = os.path.join(os.path.dirname(__file__), 'locales')
-            if hasattr(sys, '_MEIPASS'):
-                locales_dir = os.path.join(sys._MEIPASS, 'locales')
+    def download_language_file(self, lang_code):
+        """Method kept for compatibility but now returns False as language files are integrated"""
+        print(f"{Fore.YELLOW}{EMOJI['INFO']} Languages are now integrated into the package, no need to download.{Style.RESET_ALL}")
+        return False
             
-            if not os.path.exists(locales_dir):
-                print(f"{Fore.RED}{EMOJI['ERROR']} Locales directory not found{Style.RESET_ALL}")
-                return
+    def load_translations(self):
+        """Load all available translations from the integrated package"""
+        try:
+            # Collection of languages we've successfully loaded
+            loaded_languages = set()
+            
+            locales_paths = []
+            
+            # Check for PyInstaller bundle first
+            if hasattr(sys, '_MEIPASS'):
+                locales_paths.append(os.path.join(sys._MEIPASS, 'locales'))
+            
+            # Check script directory next
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            locales_paths.append(os.path.join(script_dir, 'locales'))
+            
+            # Also check current working directory
+            locales_paths.append(os.path.join(os.getcwd(), 'locales'))
+            
+            for locales_dir in locales_paths:
+                if os.path.exists(locales_dir) and os.path.isdir(locales_dir):
+                    for file in os.listdir(locales_dir):
+                        if file.endswith('.json'):
+                            lang_code = file[:-5]  # Remove .json
+                            try:
+                                with open(os.path.join(locales_dir, file), 'r', encoding='utf-8') as f:
+                                    self.translations[lang_code] = json.load(f)
+                                    loaded_languages.add(lang_code)
+                                    loaded_any = True
+                            except (json.JSONDecodeError, UnicodeDecodeError) as e:
+                                print(f"{Fore.RED}{EMOJI['ERROR']} Error loading {file}: {e}{Style.RESET_ALL}")
+                                continue
 
-            for file in os.listdir(locales_dir):
-                if file.endswith('.json'):
-                    lang_code = file[:-5]  # Remove .json
-                    try:
-                        with open(os.path.join(locales_dir, file), 'r', encoding='utf-8') as f:
-                            self.translations[lang_code] = json.load(f)
-                    except (json.JSONDecodeError, UnicodeDecodeError) as e:
-                        print(f"{Fore.RED}{EMOJI['ERROR']} Error loading {file}: {e}{Style.RESET_ALL}")
-                        continue
         except Exception as e:
             print(f"{Fore.RED}{EMOJI['ERROR']} Failed to load translations: {e}{Style.RESET_ALL}")
+            # Create at least minimal English translations for basic functionality
+            self.translations['en'] = {"menu": {"title": "Menu", "exit": "Exit", "invalid_choice": "Invalid choice"}}
     
+    def fix_arabic(self, text):
+        if self.current_language == 'ar' and arabic_reshaper and get_display:
+            try:
+                reshaped_text = arabic_reshaper.reshape(text)
+                bidi_text = get_display(reshaped_text)
+                return bidi_text
+            except Exception:
+                return text
+        return text
+
     def get(self, key, **kwargs):
         """Get translated text with fallback support"""
         try:
@@ -226,7 +300,8 @@ class Translator:
             if result == key and self.current_language != self.fallback_language:
                 # Try fallback language if translation not found
                 result = self._get_translation(self.fallback_language, key)
-            return result.format(**kwargs) if kwargs else result
+            formatted = result.format(**kwargs) if kwargs else result
+            return self.fix_arabic(formatted)
         except Exception:
             return key
     
@@ -253,7 +328,11 @@ class Translator:
 
     def get_available_languages(self):
         """Get list of available languages"""
-        return list(self.translations.keys())
+        # Get currently loaded languages
+        available_languages = list(self.translations.keys())
+        
+        # Sort languages alphabetically for better display
+        return sorted(available_languages)
 
 # Create translator instance
 translator = Translator()
@@ -287,13 +366,18 @@ def print_menu():
         2: f"{Fore.GREEN}2{Style.RESET_ALL}. {EMOJI['SUCCESS']} {translator.get('menu.register_manual')}",
         3: f"{Fore.GREEN}3{Style.RESET_ALL}. {EMOJI['ERROR']} {translator.get('menu.quit')}",
         4: f"{Fore.GREEN}4{Style.RESET_ALL}. {EMOJI['LANG']} {translator.get('menu.select_language')}",
-        5: f"{Fore.GREEN}5{Style.RESET_ALL}. {EMOJI['UPDATE']} {translator.get('menu.disable_auto_update')}",
-        6: f"{Fore.GREEN}6{Style.RESET_ALL}. {EMOJI['RESET']} {translator.get('menu.totally_reset')}",
-        7: f"{Fore.GREEN}7{Style.RESET_ALL}. {EMOJI['CONTRIBUTE']} {translator.get('menu.contribute')}",
-        8: f"{Fore.GREEN}8{Style.RESET_ALL}. {EMOJI['SETTINGS']}  {translator.get('menu.config')}",
-        9: f"{Fore.GREEN}9{Style.RESET_ALL}. {EMOJI['UPDATE']}  {translator.get('menu.bypass_version_check', fallback='Bypass Cursor Version Check')}",
-        10: f"{Fore.GREEN}10{Style.RESET_ALL}. {EMOJI['UPDATE']}  {translator.get('menu.check_user_authorized', fallback='Check User Authorized')}",
-        11: f"{Fore.GREEN}11{Style.RESET_ALL}. {EMOJI['UPDATE']}  {translator.get('menu.bypass_token_limit', fallback='Bypass Token Limit')}"
+        5: f"{Fore.GREEN}5{Style.RESET_ALL}. {EMOJI['SUN']} {translator.get('menu.register_google')}",
+        6: f"{Fore.GREEN}6{Style.RESET_ALL}. {EMOJI['STAR']} {translator.get('menu.register_github')}",
+        7: f"{Fore.GREEN}7{Style.RESET_ALL}. {EMOJI['UPDATE']} {translator.get('menu.disable_auto_update')}",
+        8: f"{Fore.GREEN}8{Style.RESET_ALL}. {EMOJI['RESET']} {translator.get('menu.totally_reset')}",
+        9: f"{Fore.GREEN}9{Style.RESET_ALL}. {EMOJI['CONTRIBUTE']} {translator.get('menu.contribute')}",
+        10: f"{Fore.GREEN}10{Style.RESET_ALL}. {EMOJI['SETTINGS']}  {translator.get('menu.config')}",
+        11: f"{Fore.GREEN}11{Style.RESET_ALL}. {EMOJI['UPDATE']}  {translator.get('menu.bypass_version_check')}",
+        12: f"{Fore.GREEN}12{Style.RESET_ALL}. {EMOJI['UPDATE']}  {translator.get('menu.check_user_authorized')}",
+        13: f"{Fore.GREEN}13{Style.RESET_ALL}. {EMOJI['UPDATE']}  {translator.get('menu.bypass_token_limit')}",
+        14: f"{Fore.GREEN}14{Style.RESET_ALL}. {EMOJI['BACKUP']}  {translator.get('menu.restore_machine_id')}",
+        15: f"{Fore.GREEN}15{Style.RESET_ALL}. {EMOJI['ERROR']}  {translator.get('menu.delete_google_account')}",
+        16: f"{Fore.GREEN}16{Style.RESET_ALL}. {EMOJI['SETTINGS']}  {translator.get('menu.select_chrome_profile')}"
     }
     
     # Automatically calculate the number of menu items in the left and right columns
@@ -370,21 +454,45 @@ def select_language():
     print(f"\n{Fore.CYAN}{EMOJI['LANG']} {translator.get('menu.select_language')}:{Style.RESET_ALL}")
     print(f"{Fore.YELLOW}{'─' * 40}{Style.RESET_ALL}")
     
+    # Get available languages either from local directory or GitHub
     languages = translator.get_available_languages()
+    languages_count = len(languages)
+    
+    # Display all available languages with proper indices
     for i, lang in enumerate(languages):
-        lang_name = translator.get(f"languages.{lang}")
+        lang_name = translator.get(f"languages.{lang}", fallback=lang)
         print(f"{Fore.GREEN}{i}{Style.RESET_ALL}. {lang_name}")
     
     try:
-        choice = input(f"\n{EMOJI['ARROW']} {Fore.CYAN}{translator.get('menu.input_choice', choices=f'0-{len(languages)-1}')}: {Style.RESET_ALL}")
-        if choice.isdigit() and 0 <= int(choice) < len(languages):
-            translator.set_language(languages[int(choice)])
+        # Use the actual number of languages in the prompt
+        choice = input(f"\n{EMOJI['ARROW']} {Fore.CYAN}{translator.get('menu.input_choice', choices=f'0-{languages_count-1}')}: {Style.RESET_ALL}")
+        
+        if choice.isdigit() and 0 <= int(choice) < languages_count:
+            selected_language = languages[int(choice)]
+            translator.set_language(selected_language)
+            
+            # Save selected language to config
+            config = get_config()
+            if config and config.has_section('Language'):
+                config.set('Language', 'current_language', selected_language)
+                
+                # Get config path from user documents
+                config_dir = os.path.join(get_user_documents_path(), ".cursor-free-vip")
+                config_file = os.path.join(config_dir, "config.ini")
+                
+                # Write updated config
+                with open(config_file, 'w', encoding='utf-8') as f:
+                    config.write(f)
+                
+                print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {translator.get('menu.language_config_saved', language=translator.get(f'languages.{selected_language}', fallback=selected_language))}{Style.RESET_ALL}")
+            
             return True
         else:
-            print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
+            # Show invalid choice message with the correct range
+            print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.lang_invalid_choice', lang_choices=f'0-{languages_count-1}')}{Style.RESET_ALL}")
             return False
-    except (ValueError, IndexError):
-        print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
+    except (ValueError, IndexError) as e:
+        print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.lang_invalid_choice', lang_choices=f'0-{languages_count-1}')}{Style.RESET_ALL}")
         return False
 
 def check_latest_version():
@@ -392,31 +500,67 @@ def check_latest_version():
     try:
         print(f"\n{Fore.CYAN}{EMOJI['UPDATE']} {translator.get('updater.checking')}{Style.RESET_ALL}")
         
-        # Get latest version from GitHub API with timeout and proper headers
+        # First try GitHub API
         headers = {
             'Accept': 'application/vnd.github.v3+json',
             'User-Agent': 'CursorFreeVIP-Updater'
         }
-        response = requests.get(
-            "https://api.github.com/repos/yeongpin/cursor-free-vip/releases/latest",
-            headers=headers,
-            timeout=10
-        )
         
-        # Check if rate limit exceeded
-        if response.status_code == 403 and "rate limit exceeded" in response.text.lower():
-            print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('updater.rate_limit_exceeded', fallback='GitHub API rate limit exceeded. Skipping update check.')}{Style.RESET_ALL}")
-            return
+        latest_version = None
+        github_error = None
         
-        # Check if response is successful
-        if response.status_code != 200:
-            raise Exception(f"GitHub API returned status code {response.status_code}")
+        # Try GitHub API first
+        try:
+            github_response = requests.get(
+                "https://api.github.com/repos/yeongpin/cursor-free-vip/releases/latest",
+                headers=headers,
+                timeout=10
+            )
             
-        response_data = response.json()
-        if "tag_name" not in response_data:
-            raise Exception("No version tag found in GitHub response")
+            # Check if rate limit exceeded
+            if github_response.status_code == 403 and "rate limit exceeded" in github_response.text.lower():
+                print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('updater.rate_limit_exceeded', fallback='GitHub API rate limit exceeded. Trying backup API...')}{Style.RESET_ALL}")
+                raise Exception("Rate limit exceeded")
+                
+            # Check if response is successful
+            if github_response.status_code != 200:
+                raise Exception(f"GitHub API returned status code {github_response.status_code}")
+                
+            github_data = github_response.json()
+            if "tag_name" not in github_data:
+                raise Exception("No version tag found in GitHub response")
+                
+            latest_version = github_data["tag_name"].lstrip('v')
             
-        latest_version = response_data["tag_name"].lstrip('v')
+        except Exception as e:
+            github_error = str(e)
+            print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('updater.github_api_failed', fallback='GitHub API failed, trying backup API...')}{Style.RESET_ALL}")
+            
+            # If GitHub API fails, try backup API
+            try:
+                backup_headers = {
+                    'Accept': 'application/json',
+                    'User-Agent': 'CursorFreeVIP-Updater'
+                }
+                backup_response = requests.get(
+                    "https://pinnumber.rr.nu/badges/release/yeongpin/cursor-free-vip",
+                    headers=backup_headers,
+                    timeout=10
+                )
+                
+                # Check if response is successful
+                if backup_response.status_code != 200:
+                    raise Exception(f"Backup API returned status code {backup_response.status_code}")
+                    
+                backup_data = backup_response.json()
+                if "message" not in backup_data:
+                    raise Exception("No version tag found in backup API response")
+                    
+                latest_version = backup_data["message"].lstrip('v')
+                
+            except Exception as backup_e:
+                # If both APIs fail, raise the original GitHub error
+                raise Exception(f"Both APIs failed. GitHub error: {github_error}, Backup error: {str(backup_e)}")
         
         # Validate version format
         if not latest_version:
@@ -566,7 +710,7 @@ def main():
     
     while True:
         try:
-            choice_num = 11
+            choice_num = 16
             choice = input(f"\n{EMOJI['ARROW']} {Fore.CYAN}{translator.get('menu.input_choice', choices=f'0-{choice_num}')}: {Style.RESET_ALL}")
 
             match choice:
@@ -591,33 +735,54 @@ def main():
                         print_menu()
                     continue
                 case "5":
+                    from oauth_auth import main as oauth_main
+                    oauth_main('google',translator)
+                    print_menu()
+                case "6":
+                    from oauth_auth import main as oauth_main
+                    oauth_main('github',translator)
+                    print_menu()
+                case "7":
                     import disable_auto_update
                     disable_auto_update.run(translator)
                     print_menu()
-                case "6":
+                case "8":
                     import totally_reset_cursor
                     totally_reset_cursor.run(translator)
                     # print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('menu.fixed_soon')}{Style.RESET_ALL}")
                     print_menu()
-                case "7":
+                case "9":
                     import logo
                     print(logo.CURSOR_CONTRIBUTORS)
                     print_menu()
-                case "8":
+                case "10":
                     from config import print_config
                     print_config(get_config(), translator)
                     print_menu()
-                case "9":
+                case "11":
                     import bypass_version
                     bypass_version.main(translator)
                     print_menu()
-                case "10":
+                case "12":
                     import check_user_authorized
                     check_user_authorized.main(translator)
                     print_menu()
-                case "11":
+                case "13":
                     import bypass_token_limit
                     bypass_token_limit.run(translator)
+                    print_menu()
+                case "14":
+                    import restore_machine_id
+                    restore_machine_id.run(translator)
+                    print_menu()
+                case "15":
+                    import delete_cursor_google
+                    delete_cursor_google.main(translator)
+                    print_menu()
+                case "16":
+                    from oauth_auth import OAuthHandler
+                    oauth = OAuthHandler(translator)
+                    oauth._select_profile()
                     print_menu()
                 case _:
                     print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
