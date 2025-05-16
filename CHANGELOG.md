@@ -1,9 +1,18 @@
 # Change Log
 
-## v1.11.02
-1. Add: Japanese and Italian language support
-2. Refactor: Account Generation with Faker and Update requirements.txt
+## v1.11.03
+1. Update: TempMailPlus Cursor Email Detection Logic | 更新 TempMailPlus Cursor 邮件识别逻辑
+2. Fix: Windows User Directory Path | 修正 windows 环境下用户目录的获取方式
 3. Fix: Some Issues | 修復一些問題
+
+## v1.11.02
+1. Fill: Missing Translations（ar, zh-cn, zh-tw, vi, nl, de, fr, pt, ru, tr, bg, es, ja, it） | 填補缺失的翻譯
+2. Add: Japanese and Italian language support
+3. Refactor: Account Generation with Faker and Update requirements.txt
+4. Add: script to auto-translate missing keys in translation files | 增加 fill_missing_translations.py 自動翻譯缺失的翻譯鍵
+5. Add: TempMailPlus Support, support temp email verification | 新增 TempMailPlus 配置，支持临时邮箱验证功能
+6. Fix: Chrome user data directory permission problem on mac | 修復 Chrome 用戶數據目錄權限問題 on mac
+7. Fix: Some Issues | 修復一些問題
 
 ## v1.11.01
 0. Must Update to this version to get full experience | 必須更新到此版本以獲取完整體驗

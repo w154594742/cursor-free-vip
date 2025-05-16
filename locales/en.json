@@ -35,7 +35,8 @@
         "bypass_token_limit": "Bypass Token Limit",
         "language_config_saved": "Language configuration saved successfully",
         "lang_invalid_choice": "Invalid choice. Please enter one of the following options: ({lang_choices})",
-        "restore_machine_id": "Restore Machine ID from Backup"
+        "restore_machine_id": "Restore Machine ID from Backup",
+        "manual_custom_auth": "Manual Custom Auth"
     },
     "languages": {
         "ar": "Arabic",
@@ -50,7 +51,9 @@
         "ru": "Russian",
         "tr": "Turkish",
         "bg": "Bulgarian",
-        "es": "Spanish"
+        "es": "Spanish",
+        "ja": "Japanese",
+        "it": "Italian"
     },
     "quit_cursor": {
         "start": "Start Quitting Cursor",
@@ -188,6 +191,8 @@
         "setting_password": "Setting Password",
         "manual_code_input": "Manual Code Input",
         "manual_email_input": "Manual Email Input",
+        "suggest_email": "Suggested email: {suggested_email}",
+        "use_suggested_email_or_enter": "Type \"yes\" to use this email or enter your own email:",
         "password": "Password",
         "first_name": "First Name",
         "last_name": "Last Name",
@@ -211,7 +216,18 @@
         "try_install_browser": "Try installing the browser with your package manager",
         "tracking_processes": "Tracking {count} {browser} processes",
         "no_new_processes_detected": "No new {browser} processes detected to track",
-        "could_not_track_processes": "Could not track {browser} processes: {error}"
+        "could_not_track_processes": "Could not track {browser} processes: {error}",
+        "using_tempmail_plus": "Using TempMailPlus for email verification",
+        "tempmail_plus_enabled": "TempMailPlus is enabled",
+        "tempmail_plus_disabled": "TempMailPlus is disabled",
+        "tempmail_plus_config_missing": "TempMailPlus configuration is missing",
+        "tempmail_plus_email_missing": "TempMailPlus email is not configured",
+        "tempmail_plus_epin_missing": "TempMailPlus epin is not configured",
+        "tempmail_plus_initialized": "TempMailPlus initialized successfully",
+        "tempmail_plus_init_failed": "Failed to initialize TempMailPlus: {error}",
+        "tempmail_plus_verification_started": "Starting TempMailPlus verification process",
+        "tempmail_plus_verification_completed": "TempMailPlus verification completed successfully",
+        "tempmail_plus_verification_failed": "TempMailPlus verification failed: {error}"
     },
     "auth": {
         "title": "Cursor Auth Manager",
@@ -811,5 +827,42 @@
         "success": "Machine ID restored successfully",
         "process_error": "Restore process error: {error}",
         "press_enter": "Press Enter to continue"
+    },
+    "manual_auth": {
+        "title": "Manual Cursor Authentication",
+        "token_prompt": "Enter your Cursor token (access_token/refresh_token):",
+        "token_required": "Token is required",
+        "verifying_token": "Verifying token validity...",
+        "token_verified": "Token verified successfully!",
+        "invalid_token": "Invalid token. Authentication aborted.",
+        "token_verification_skipped": "Token verification skipped (check_user_authorized.py not found)",
+        "token_verification_error": "Error verifying token: {error}",
+        "continue_anyway": "Continue anyway? (y/N): ",
+        "email_prompt": "Enter email (leave blank for random email):",
+        "random_email_generated": "Random email generated: {email}",
+        "auth_type_prompt": "Select authentication type:",
+        "auth_type_auth0": "Auth_0 (Default)",
+        "auth_type_google": "Google",
+        "auth_type_github": "GitHub",
+        "auth_type_selected": "Selected authentication type: {type}",
+        "confirm_prompt": "Please confirm the following information:",
+        "proceed_prompt": "Proceed? (y/N): ",
+        "operation_cancelled": "Operation cancelled",
+        "updating_database": "Updating Cursor authentication database...",
+        "auth_updated_successfully": "Authentication information updated successfully!",
+        "auth_update_failed": "Failed to update authentication information",
+        "error": "Error: {error}"
+    },
+    "tempmail": {
+        "check_email_failed": "Check email failed: {error}",
+        "extract_code_failed": "Extract verification code failed: {error}",
+        "configured_email": "Configured email: {email}",
+        "checking_email": "Checking for Cursor verification email...",
+        "email_found": "Found Cursor verification email",
+        "verification_code": "Verification code: {code}",
+        "no_code": "Could not get verification code",
+        "no_email": "No Cursor verification email found",
+        "config_error": "Config file error: {error}",
+        "general_error": "An error occurred: {error}"
     }
 }

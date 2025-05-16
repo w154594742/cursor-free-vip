@@ -35,7 +35,8 @@
         "bypass_token_limit": "繞過 Token 限制",
         "language_config_saved": "語言配置保存成功",
         "lang_invalid_choice": "選擇無效。請輸入以下選項之一：({lang_choices})",
-        "restore_machine_id": "從備份恢復機器ID"
+        "restore_machine_id": "從備份恢復機器ID",
+        "manual_custom_auth": "手動自定義驗證"
     },
     "languages": {
         "ar": "阿拉伯語",
@@ -50,7 +51,9 @@
         "ru": "俄文",
         "tr": "土耳其文",
         "bg": "保加利亞文",
-        "es": "西班牙文"
+        "es": "西班牙文",
+        "ja": "日文",
+        "it": "義大利文"
     },
     "quit_cursor": {
         "start": "開始退出 Cursor",
@@ -185,6 +188,8 @@
         "setting_password": "設置密碼",
         "manual_code_input": "手動輸入驗證碼",
         "manual_email_input": "手動輸入郵箱地址",
+        "suggest_email": "推薦郵箱地址: {suggested_email}",
+        "use_suggested_email_or_enter": "輸入\"yes\"使用此郵箱或直接輸入您想使用的郵箱地址:",
         "password": "密碼",
         "first_name": "名字",
         "last_name": "姓氏",
@@ -198,7 +203,31 @@
         "password_submitted": "密碼已提交",
         "total_usage": "總使用量: {usage}",
         "setting_on_password": "設置密碼",
-        "getting_code": "正在獲取驗證碼，將在60秒內嘗試..."
+        "getting_code": "正在獲取驗證碼，將在60秒內嘗試...",
+        "using_browser": "使用{瀏覽器}瀏覽器：{path}",
+        "press_enter": "按Enter退出",
+        "try_install_browser": "嘗試使用您的軟件包管理器安裝瀏覽器",
+        "open_mailbox": "打開郵箱頁面",
+        "browser_path_invalid": "{瀏覽器}路徑無效，使用默認路徑",
+        "make_sure_browser_is_properly_installed": "確保正確安裝{瀏覽器}",
+        "using_browser_profile": "使用{browser} profile來自：{user_data_dir}",
+        "no_new_processes_detected": "未檢測到跟踪的新{瀏覽器}進程",
+        "browser_start": "啟動瀏覽器",
+        "max_retries_reached": "達到了最大的重試嘗試。註冊失敗。",
+        "could_not_track_processes": "無法跟踪{瀏覽器}進程：{error}",
+        "human_verify_error": "無法驗證用戶是人類。重試...",
+        "tracking_processes": "跟踪{count} {瀏覽器}進程",
+        "using_tempmail_plus": "使用TempMailPlus進行郵箱驗證",
+        "tempmail_plus_enabled": "TempMailPlus已啟用",
+        "tempmail_plus_disabled": "TempMailPlus已禁用",
+        "tempmail_plus_config_missing": "TempMailPlus配置缺失",
+        "tempmail_plus_email_missing": "未配置TempMailPlus郵箱",
+        "tempmail_plus_epin_missing": "未配置TempMailPlus epin",
+        "tempmail_plus_initialized": "TempMailPlus初始化成功",
+        "tempmail_plus_init_failed": "TempMailPlus初始化失敗：{error}",
+        "tempmail_plus_verification_started": "開始TempMailPlus驗證流程",
+        "tempmail_plus_verification_completed": "TempMailPlus驗證成功完成",
+        "tempmail_plus_verification_failed": "TempMailPlus驗證失敗：{error}"
     },
     "auth": {
         "title": "Cursor 認證管理器",
@@ -218,7 +247,8 @@
         "updating_pair": "更新鍵值對",
         "db_not_found": "未找到數據庫文件：{path}",
         "db_permission_error": "無法訪問數據庫文件，請檢查權限",
-        "db_connection_error": "連接數據庫失敗：{error}"
+        "db_connection_error": "連接數據庫失敗：{error}",
+        "reset_machine_id": "重置機ID"
     },
     "control": {
         "generate_email": "生成新郵箱",
@@ -249,7 +279,9 @@
         "get_cursor_session_token_failed": "獲取Cursor Session Token失敗",
         "save_token_failed": "保存Token失敗",
         "blocked_domain": "被屏蔽的域名",
-        "no_valid_verification_code": "沒有有效的驗證碼"
+        "no_valid_verification_code": "沒有有效的驗證碼",
+        "database_updated_successfully": "數據庫成功更新",
+        "database_connection_closed": "數據庫連接關閉"
     },
     "email": {
         "starting_browser": "啟動瀏覽器",
@@ -446,7 +478,24 @@
         "cursor_reset_completed": "Cursor AI 編輯器已完全重置且繞過試用偵測！",
         "cursor_reset_failed": "Cursor AI 編輯器重置失敗：{error}",
         "cursor_reset_cancelled": "Cursor AI 編輯器重置已取消，未進行任何更改。",
-        "operation_cancelled": "操作已取消，未進行任何更改。"
+        "operation_cancelled": "操作已取消，未進行任何更改。",
+        "delete_button_clicked": "單擊刪除帳戶按鈕",
+        "advanced_tab_clicked": "單擊高級選項卡",
+        "found_danger_zone": "發現的危險區域部分",
+        "advanced_tab_not_found": "多次嘗試後找不到高級標籤",
+        "delete_input_not_found": "多次嘗試後找不到刪除確認輸入",
+        "navigating_to_settings": "導航到設置頁面...",
+        "advanced_tab_error": "錯誤查找高級選項卡：{錯誤}",
+        "delete_input_retry": "刪除未找到輸入，嘗試{嘗試}/{max_attempts}",
+        "direct_advanced_navigation": "嘗試直接導航到高級選項卡",
+        "advanced_tab_retry": "找不到高級選項卡，嘗試{嘗試}/{max_attempts}",
+        "already_on_settings": "已經在設置頁面上",
+        "delete_input_error": "錯誤查找刪除輸入：{error}",
+        "delete_button_retry": "找不到刪除按鈕，嘗試{嘗試}/{max_attempts}",
+        "delete_button_not_found": "多次嘗試後找不到帳戶按鈕",
+        "delete_button_error": "錯誤查找刪除按鈕：{錯誤}",
+        "delete_input_not_found_continuing": "找不到刪除確認輸入，試圖繼續繼續",
+        "login_redirect_failed": "登錄重定向失敗，嘗試直接導航..."
     },
     "github_register": {
         "title": "GitHub + Cursor AI 注册自动化",
@@ -543,7 +592,10 @@
         "backup_failed": "備份失敗: {error}",
         "force_update_failed": "強制更新配置失敗: {error}",
         "config_force_update_disabled": "配置文件強制更新已禁用，跳過強制更新",
-        "config_force_update_enabled": "配置文件強制更新已啟用，正在執行強制更新"
+        "config_force_update_enabled": "配置文件強制更新已啟用，正在執行強制更新",
+        "documents_path_not_found": "使用當前目錄找不到文檔路徑",
+        "config_dir_created": "配置目錄創建：{path}",
+        "using_temp_dir": "由於錯誤而使用臨時目錄：{path}（錯誤：{error}）"
     },
     "oauth": {
         "authentication_button_not_found": "未找到認證按鈕",
@@ -612,7 +664,12 @@
         "no_profiles": "未找到 {browser} 配置文件",
         "error_loading": "載入 {browser} 配置文件時出錯：{error}",
         "profile_selected": "已選擇配置文件：{profile}",
-        "invalid_selection": "選擇無效。請重試"
+        "invalid_selection": "選擇無效。請重試",
+        "starting_google_authentication": "開始Google身份驗證...",
+        "found_chrome_at": "在：{path}中找到鉻",
+        "browser_not_found_trying_chrome": "找不到{瀏覽器}，而是嘗試chrome",
+        "error_getting_user_data_directory": "錯誤獲取用戶數據目錄：{error}",
+        "user_data_dir_not_found": "{瀏覽器}用戶數據目錄在{path}上找不到，而是嘗試Chrome"
     },
     "chrome_profile": {
         "title": "Chrome配置檔案選擇",
@@ -766,5 +823,65 @@
         "success": "機器ID已成功恢復",
         "process_error": "恢復過程錯誤: {error}",
         "press_enter": "按Enter鍵繼續"
+    },
+    "browser_profile": {
+        "invalid_selection": "無效的選擇。請重試。",
+        "profile_list": "可用{瀏覽器}配置文件：",
+        "profile_selected": "選定的個人資料：{配置文件}",
+        "error_loading": "錯誤加載{瀏覽器} profiles：{error}",
+        "default_profile": "默認配置文件",
+        "no_profiles": "找不到{瀏覽器}配置文件",
+        "select_profile": "選擇要使用的{瀏覽器}配置文件：",
+        "profile": "個人資料{數字}",
+        "title": "瀏覽器配置文件選擇"
+    },
+    "token": {
+        "refresh_failed": "令牌刷新失敗：{error}",
+        "refreshing": "刷新的代幣...",
+        "connection_error": "連接錯誤刷新服務器",
+        "refresh_success": "令牌成功刷新了！有效{天}天（到期：{expire}）",
+        "extraction_error": "錯誤提取令牌：{error}",
+        "request_timeout": "要求刷新服務器的要求",
+        "unexpected_error": "令牌刷新期間的意外錯誤：{error}",
+        "server_error": "刷新服務器錯誤：http {status}",
+        "no_access_token": "沒有訪問令牌",
+        "invalid_response": "刷新服務器的JSON響應無效"
+    },
+    "manual_auth": {
+        "proceed_prompt": "繼續？ （y/n）：",
+        "token_verification_skipped": "跳過令牌驗證（Check_user_authorized.py找不到）",
+        "auth_updated_successfully": "身份驗證信息成功更新了！",
+        "auth_type_google": "Google",
+        "continue_anyway": "無論如何繼續？ （y/n）：",
+        "auth_type_selected": "選定的身份驗證類型：{type}",
+        "auth_type_github": "github",
+        "token_required": "需要令牌",
+        "random_email_generated": "生成的隨機電子郵件：{電子郵件}",
+        "verifying_token": "驗證令牌有效性...",
+        "operation_cancelled": "操作取消了",
+        "error": "錯誤：{錯誤}",
+        "auth_type_prompt": "選擇身份驗證類型：",
+        "email_prompt": "輸入電子郵件（留空白以獲取隨機電子郵件）：",
+        "auth_type_auth0": "auth_0（默認）",
+        "token_verification_error": "錯誤驗證令牌：{error}",
+        "token_verified": "令牌成功驗證了！",
+        "confirm_prompt": "請確認以下信息：",
+        "token_prompt": "輸入光標令牌（access_token/refresh_token）：",
+        "invalid_token": "無效的令牌。身份驗證中止。",
+        "title": "手動Cursor身份驗證",
+        "updating_database": "更新Cursor身份驗證數據庫...",
+        "auth_update_failed": "無法更新身份驗證信息"
+    },
+    "tempmail": {
+        "general_error": "發生錯誤：{error}",
+        "config_error": "配置文件錯誤：{error}",
+        "no_email": "找不到Cursor驗證電子郵件",
+        "checking_email": "檢查Cursor驗證電子郵件...",
+        "extract_code_failed": "提取驗證代碼失敗：{error}",
+        "configured_email": "配置的電子郵件：{email}",
+        "no_code": "無法獲得驗證代碼",
+        "check_email_failed": "檢查電子郵件失敗：{error}",
+        "email_found": "找到Cursor驗證電子郵件",
+        "verification_code": "驗證代碼：{code}"
     }
 }

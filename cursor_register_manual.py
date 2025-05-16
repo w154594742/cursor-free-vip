@@ -6,6 +6,8 @@ from faker import Faker
 from cursor_auth import CursorAuth
 from reset_machine_manual import MachineIDResetter
 from get_user_token import get_token_from_cookie
+from config import get_config
+from account_manager import AccountManager
 
 os.environ["PYTHONVERBOSE"] = "0"
 os.environ["PYINSTALLER_VERBOSE"] = "0"
@@ -66,11 +68,28 @@ class CursorRegistration:
     def setup_email(self):
         """Setup Email"""
         try:
-            print(f"{Fore.CYAN}{EMOJI['START']} {self.translator.get('register.manual_email_input') if self.translator else 'Please enter your email address:'}")
-            self.email_address = input().strip()
+            # Try to get a suggested email
+            account_manager = AccountManager(self.translator)
+            suggested_email = account_manager.suggest_email(self.first_name, self.last_name)
             
+            if suggested_email:
+                print(f"{Fore.CYAN}{EMOJI['START']} {self.translator.get('register.suggest_email', suggested_email=suggested_email) if self.translator else f'Suggested email: {suggested_email}'}")
+                print(f"{Fore.CYAN}{EMOJI['START']} {self.translator.get('register.use_suggested_email_or_enter') if self.translator else 'Type "yes" to use this email or enter your own email:'}")
+                user_input = input().strip()
+                
+                if user_input.lower() == 'yes' or user_input.lower() == 'y':
+                    self.email_address = suggested_email
+                else:
+                    # User input is their own email address
+                    self.email_address = user_input
+            else:
+                # If there's no suggested email
+                print(f"{Fore.CYAN}{EMOJI['START']} {self.translator.get('register.manual_email_input') if self.translator else 'Please enter your email address:'}")
+                self.email_address = input().strip()
+            
+            # Validate if the email is valid
             if '@' not in self.email_address:
-                print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.invalid_email') if self.translator else '无效的邮箱地址'}{Style.RESET_ALL}")
+                print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.invalid_email') if self.translator else 'Invalid email address'}{Style.RESET_ALL}")
                 return False
                 
             print(f"{Fore.CYAN}{EMOJI['MAIL']} {self.translator.get('register.email_address')}: {self.email_address}" + "\n" + f"{Style.RESET_ALL}")
@@ -87,7 +106,7 @@ class CursorRegistration:
             code = input().strip()
             
             if not code.isdigit() or len(code) != 6:
-                print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.invalid_code') if self.translator else '无效的验证码'}{Style.RESET_ALL}")
+                print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.invalid_code') if self.translator else 'Invalid verification code'}{Style.RESET_ALL}")
                 return None
                 
             return code
@@ -102,6 +121,18 @@ class CursorRegistration:
         try:
             print(f"{Fore.CYAN}{EMOJI['START']} {self.translator.get('register.register_start')}...{Style.RESET_ALL}")
             
+            # Check if tempmail_plus is enabled
+            config = get_config(self.translator)
+            email_tab = None
+            if config and config.has_section('TempMailPlus'):
+                if config.getboolean('TempMailPlus', 'enabled'):
+                    email = config.get('TempMailPlus', 'email')
+                    epin = config.get('TempMailPlus', 'epin')
+                    if email and epin:
+                        from email_tabs.tempmail_plus_tab import TempMailPlusTab
+                        email_tab = TempMailPlusTab(email, epin, self.translator)
+                        print(f"{Fore.CYAN}{EMOJI['MAIL']} {self.translator.get('register.using_tempmail_plus')}{Style.RESET_ALL}")
+            
             # Use new_signup.py directly for registration
             from new_signup import main as new_signup_main
             
@@ -111,7 +142,7 @@ class CursorRegistration:
                 password=self.password,
                 first_name=self.first_name,
                 last_name=self.last_name,
-                email_tab=None,  # No email tab needed
+                email_tab=email_tab,  # Pass email_tab if tempmail_plus is enabled
                 controller=self,  # Pass self instead of self.controller
                 translator=self.translator
             )
@@ -200,7 +231,7 @@ class CursorRegistration:
         try:
             # Update authentication information first
             print(f"{Fore.CYAN}{EMOJI['KEY']} {self.translator.get('register.update_cursor_auth_info')}...{Style.RESET_ALL}")
-            if self.update_cursor_auth(email=self.email_address, access_token=token, refresh_token=token):
+            if self.update_cursor_auth(email=self.email_address, access_token=token, refresh_token=token, auth_type="Auth_0"):
                 print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('register.cursor_auth_info_updated')}...{Style.RESET_ALL}")
             else:
                 print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.cursor_auth_info_update_failed')}...{Style.RESET_ALL}")
@@ -211,17 +242,12 @@ class CursorRegistration:
             if not resetter.reset_machine_ids():  # Call reset_machine_ids method directly
                 raise Exception("Failed to reset machine ID")
             
-            # Save account information to file
-            with open('cursor_accounts.txt', 'a', encoding='utf-8') as f:
-                f.write(f"\n{'='*50}\n")
-                f.write(f"Email: {self.email_address}\n")
-                f.write(f"Password: {self.password}\n")
-                f.write(f"Token: {token}\n")
-                f.write(f"Usage Limit: {total_usage}\n")
-                f.write(f"{'='*50}\n")
-                
-            print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('register.account_info_saved')}...{Style.RESET_ALL}")
-            return True
+            # Save account information to file using AccountManager
+            account_manager = AccountManager(self.translator)
+            if account_manager.save_account_info(self.email_address, self.password, token, total_usage):
+                return True
+            else:
+                return False
             
         except Exception as e:
             print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.save_account_info_failed', error=str(e))}{Style.RESET_ALL}")
@@ -243,10 +269,10 @@ class CursorRegistration:
                 except:
                     pass
 
-    def update_cursor_auth(self, email=None, access_token=None, refresh_token=None):
+    def update_cursor_auth(self, email=None, access_token=None, refresh_token=None, auth_type="Auth_0"):
         """Convenient function to update Cursor authentication information"""
         auth_manager = CursorAuth(translator=self.translator)
-        return auth_manager.update_auth(email, access_token, refresh_token)
+        return auth_manager.update_auth(email, access_token, refresh_token, auth_type)
 
 def main(translator=None):
     """Main function to be called from main.py"""

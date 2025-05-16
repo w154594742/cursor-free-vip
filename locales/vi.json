@@ -35,7 +35,8 @@
         "bypass_token_limit": "Bỏ qua giới hạn Token",
         "language_config_saved": "Đổi ngôn ngữ thành công",
         "lang_invalid_choice": "Lựa chọn không hợp lệ. Vui lòng nhập một số từ ({lang_choices})",
-        "restore_machine_id": "Khôi phục ID máy từ bản sao lưu"
+        "restore_machine_id": "Khôi phục ID máy từ bản sao lưu",
+        "manual_custom_auth": "Thủ công tùy chỉnh auth"
     },
     "languages": {
         "ar": "Tiếng Ả Rập",
@@ -50,7 +51,9 @@
         "fr": "Tiếng Pháp",
         "pt": "Tiếng Bồ Đào Nha",
         "ru": "Tiếng Nga",
-        "es": "Tiếng Tây Ban Nha"
+        "es": "Tiếng Tây Ban Nha",
+        "it": "Ý",
+        "ja": "Nhật Bản"
     },
     "quit_cursor": {
         "start": "Bắt Đầu Thoát Cursor",
@@ -203,7 +206,26 @@
         "setting_on_password": "Đang Đặt Mật Khẩu",
         "getting_code": "Đang Lấy Mã Xác Minh, Sẽ Thử Trong 60s",
         "human_verify_error": "Không thể xác minh người dùng. Đang thử lại...",
-        "max_retries_reached": "Đã đạt số lần thử tối đa. Đăng ký thất bại."
+        "max_retries_reached": "Đã đạt số lần thử tối đa. Đăng ký thất bại.",
+        "using_tempmail_plus": "Sử dụng Tempmailplus để xác minh email",
+        "tempmail_plus_disabled": "Tempmailplus bị vô hiệu hóa",
+        "tempmail_plus_enabled": "Tempmailplus được bật",
+        "using_browser": "Sử dụng trình duyệt {Browser}: {path}",
+        "tempmail_plus_epin_missing": "Tempmailplus epin không được cấu hình",
+        "tempmail_plus_verification_failed": "TempMailplus Xác minh không thành công: {error}",
+        "tracking_processes": "Theo dõi {Count} {trình duyệt}",
+        "no_new_processes_detected": "Không có quy trình {trình duyệt} mới nào được phát hiện để theo dõi",
+        "browser_path_invalid": "{browser} đường dẫn không hợp lệ, sử dụng đường dẫn mặc định",
+        "using_browser_profile": "Sử dụng {Browser} cấu hình từ: {user_data_dir}",
+        "could_not_track_processes": "Không thể theo dõi {Browser} Quy trình: {error}",
+        "tempmail_plus_verification_completed": "Tempmailplus Xác minh đã hoàn thành thành công",
+        "tempmail_plus_email_missing": "Email Tempmailplus không được cấu hình",
+        "tempmail_plus_config_missing": "Cấu hình Tempmailplus bị thiếu",
+        "tempmail_plus_init_failed": "Không thể khởi tạo TempMailplus: {Error}",
+        "try_install_browser": "Thử cài đặt trình duyệt với trình quản lý gói của bạn",
+        "tempmail_plus_initialized": "Tempmailplus khởi tạo thành công",
+        "make_sure_browser_is_properly_installed": "Đảm bảo {trình duyệt} được cài đặt đúng cách",
+        "tempmail_plus_verification_started": "Bắt đầu quy trình xác minh Tempmailplus"
     },
     "auth": {
         "title": "Quản Lý Xác Thực Cursor",
@@ -471,7 +493,8 @@
         "delete_input_not_found": "Không tìm thấy ô nhập xác nhận xóa sau nhiều lần thử",
         "delete_input_retry": "Không tìm thấy ô nhập xóa, lần thử {attempt}/{max_attempts}",
         "delete_input_error": "Lỗi tìm ô nhập Xóa: {error}",
-        "delete_input_not_found_continuing": "Không tìm thấy ô nhập xác nhận xóa, đang thử tiếp tục"
+        "delete_input_not_found_continuing": "Không tìm thấy ô nhập xác nhận xóa, đang thử tiếp tục",
+        "removing_electron_localstorage_files_completed": "Đã hoàn thành việc loại bỏ các tệp địa phương của Electron"
     },
     "github_register": {
         "title": "Tự Động Hóa Đăng Ký GitHub + Cursor AI",
@@ -568,7 +591,10 @@
         "backup_failed": "Sao lưu cấu hình thất bại: {error}",
         "force_update_failed": "Cập nhật bắt buộc cấu hình thất bại: {error}",
         "config_force_update_disabled": "Đã tắt cập nhật bắt buộc tệp cấu hình, bỏ qua cập nhật bắt buộc",
-        "config_force_update_enabled": "Đã bật cập nhật bắt buộc tệp cấu hình, thực hiện cập nhật bắt buộc"
+        "config_force_update_enabled": "Đã bật cập nhật bắt buộc tệp cấu hình, thực hiện cập nhật bắt buộc",
+        "documents_path_not_found": "Đường dẫn tài liệu không được tìm thấy, sử dụng thư mục hiện tại",
+        "using_temp_dir": "Sử dụng thư mục tạm thời do lỗi: {path} (lỗi: {error})",
+        "config_dir_created": "Thư mục cấu hình đã tạo: {path}"
     },
     "oauth": {
         "authentication_button_not_found": "Không tìm thấy nút xác thực",
@@ -627,7 +653,16 @@
         "warning_could_not_kill_existing_browser_processes": "Cảnh báo: Không thể kết thúc các tiến trình trình duyệt hiện có: {error}",
         "browser_failed_to_start": "Trình duyệt không thể khởi động: {error}",
         "browser_failed": "Trình duyệt không thể khởi động: {error}",
-        "browser_failed_to_start_fallback": "Trình duyệt không thể khởi động: {error}"
+        "browser_failed_to_start_fallback": "Trình duyệt không thể khởi động: {error}",
+        "warning_browser_close": "CẢNH BÁO: Điều này sẽ đóng tất cả các quy trình đang chạy {trình duyệt}",
+        "profile_selection_error": "Lỗi trong quá trình lựa chọn hồ sơ: {error}",
+        "using_configured_browser_path": "Sử dụng cấu hình {Browser} đường dẫn: {path}",
+        "found_chrome_at": "Tìm thấy Chrome tại: {path}",
+        "killing_browser_processes": "Giết {trình duyệt} quy trình ...",
+        "browser_not_found_trying_chrome": "Không thể tìm thấy {trình duyệt}, thay vào đó thử Chrome",
+        "error_getting_user_data_directory": "Lỗi nhận được thư mục dữ liệu người dùng: {error}",
+        "found_browser_user_data_dir": "Tìm thấy {Browser} Thư mục dữ liệu người dùng: {Path}",
+        "user_data_dir_not_found": "{Browser} thư mục dữ liệu người dùng không tìm thấy tại {path}, thay vào đó sẽ thử Chrome"
     },
     "chrome_profile": {
         "title": "Chọn Hồ Sơ Chrome",
@@ -775,5 +810,70 @@
         "success": "ID máy đã được khôi phục thành công",
         "process_error": "Lỗi quá trình khôi phục: {error}",
         "press_enter": "Nhấn Enter để tiếp tục"
+    },
+    "manual_auth": {
+        "auth_type_selected": "Loại xác thực đã chọn: {type}",
+        "verifying_token": "Xác minh tính hợp lệ của mã thông báo ...",
+        "token_prompt": "Nhập mã thông báo con trỏ của bạn (access_token/refresh_token):",
+        "title": "Xác thực con trỏ thủ công",
+        "proceed_prompt": "Tiếp tục? (y/n):",
+        "auth_updated_successfully": "Thông tin xác thực được cập nhật thành công!",
+        "continue_anyway": "Tiếp tục dù sao? (y/n):",
+        "token_verified": "Mã thông báo đã xác minh thành công!",
+        "email_prompt": "Nhập email (để trống cho email ngẫu nhiên):",
+        "token_verification_skipped": "Xác minh mã thông báo đã bỏ qua (Check_user_authorized.py không tìm thấy)",
+        "auth_type_github": "GitHub",
+        "random_email_generated": "Email ngẫu nhiên được tạo: {email}",
+        "error": "Lỗi: {lỗi}",
+        "confirm_prompt": "Vui lòng xác nhận thông tin sau:",
+        "invalid_token": "Mã thông báo không hợp lệ. Xác thực bị hủy bỏ.",
+        "auth_update_failed": "Không cập nhật thông tin xác thực",
+        "token_required": "Mã thông báo là bắt buộc",
+        "auth_type_google": "Google",
+        "auth_type_prompt": "Chọn Loại xác thực:",
+        "operation_cancelled": "Hoạt động bị hủy bỏ",
+        "auth_type_auth0": "Auth_0 (mặc định)",
+        "token_verification_error": "Lỗi xác minh mã thông báo: {error}",
+        "updating_database": "Cập nhật cơ sở dữ liệu xác thực con trỏ ..."
+    },
+    "token": {
+        "refreshing": "Làm mới mã thông báo ...",
+        "extraction_error": "Trích xuất lỗi mã thông báo: {error}",
+        "request_timeout": "Yêu cầu làm mới máy chủ đã hết thời gian",
+        "connection_error": "Lỗi kết nối để làm mới máy chủ",
+        "unexpected_error": "Lỗi không mong muốn trong quá trình làm mới mã thông báo: {error}",
+        "server_error": "Làm mới lỗi máy chủ: http {status}",
+        "invalid_response": "Phản hồi JSON không hợp lệ từ máy chủ làm mới",
+        "no_access_token": "Không có mã thông báo truy cập để đáp ứng",
+        "refresh_failed": "Làm mới mã thông báo không thành công: {error}",
+        "refresh_success": "Mã thông báo làm mới thành công! Hợp lệ cho {ngày} ngày (hết hạn: {hết hạn})"
+    },
+    "bypass_token_limit": {
+        "press_enter": "Nhấn Enter để tiếp tục ...",
+        "title": "Bỏ qua công cụ giới hạn mã thông báo",
+        "description": "Công cụ này sửa đổi tệp workbench.desktop.main.js để bỏ qua giới hạn mã thông báo"
+    },
+    "browser_profile": {
+        "profile_selected": "Hồ sơ đã chọn: {hồ sơ}",
+        "default_profile": "Hồ sơ mặc định",
+        "no_profiles": "Không tìm thấy {trình duyệt}",
+        "select_profile": "Chọn {Browser} Hồ sơ để sử dụng:",
+        "error_loading": "Tải lỗi {Browser} Cấu hình: {error}",
+        "title": "Lựa chọn hồ sơ trình duyệt",
+        "profile": "Hồ sơ {Number}",
+        "profile_list": "Có sẵn {trình duyệt} Hồ sơ:",
+        "invalid_selection": "Lựa chọn không hợp lệ. Hãy thử lại."
+    },
+    "tempmail": {
+        "config_error": "Lỗi tệp cấu hình: {error}",
+        "general_error": "Đã xảy ra lỗi: {lỗi}",
+        "no_email": "Không tìm thấy email xác minh con trỏ",
+        "checking_email": "Kiểm tra email xác minh con trỏ ...",
+        "configured_email": "Email được định cấu hình: {email}",
+        "extract_code_failed": "Trích xuất mã xác minh không thành công: {error}",
+        "no_code": "Không thể nhận mã xác minh",
+        "check_email_failed": "Kiểm tra email không thành công: {lỗi}",
+        "email_found": "Tìm thấy email xác minh con trỏ",
+        "verification_code": "Mã xác minh: {code}"
     }
 }

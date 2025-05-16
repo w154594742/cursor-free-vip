@@ -483,6 +483,25 @@ class OAuthHandler:
             print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('oauth.error_configuring_browser_options', error=str(e)) if self.translator else f'Error configuring browser options: {e}'}{Style.RESET_ALL}")
             raise
 
+    def _fix_chrome_permissions(self, user_data_dir):
+        """Fix permissions for Chrome user data directory"""
+        try:
+            if sys.platform == 'darwin':  # macOS
+                import subprocess
+                import pwd
+                
+                # Get current user
+                current_user = pwd.getpwuid(os.getuid()).pw_name
+                
+                # Fix permissions for Chrome directory
+                chrome_dir = os.path.expanduser('~/Library/Application Support/Google/Chrome')
+                if os.path.exists(chrome_dir):
+                    subprocess.run(['chmod', '-R', 'u+rwX', chrome_dir])
+                    subprocess.run(['chown', '-R', f'{current_user}:staff', chrome_dir])
+                    print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('oauth.chrome_permissions_fixed') if self.translator else 'Fixed Chrome user data directory permissions'}{Style.RESET_ALL}")
+        except Exception as e:
+            print(f"{Fore.YELLOW}{EMOJI['WARNING']} {self.translator.get('oauth.chrome_permissions_fix_failed', error=str(e)) if self.translator else f'Failed to fix Chrome permissions: {str(e)}'}{Style.RESET_ALL}")
+
     def handle_google_auth(self):
         """Handle Google OAuth authentication"""
         try:
@@ -492,6 +511,9 @@ class OAuthHandler:
             if not self.setup_browser():
                 print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('oauth.browser_failed') if self.translator else 'Browser failed to initialize'}{Style.RESET_ALL}")
                 return False, None
+            
+            # Get user data directory for later use
+            user_data_dir = self._get_user_data_directory()
             
             # Navigate to auth URL
             try:
@@ -556,6 +578,8 @@ class OAuthHandler:
                 try:
                     if self.browser:
                         self.browser.quit()
+                        # Fix Chrome permissions after browser is closed
+                        self._fix_chrome_permissions(user_data_dir)
                 except:
                     pass
             
@@ -1038,7 +1062,8 @@ def main(auth_type, translator=None):
         if auth_manager.update_auth(
             email=auth_info["email"],
             access_token=auth_info["token"],
-            refresh_token=auth_info["token"]
+            refresh_token=auth_info["token"],
+            auth_type=auth_type
         ):
             print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {translator.get('oauth.auth_update_success') if translator else 'Auth update success'}{Style.RESET_ALL}")
             # Close the browser after successful authentication

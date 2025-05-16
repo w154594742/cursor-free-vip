@@ -60,22 +60,22 @@ class CursorAuth:
 
         # Check if the database file exists
         if not os.path.exists(self.db_path):
-            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.db_not_found', path=self.db_path)}{Style.RESET_ALL}")
+            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.db_not_found', path=self.db_path) if self.translator else f'Database not found: {self.db_path}'}{Style.RESET_ALL}")
             return
 
         # Check file permissions
         if not os.access(self.db_path, os.R_OK | os.W_OK):
-            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.db_permission_error')}{Style.RESET_ALL}")
+            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.db_permission_error') if self.translator else 'Database permission error'}{Style.RESET_ALL}")
             return
 
         try:
             self.conn = sqlite3.connect(self.db_path)
-            print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('auth.connected_to_database')}{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('auth.connected_to_database') if self.translator else 'Connected to database'}{Style.RESET_ALL}")
         except sqlite3.Error as e:
-            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.db_connection_error', error=str(e))}{Style.RESET_ALL}")
+            print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('auth.db_connection_error', error=str(e)) if self.translator else f'Database connection error: {str(e)}'}{Style.RESET_ALL}")
             return
 
-    def update_auth(self, email=None, access_token=None, refresh_token=None):
+    def update_auth(self, email=None, access_token=None, refresh_token=None, auth_type="Auth_0"):
         conn = None
         try:
             # Ensure the directory exists and set the correct permissions
@@ -100,7 +100,7 @@ class CursorAuth:
 
             # Reconnect to the database
             conn = sqlite3.connect(self.db_path)
-            print(f"{EMOJI['INFO']} {Fore.GREEN} {self.translator.get('auth.connected_to_database')}{Style.RESET_ALL}")
+            print(f"{EMOJI['INFO']} {Fore.GREEN} {self.translator.get('auth.connected_to_database') if self.translator else 'Connected to database'}{Style.RESET_ALL}")
             cursor = conn.cursor()
             
             # Add timeout and other optimization settings
@@ -111,7 +111,7 @@ class CursorAuth:
             # Set the key-value pairs to update
             updates = []
 
-            updates.append(("cursorAuth/cachedSignUpType", "Auth_0"))
+            updates.append(("cursorAuth/cachedSignUpType", auth_type))
 
             if email is not None:
                 updates.append(("cursorAuth/cachedEmail", email))
@@ -137,10 +137,10 @@ class CursorAuth:
                             UPDATE ItemTable SET value = ?
                             WHERE key = ?
                         """, (value, key))
-                    print(f"{EMOJI['INFO']} {Fore.CYAN} {self.translator.get('auth.updating_pair')} {key.split('/')[-1]}...{Style.RESET_ALL}")
+                    print(f"{EMOJI['INFO']} {Fore.CYAN} {self.translator.get('auth.updating_pair') if self.translator else 'Updating key-value pair:'} {key.split('/')[-1]}...{Style.RESET_ALL}")
                 
                 cursor.execute("COMMIT")
-                print(f"{EMOJI['SUCCESS']} {Fore.GREEN}{self.translator.get('auth.database_updated_successfully')}{Style.RESET_ALL}")
+                print(f"{EMOJI['SUCCESS']} {Fore.GREEN}{self.translator.get('auth.database_updated_successfully') if self.translator else 'Database updated successfully'}{Style.RESET_ALL}")
                 return True
                 
             except Exception as e:
@@ -148,12 +148,12 @@ class CursorAuth:
                 raise e
 
         except sqlite3.Error as e:
-            print(f"\n{EMOJI['ERROR']} {Fore.RED} {self.translator.get('auth.database_error', error=str(e))}{Style.RESET_ALL}")
+            print(f"\n{EMOJI['ERROR']} {Fore.RED} {self.translator.get('auth.database_error', error=str(e)) if self.translator else f'Database error: {str(e)}'}{Style.RESET_ALL}")
             return False
         except Exception as e:
-            print(f"\n{EMOJI['ERROR']} {Fore.RED} {self.translator.get('auth.an_error_occurred', error=str(e))}{Style.RESET_ALL}")
+            print(f"\n{EMOJI['ERROR']} {Fore.RED} {self.translator.get('auth.an_error_occurred', error=str(e)) if self.translator else f'An error occurred: {str(e)}'}{Style.RESET_ALL}")
             return False
         finally:
             if conn:
                 conn.close()
-                print(f"{EMOJI['DB']} {Fore.CYAN} {self.translator.get('auth.database_connection_closed')}{Style.RESET_ALL}")
+                print(f"{EMOJI['DB']} {Fore.CYAN} {self.translator.get('auth.database_connection_closed') if self.translator else 'Database connection closed'}{Style.RESET_ALL}")
